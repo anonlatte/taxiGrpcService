@@ -1,0 +1,234 @@
+syntax = "proto3";
+package v1;
+
+import "google/protobuf/timestamp.proto";
+
+// Tables //
+message Customer {
+    int32 id = 1;
+    string name = 2;
+    string phoneNumber = 3;
+    string email = 4;
+    string password = 5;
+    string authToken = 6;
+    google.protobuf.Timestamp create_time = 7;
+    google.protobuf.Timestamp update_time = 8;
+}
+
+message Driver {
+    int32 id = 1;
+    string firstName = 2;
+    string surname = 3;
+    string partronymic = 4;
+    google.protobuf.Timestamp birthDate = 5;
+    string phoneNumber = 6;
+    string drivingLicenseNumber = 7;
+    google.protobuf.Timestamp expiryDate = 8;
+    bool working = 9;
+    string email = 10;
+    string password = 11;
+    string authToken = 12;
+    google.protobuf.Timestamp create_time = 13;
+    google.protobuf.Timestamp update_time = 14;
+}
+
+message Dispatcher {
+    int32 id = 1;
+    string firstName = 2;
+    string surname = 3;
+    string partronymic = 4;
+    string phoneNumber = 5;
+    string email = 6;
+    string password = 7;
+    string authToken = 8;
+    google.protobuf.Timestamp create_time = 9;
+    google.protobuf.Timestamp update_time = 10;
+}
+
+message Cab {
+    int32 id = 1;
+    string color = 2;
+    string licensePlate = 3;
+    int32 carModelId = 4;
+    int32 driverId = 5;
+    bool active = 6;
+}
+
+message CarModel {
+    int32 id = 1;
+    string modelName = 2;
+    int32 carBrandId = 3;
+}
+
+message CarBrand {
+    int32 id = 1;
+    string brandName = 2;
+    int32 carBrandId = 3;
+}
+
+message CabRide {
+    int32 id = 1;
+    int32 customerId = 2;
+    int32 shiftId = 3;
+    google.protobuf.Timestamp rideStartTime = 4;
+    google.protobuf.Timestamp rideEndTime = 5;
+    string startingPoint = 6;
+    int32 entrance = 7;
+    string endingPoint = 8;
+    bool canceled = 9;
+    bool orderForAnother = 10;
+    bool pendingOrder = 11;
+    int32 paymentTypeId = 12;
+    int32 price = 13;
+    string comment = 14;
+    string feedback = 15;
+}
+
+message CabRideStatus {
+    int32 id = 1;
+    int32 cabRideId = 2;
+    int32 shiftId = 3;
+    google.protobuf.Timestamp statusTime = 4;
+    int32 statusDetails = 5;
+    int32 dispatcherId = 6;
+
+}
+
+message TokenCheckRequest {
+    string api = 1;
+    int32 userType = 2;
+    string login = 3;
+    string password = 4;
+    string authToken = 5;
+}
+
+message TokenCheckResponse {
+    string api = 1;
+    bool isValidToken = 2;
+}
+
+message LoginRequest {
+    string api = 1;
+    string login = 2;
+    string password = 3;
+    int32 userType = 4;
+}
+
+message LoginResponse {
+    string api = 1;
+    string authToken = 2;
+    int32 userId = 3;
+}
+
+
+message CreateCustomerRequest {
+    string api = 1;
+    Customer customer = 2;
+}
+
+message CreateCustomerResponse {
+    string api = 1;
+    int32 id = 2;
+    string authToken = 3;
+}
+
+message ReadCustomerRequest {
+    string api = 1;
+    Customer customer = 2;
+}
+
+message ReadCustomerResponse {
+    string api = 1;
+    Customer customer = 2;
+}
+
+message UpdateCustomerRequest {
+    string api = 1;
+    Customer customer = 2;
+}
+
+message UpdateCustomerResponse {
+    string api = 1;
+    int32 updated = 2;
+}
+
+message DeleteCustomerRequest {
+    string api = 1;
+    Customer customer = 2;
+}
+
+message DeleteCustomerResponse {
+    string api = 1;
+    int32 deleted = 2;
+}
+
+
+message CreateCabRideRequest {
+    string api = 1;
+    CabRide cabRide = 2;
+    string authToken = 3;
+}
+
+message CreateCabRideResponse {
+    string api = 1;
+    int32 cabRideId = 2;
+}
+
+message UpdateCabRideRequest {
+    string api = 1;
+    CabRide cabRide = 2;
+    string authToken = 3;
+}
+
+message UpdateCabRideResponse {
+    string api = 1;
+    CabRide cabRide = 2;
+}
+
+
+message DeleteCabRideRequest {
+    string api = 1;
+    int32 cabRideId = 2;
+    int32 customerId = 3;
+    string authToken = 4;
+}
+
+message DeleteCabRideResponse {
+    string api = 1;
+    bool isSuccessDeleted = 2;
+}
+
+message CheckCabRideStatusRequest {
+    string api = 1;
+    int32 cabRideId = 2;
+    string authToken = 3;
+}
+
+message CheckCabRideStatusResponse {
+    string api = 1;
+    string firstName = 2;
+    string surname = 3;
+    string phoneNumber = 4;
+    int32 licensePlate = 5;
+    string color = 6;
+    string modelName = 7;
+    string brandName = 8;
+    int32 rideStatus = 9;
+}
+
+service taxiService {
+    // customer CRUD
+    rpc LoginUser (LoginRequest) returns (LoginResponse);
+    rpc TokenCheck (TokenCheckRequest) returns (TokenCheckResponse);
+
+    rpc CreateCustomer (CreateCustomerRequest) returns (CreateCustomerResponse);
+    rpc ReadCustomer (ReadCustomerRequest) returns (ReadCustomerResponse);
+    rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
+    rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
+
+    rpc CreateCabRide (CreateCabRideRequest) returns (CreateCabRideResponse);
+    rpc DeleteCabRide (DeleteCabRideRequest) returns (DeleteCabRideResponse);
+    // TODO: rpc UpdateCabRide (UpdateCabRideRequest) returns (UpdateCabRideResponse)
+
+    rpc CheckCabRideStatus (CheckCabRideStatusRequest) returns (CheckCabRideStatusResponse);
+}
