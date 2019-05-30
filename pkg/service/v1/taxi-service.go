@@ -5,19 +5,24 @@ import (
 	"crypto/sha512"
 	"database/sql"
 	"fmt"
-	"golangService/pkg/api/v1"
+	v1 "golang-service/pkg/api/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"io/ioutil"
 	"math/rand"
+	"os"
+	"strconv"
 	"time"
 )
 
 const (
 	// apiVersion is version of API is provided by server
-	apiVersion = "v1"
+	apiVersion     = "v1"
+	DOCUMENTS_PATH = "documents/"
 )
 
 // TODO: validate request data on server
+// FIXME: LastInsertID returns invalid value
 
 // taxiServiceServer is implementation of v1.taxiServiceServer proto interface
 type taxiServiceServer struct {
@@ -75,7 +80,21 @@ func RandStringBytesMaskImprSrc(n int) string {
 	return string(b)
 }
 
+func passwordGenerate(unhashedPassword string) string {
+	passwordSha512 := sha512.New()
+	passwordSha512.Write([]byte(unhashedPassword))
+	hashedPass := fmt.Sprintf("%x", passwordSha512.Sum(nil))
+	return hashedPass
+}
+
+// TODO: cleanup excess checkApi && checkConnection code
+// TODO: cleanup excess tokenCheck code
+/*func (s *taxiServiceServer) isTokenValid (ctx context.Context) bool {
+
+}*/
+
 func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v1.LoginRequest) (*v1.LoginResponse, error) {
+
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -110,9 +129,8 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v1.LoginRequest)
 			return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple Customer rows with phone_number='%s'",
 				req.Login))
 		}
-		passwordSha512 := sha512.New()
-		passwordSha512.Write([]byte(req.Password))
-		hashedPass := fmt.Sprintf("%x", passwordSha512.Sum(nil))
+
+		hashedPass := passwordGenerate(req.Password)
 		authToken := RandStringBytesMaskImprSrc(32)
 		if hashedPass == td.Password {
 			rows, err := c.QueryContext(ctx, "UPDATE customer SET authToken=? WHERE `phone_number`=?",
@@ -154,9 +172,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v1.LoginRequest)
 			return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple Driver rows with phone_number='%s'",
 				req.Login))
 		}
-		passwordSha512 := sha512.New()
-		passwordSha512.Write([]byte(req.Password))
-		hashedPass := fmt.Sprintf("%x", passwordSha512.Sum(nil))
+		hashedPass := passwordGenerate(req.Password)
 		authToken := RandStringBytesMaskImprSrc(32)
 		if hashedPass == td.Password {
 			rows, err := c.QueryContext(ctx, "UPDATE driver SET authToken=? WHERE `phone_number`=?",
@@ -198,9 +214,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v1.LoginRequest)
 			return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple Dispatcher rows with phone_number='%s'",
 				req.Login))
 		}
-		passwordSha512 := sha512.New()
-		passwordSha512.Write([]byte(req.Password))
-		hashedPass := fmt.Sprintf("%x", passwordSha512.Sum(nil))
+		hashedPass := passwordGenerate(req.Password)
 		authToken := RandStringBytesMaskImprSrc(32)
 		if hashedPass == td.Password {
 			rows, err := c.QueryContext(ctx, "UPDATE dispatcher SET authToken=? WHERE `phone_number`=?",
@@ -361,9 +375,7 @@ func (s *taxiServiceServer) CreateCustomer(ctx context.Context, req *v1.CreateCu
 	// insert user entity data
 	// SHA512 Encrypt
 	authToken := RandStringBytesMaskImprSrc(32)
-	passwordSha512 := sha512.New()
-	passwordSha512.Write([]byte(req.Customer.Password))
-	hashedPass := fmt.Sprintf("%x", passwordSha512.Sum(nil))
+	hashedPass := passwordGenerate(req.Customer.Password)
 	res, err := c.ExecContext(ctx, "INSERT INTO customer(name, phone_number, email, password, authToken) VALUES(?, ?, ?, ?, ?)",
 		req.Customer.Name, req.Customer.PhoneNumber, req.Customer.Email, hashedPass, authToken)
 	if err != nil {
@@ -383,7 +395,6 @@ func (s *taxiServiceServer) CreateCustomer(ctx context.Context, req *v1.CreateCu
 	}, nil
 }
 
-// TODO: requests with token
 func (s *taxiServiceServer) ReadCustomer(ctx context.Context, req *v1.ReadCustomerRequest) (*v1.ReadCustomerResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
@@ -439,9 +450,7 @@ func (s *taxiServiceServer) UpdateCustomer(ctx context.Context, req *v1.UpdateCu
 
 	// update Customer password
 	// TODO: check what to update - email or password?
-	sha_512 := sha512.New()
-	sha_512.Write([]byte(req.Customer.Password))
-	hashedPass := fmt.Sprintf("%x", sha_512.Sum(nil))
+	hashedPass := passwordGenerate(req.Customer.Password)
 	res, err := c.ExecContext(ctx, "UPDATE customer SET `email`=?, `password`=? WHERE `phone_number`=?",
 		req.Customer.Email, hashedPass, req.Customer.PhoneNumber)
 
@@ -474,6 +483,7 @@ func (s *taxiServiceServer) DeleteCustomer(ctx context.Context, req *v1.DeleteCu
 	if err != nil {
 		return nil, err
 	}
+
 	defer c.Close()
 
 	// delete user
@@ -509,8 +519,9 @@ func (s *taxiServiceServer) CreateCabRide(ctx context.Context, req *v1.CreateCab
 	}
 	defer c.Close()
 
-	res, err := c.ExecContext(ctx, "INSERT INTO cab_ride(customer_id, GPS_starting_point, entrance, GPS_destination, order_for_another, pending_order, payment_type_id, comment) VALUES(?, ?, ? ,?, ?, ?, ?, ?)",
-		req.CabRide.CustomerId, req.CabRide.StartingPoint, req.CabRide.Entrance, req.CabRide.EndingPoint, req.CabRide.OrderForAnother, req.CabRide.PendingOrder, req.CabRide.PaymentTypeId, req.CabRide.Comment)
+	// TODO check price set
+	res, err := c.ExecContext(ctx, "INSERT INTO cab_ride(customer_id, GPS_starting_point, entrance, GPS_destination, order_for_another, pending_order, payment_type_id, price, comment) VALUES(?, ?, ?, ? ,?, ?, ?, ?, ?)",
+		req.CabRide.CustomerId, req.CabRide.StartingPoint, req.CabRide.Entrance, req.CabRide.EndingPoint, req.CabRide.OrderForAnother, req.CabRide.PendingOrder, req.CabRide.PaymentTypeId, req.Price, req.CabRide.Comment)
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "failed to insert into cab_ride -> "+err.Error())
 	}
@@ -519,20 +530,25 @@ func (s *taxiServiceServer) CreateCabRide(ctx context.Context, req *v1.CreateCab
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "failed to retrieve id for created cab_ride -> "+err.Error())
 	}
-	fmt.Println("cab_ride \"" + string(req.CabRide.Id) + "\" has been created!")
+	fmt.Println("cab_ride " + string(id) + " has been created!")
 
 	res, err = c.ExecContext(ctx, "INSERT INTO cab_ride_status(cab_ride_id) VALUES(?)", id)
+
+	if res != nil {
+		id, err = res.LastInsertId()
+	}
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "failed to insert into cab_ride_status -> "+err.Error())
 	}
 
-	fmt.Println("cab_ride_status \"" + string(req.CabRide.Id) + "\" has been created!")
+	fmt.Println("cab_ride_status " + string(id) + " has been created!")
 
 	return &v1.CreateCabRideResponse{
 		Api:       apiVersion,
 		CabRideId: int32(id),
 	}, nil
 }
+
 func (s *taxiServiceServer) DeleteCabRide(ctx context.Context, req *v1.DeleteCabRideRequest) (*v1.DeleteCabRideResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
@@ -595,7 +611,11 @@ func (s *taxiServiceServer) DeleteCabRide(ctx context.Context, req *v1.DeleteCab
 }
 
 // TODO: update cab_ride
-/*func (s *taxiServiceServer) UpdateCabRide(ctx context.Context, req *v1.UpdateCabRideRequest) (*v1.UpdateCabRideResponse, error) {
+func (s *taxiServiceServer) UpdateCabRide(ctx context.Context, req *v1.UpdateCabRideRequest) (*v1.UpdateCabRideResponse, error) {
+	panic("implement me")
+}
+
+func (s *taxiServiceServer) CreateDriver(ctx context.Context, req *v1.CreateDriverRequest) (*v1.CreateDriverResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -605,9 +625,93 @@ func (s *taxiServiceServer) DeleteCabRide(ctx context.Context, req *v1.DeleteCab
 		return nil, err
 	}
 	defer c.Close()
+	// Parse unix timestamp from request and format to mysql timestamp. Divide by 1000 because Android sends milliseconds
+	birthDate, err := strconv.ParseInt(fmt.Sprintf("%d", req.Driver.BirthDate.GetSeconds()/1000), 10, 64)
+	if err != nil {
+		panic(err)
+	}
+	parsedBirthDate := time.Unix(birthDate, 0).Format("2006-01-02 15:04:05")
 
+	expiryDate, err := strconv.ParseInt(fmt.Sprintf("%d", req.Driver.BirthDate.GetSeconds()/1000), 10, 64)
+	if err != nil {
+		panic(err)
+	}
+	parsedExpiryDate := time.Unix(expiryDate, 0).Format("2006-01-02 15:04:05")
+
+	authToken := RandStringBytesMaskImprSrc(32)
+	hashedPass := passwordGenerate(req.Driver.Password)
+	res, err := c.ExecContext(ctx, "INSERT INTO driver(first_name, surname, patronymic, birth_date, phone_number, email, password, authToken) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+		req.Driver.FirstName, req.Driver.Surname, req.Driver.Partronymic, parsedBirthDate, req.Driver.PhoneNumber, req.Driver.Email, hashedPass, authToken)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to insert into Driver -> "+err.Error())
+	}
+
+	driverId, err := res.LastInsertId()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve id for created Driver -> "+err.Error())
+	}
+	fmt.Println("Driver \"" + req.Driver.PhoneNumber + "\" has been created!")
+
+	folderPath := fmt.Sprintf(DOCUMENTS_PATH+"/drivers/%d/", driverId)
+	if _, err = os.Stat(folderPath); os.IsNotExist(err) {
+		err = os.MkdirAll(folderPath, os.ModePerm)
+		if err != nil {
+			println("Filed to create dir " + fmt.Sprintf("documents/%d", driverId))
+			return nil, err
+		}
+	} else {
+		println("Dir " + folderPath + " is exists")
+		return nil, err
+	}
+
+	passportImagePath, err := savePhoto(req.DriverDocuments.PassportImage, folderPath)
+	if err != nil {
+		println("Filed to load passport photo")
+		return nil, err
+	}
+
+	drivingLicenseImagePath, err := savePhoto(req.DriverDocuments.DrivingLicenseImage, folderPath)
+	if err != nil {
+		println("Filed to load passport driving_license")
+		return nil, err
+	}
+
+	stsImagePath, err := savePhoto(req.DriverDocuments.StsPhoto, folderPath)
+	if err != nil {
+		println("Filed to load passport vehicle_registration")
+		return nil, err
+	}
+	res, err = c.ExecContext(ctx, "INSERT INTO driver_documents(driver_id, passport_number, passport_image, driving_license_number, expiry_date, driving_license_image, sts_photo) VALUES(?, ?, ?, ?, ?, ?, ?)",
+		driverId, req.DriverDocuments.PassportNumber, passportImagePath, req.DriverDocuments.DrivingLicenseNumber, parsedExpiryDate,
+		drivingLicenseImagePath, stsImagePath)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to insert into DriverDocuments -> "+err.Error())
+	}
+
+	id, err := res.LastInsertId()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve id for created DriverDocuments -> "+err.Error())
+	}
+	println("Driver documents" + strconv.FormatInt(id, 10) + "has been added to driver!")
+
+	return &v1.CreateDriverResponse{
+		Api:       apiVersion,
+		Id:        int32(driverId),
+		AuthToken: authToken,
+	}, nil
 }
-*/
+
+func (s *taxiServiceServer) ReadDriver(ctx context.Context, req *v1.ReadDriverRequest) (*v1.ReadDriverResponse, error) {
+	panic("implement me")
+}
+
+func (s *taxiServiceServer) UpdateDriver(ctx context.Context, req *v1.UpdateDriverRequest) (*v1.UpdateDriverResponse, error) {
+	panic("implement me")
+}
+
+func (s *taxiServiceServer) DeleteDriver(ctx context.Context, req *v1.DeleteDriverRequest) (*v1.DeleteDriverResponse, error) {
+	panic("implement me")
+}
 
 func (s *taxiServiceServer) CheckCabRideStatus(ctx context.Context, req *v1.CheckCabRideStatusRequest) (*v1.CheckCabRideStatusResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
@@ -640,7 +744,7 @@ func (s *taxiServiceServer) CheckCabRideStatus(ctx context.Context, req *v1.Chec
 		FirstName    string
 		Surname      string
 		PhoneNumber  string
-		LicensePlate int32
+		LicensePlate string
 		Color        string
 		ModelName    string
 		BrandName    string
@@ -665,4 +769,609 @@ func (s *taxiServiceServer) CheckCabRideStatus(ctx context.Context, req *v1.Chec
 		BrandName:    td.BrandName,
 		RideStatus:   td.RideStatus,
 	}, nil
+}
+
+func savePhoto(byteArray []byte, path string) (string, error) {
+	fileName := RandStringBytesMaskImprSrc(32) + ".webp"
+	err := ioutil.WriteFile(path+fileName, byteArray, os.ModePerm)
+	if err != nil {
+		return "", status.Error(codes.InvalidArgument, "Failed to save a photo "+err.Error())
+	}
+	return fileName, nil
+}
+
+func (s *taxiServiceServer) ReadAllCarBrands(ctx context.Context, req *v1.ReadAllCarBrandsRequest) (*v1.ReadAllCarBrandsResponse, error) {
+
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	rows, err := c.QueryContext(ctx, "SELECT * FROM car_brand")
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from Car_brand -> "+err.Error())
+	}
+	defer rows.Close()
+
+	var brands []*v1.CarBrand
+
+	for rows.Next() {
+		td := new(v1.CarBrand)
+		if err := rows.Scan(&td.Id, &td.BrandName); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_brand-> "+err.Error())
+		}
+		brands = append(brands, td)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_brand-> "+err.Error())
+	}
+
+	return &v1.ReadAllCarBrandsResponse{
+		Api:      apiVersion,
+		CarBrand: brands,
+	}, nil
+
+}
+
+func (s *taxiServiceServer) ReadAllCarModels(ctx context.Context, req *v1.ReadAllCarModelsRequest) (*v1.ReadAllCarModelsResponse, error) {
+
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	rows, err := c.QueryContext(ctx, "SELECT * FROM car_model WHERE car_brand_id = ?", req.CarBrandId)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from Car_model -> "+err.Error())
+	}
+	defer rows.Close()
+
+	var models []*v1.CarModel
+
+	for rows.Next() {
+		td := new(v1.CarModel)
+		if err := rows.Scan(&td.Id, &td.ModelName, &td.CarBrandId); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
+		}
+		models = append(models, td)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
+	}
+
+	return &v1.ReadAllCarModelsResponse{
+		Api:       apiVersion,
+		CarModels: models,
+	}, nil
+
+}
+
+func (s *taxiServiceServer) GetColors(ctx context.Context, req *v1.ReadAllColorsRequest) (*v1.ReadAllColorsResponse, error) {
+
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	rows, err := c.QueryContext(ctx, "SELECT * FROM color")
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from color -> "+err.Error())
+	}
+	defer rows.Close()
+
+	var colors []*v1.Color
+
+	for rows.Next() {
+		td := new(v1.Color)
+		if err := rows.Scan(&td.Code, &td.Description); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
+		}
+		colors = append(colors, td)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
+	}
+
+	return &v1.ReadAllColorsResponse{
+		Api:   apiVersion,
+		Color: colors,
+	}, nil
+
+}
+
+/*func (s *taxiServiceServer) ChangeDriverStatus(ctx context.Context, req *v1.ChangeStatusRequest) (*v1.ChangeStatusResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+
+	res, err := c.ExecContext(ctx, "UPDATE driver SET working=1 WHERE id=?",
+		req.DriverId)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to update Customer-> "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("Driver with id='%d' is not found",
+			req.DriverId))
+	}
+
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from color -> "+err.Error())
+	}
+	defer c.Close()
+
+	res, err = c.ExecContext(ctx, "SELECT * FROM shift WHERE shift.driver_id = ?", req.DriverId)
+	if err == nil {
+		res, err = c.ExecContext(ctx, "INSERT INTO shift(driver_id, shift_end_time) VALUES(?, NOW())", req.DriverId)
+		id, err := res.LastInsertId()
+	} else {
+		res, err = c.ExecContext(ctx, "INSERT INTO shift(driver_id) VALUES(?)", req.DriverId)
+		id, err := res.LastInsertId()
+	}
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to update driver status-> "+err.Error())
+	}
+
+	return &v1.ChangeStatusResponse{
+		Api:       apiVersion,
+		IsChanged: true,
+		ShiftId: id,
+	}, nil
+}
+*/
+
+// TODO: add cab to driver
+
+func (s *taxiServiceServer) CreateCab(ctx context.Context, req *v1.CreateCabRequest) (*v1.CreateCabResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// Finding model and color by name
+	rows, err := c.QueryContext(ctx, "SELECT car_model.id, color.id FROM car_model, car_brand, color WHERE `model_name`=? AND `brand_name`=? AND `car_brand_id`=car_brand.id AND color.description=?",
+		req.CarModelName, req.CarBrandName, req.ColorDescription)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select car_model.id from car_model-> "+err.Error())
+	}
+	defer rows.Close()
+
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from car_model-> "+err.Error())
+		}
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("car_model with name='%s' is not found",
+			req.CarModelName))
+	}
+
+	var carModelId, colorId int64
+	if err := rows.Scan(&carModelId, &colorId); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve field values from car_model or color row-> "+err.Error())
+	}
+	if rows.Next() {
+		return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple car_models rows with name='%s'",
+			req.CarModelName))
+	}
+
+	res, err := c.ExecContext(ctx, "INSERT INTO cab(color_id, license_plate, car_model_id, driver_id) VALUES(?, ?, ?, ?)",
+		colorId, req.LicensePlate, carModelId, req.DriverId)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to insert into Customer -> "+err.Error())
+	}
+
+	// get ID of creates user
+	id, err := res.LastInsertId()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve id for created Customer -> "+err.Error())
+	}
+	fmt.Println("Cab " + fmt.Sprintf("%d", id) + " has been created!")
+	return &v1.CreateCabResponse{
+		Api:   apiVersion,
+		CabId: int32(id),
+	}, nil
+
+}
+
+func (s *taxiServiceServer) GetDriversCabs(ctx context.Context, req *v1.GetDriversCabsRequest) (*v1.GetDriversCabsResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	rows, err := c.QueryContext(ctx, `SELECT cab.id, color.description, cab.license_plate, car_model.model_name, car_brand.brand_name 
+											FROM cab, color, car_model, car_brand 
+											WHERE driver_id=? AND color_id=color.id AND cab.car_model_id=car_model.id AND car_model.car_brand_id=car_brand.id`)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from color -> "+err.Error())
+	}
+	defer rows.Close()
+
+	var colors []*v1.Color
+
+	for rows.Next() {
+		td := new(v1.Color)
+		if err := rows.Scan(&td.Code, &td.Description); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
+		}
+		colors = append(colors, td)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
+	}
+
+	return &v1.GetDriversCabsResponse{
+		Api: apiVersion,
+		// TODO this method
+	}, nil
+}
+
+// Drivers shift starting
+func (s *taxiServiceServer) StartShift(ctx context.Context, req *v1.StartShiftRequest) (*v1.StartShiftResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	res, err := c.ExecContext(ctx, "INSERT INTO shift(driver_id) VALUES(?)",
+		req.DriverId)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to insert into shift -> "+err.Error())
+	}
+
+	id, err := res.LastInsertId()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve id for created shift -> "+err.Error())
+	}
+	fmt.Println("Shift " + fmt.Sprintf("%d", id) + " has been started!")
+
+	// Change driver working status
+	res, err = c.ExecContext(ctx, "UPDATE driver SET `working`=1 WHERE `id`=?",
+		req.DriverId)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to change driver status -> "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 { // if working status is already set
+		return &v1.StartShiftResponse{
+			Api:       apiVersion,
+			IsStarted: true,
+		}, nil
+	}
+
+	fmt.Println("Driver " + fmt.Sprintf("%d", req.DriverId) + " now is working!")
+
+	return &v1.StartShiftResponse{
+		Api:       apiVersion,
+		IsStarted: true,
+	}, nil
+}
+
+// Drivers shift ending
+func (s *taxiServiceServer) StopShift(ctx context.Context, req *v1.StopShiftRequest) (*v1.StopShiftResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	res, err := c.ExecContext(ctx, "UPDATE shift SET `shift_end_time`=NOW() WHERE `driver_id`=?",
+		req.DriverId)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to change driver status -> "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("shift with driver_id='%d' is not found",
+			req.DriverId))
+	}
+	id, err := res.LastInsertId()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve id for created shift -> "+err.Error())
+	}
+	fmt.Println("Shift " + fmt.Sprintf("%d", id) + " has been stopped!")
+
+	// Change driver working status
+	res, err = c.ExecContext(ctx, "UPDATE driver SET `working`=0 WHERE `id`=?",
+		req.DriverId)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to change driver status -> "+err.Error())
+	}
+
+	rows, err = res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("driver with id='%d' is not found",
+			req.DriverId))
+	}
+
+	fmt.Println("Driver " + fmt.Sprintf("%d", req.DriverId) + " stops working!")
+
+	return &v1.StopShiftResponse{
+		Api:       apiVersion,
+		IsStopped: true,
+	}, nil
+}
+
+func (s *taxiServiceServer) CheckAvailableOrders(ctx context.Context, req *v1.CheckAvailableOrdersRequest) (*v1.CheckAvailableOrdersResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	/*var ignoredOrders string
+	if req.IgnoredOrder != nil {
+		for _, value := range req.IgnoredOrder {
+			ignoredOrders += strconv.Itoa(int(value)) + ","
+		}
+		fmt.Println("SQL:", ignoredOrders)
+	}*/
+	// TODO check gps of driver in area
+	/*
+		north: N+0.01,
+		south: S-0.01,
+		east: E+0.02,
+		west: W-0.02
+	*/
+	// TODO send ignored orders
+	var rows *sql.Rows
+	rows, err = c.QueryContext(ctx, "SELECT id, GPS_starting_point, entrance, GPS_destination, order_for_another, pending_order, payment_type_id, price, comment FROM cab_ride WHERE shift_id IS NULL")
+
+	/*	if len(ignoredOrders) <= 0{
+			rows, err = c.QueryContext(ctx, "SELECT id, GPS_starting_point, entrance, GPS_destination, order_for_another, pending_order, payment_type_id, price, comment FROM cab_ride WHERE shift_id IS NULL AND id NOT IN ("+ignoredOrders[:len(ignoredOrders)-1]+")")
+		} else {
+			rows, err = c.QueryContext(ctx, "SELECT id, GPS_starting_point, entrance, GPS_destination, order_for_another, pending_order, payment_type_id, price, comment FROM cab_ride WHERE shift_id IS NULL")
+		}
+	*/
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select car_model.id from car_model-> "+err.Error())
+	}
+	defer rows.Close()
+
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from car_model-> "+err.Error())
+		}
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("There is no available cab rides with this "+
+			"ignored values: %v",
+			req.IgnoredOrder))
+	}
+
+	var td v1.CabRide
+	if err := rows.Scan(&td.Id, &td.StartingPoint, &td.Entrance, &td.EndingPoint, &td.OrderForAnother, &td.PendingOrder, &td.PaymentTypeId, &td.Price, &td.Comment); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve field values from car_model or color row-> "+err.Error())
+	}
+	if rows.Next() {
+		return &v1.CheckAvailableOrdersResponse{
+			Api:     apiVersion,
+			CabRide: &td,
+		}, nil
+	}
+	return &v1.CheckAvailableOrdersResponse{
+		Api:     apiVersion,
+		CabRide: &td,
+	}, nil
+}
+
+// TODO: test order accepting
+func (s *taxiServiceServer) AcceptOrder(ctx context.Context, req *v1.AcceptOrderRequest) (*v1.AcceptOrderResponse, error) {
+
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// changing shift id in cab_ride
+	res, err := c.ExecContext(ctx, "UPDATE cab_ride, shift SET cab_ride.shift_id=shift.id WHERE cab_ride.id=? AND driver_id=? AND shift_end_time IS NULL", req.CabRideId, req.DriverId)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to update cab_ride-> "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with id='%d' is not found",
+			req.CabRideId))
+	}
+
+	return &v1.AcceptOrderResponse{
+		Api:        apiVersion,
+		IsAccepted: true,
+	}, nil
+
+}
+
+func (s *taxiServiceServer) CancelOrder(ctx context.Context, req *v1.CancelOrderRequest) (*v1.CancelOrderResponse, error) {
+
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// changing shift id in cab_ride
+	res, err := c.ExecContext(ctx, "UPDATE cab_ride, shift SET cab_ride.shift_id=NULL WHERE cab_ride.id=? AND driver_id=? ", req.CabRideId, req.DriverId)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to update cab_ride-> "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with id='%d' is not found",
+			req.CabRideId))
+	}
+
+	return &v1.CancelOrderResponse{
+		Api:        apiVersion,
+		IsCanceled: true,
+	}, nil
+
+}
+
+func (s *taxiServiceServer) StartTrip(ctx context.Context, req *v1.StartTripRequest) (*v1.StartTripResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// changing shift id in cab_ride
+	res, err := c.ExecContext(ctx, "UPDATE cab_ride, cab_ride_status SET cab_ride.ride_start_time=CURRENT_TIMESTAMP, ride_status=1 WHERE cab_ride.id=?", req.CabRideId)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to update cab_ride-> "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with id='%d' is not found",
+			req.CabRideId))
+	}
+
+	return &v1.StartTripResponse{
+		Api:       apiVersion,
+		IsStarted: true,
+	}, nil
+
+}
+
+func (s *taxiServiceServer) EndTrip(ctx context.Context, req *v1.EndTripRequest) (*v1.EndTripResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// changing shift id in cab_ride
+	res, err := c.ExecContext(ctx, "UPDATE cab_ride, cab_ride_status SET cab_ride.ride_end_time=CURRENT_TIMESTAMP, ride_status=2 WHERE cab_ride.id=?", req.CabRideId)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to update cab_ride-> "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with id='%d' is not found",
+			req.CabRideId))
+	}
+
+	return &v1.EndTripResponse{
+		Api:     apiVersion,
+		IsEnded: true,
+	}, nil
+
 }

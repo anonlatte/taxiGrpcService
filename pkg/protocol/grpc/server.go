@@ -2,7 +2,7 @@ package grpc
 
 import (
 	"context"
-	"golangService/pkg/api/v1"
+	v1 "golang-service/pkg/api/v1"
 	"log"
 	"net"
 	"os"
