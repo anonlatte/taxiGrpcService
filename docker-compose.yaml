@@ -1,0 +1,36 @@
+version: '3.1'
+services:
+  db:
+    image: mysql
+    container_name: mysql
+    command: '--default-authentication-plugin=mysql_native_password'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_SCHEMA}
+      MYSQL_USER: ${DB_USER}
+    volumes:
+      - ${DB_PATH_HOST}:/var/lib/mysql
+    ports:
+      - "26482:3306"
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - '6934:8080'
+    depends_on:
+      - db
+
+  service:
+    build: ./src
+    container_name: taxi_service
+    restart: always
+    ports:
+      - ${GRPC_PORT}:${GRPC_PORT}
+    entrypoint: go run ${APP_PATH_DOCKER}/cmd/server/main.go -grpc-port=${GRPC_PORT} -db-host=${DB_HOST} -db-user=${DB_USER} -db-password=${DB_PASSWORD} -db-schema=${DB_SCHEMA}
+    depends_on:
+      - db
+    volumes:
+      - ${APP_PATH_HOST}:${APP_PATH_DOCKER}

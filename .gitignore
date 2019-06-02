@@ -11,3 +11,8 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 /.vscode/launch.json
+\.idea/
+src/vendor/
+src/cmd/server/documents/
+third_party/
+src/cmd/server/server

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"golang-service/pkg/cmd"
+	"golang-service/src/pkg/cmd"
 	"os"
 )
 
