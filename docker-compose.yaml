@@ -32,3 +32,5 @@ services:
     entrypoint: go run ${APP_PATH_DOCKER}/cmd/server/main.go -grpc-port=${GRPC_PORT} -db-host=${DB_HOST} -db-user=${DB_USER} -db-password=${DB_PASSWORD} -db-schema=${DB_SCHEMA}
     depends_on:
       - db
+    volumes:
+      - ./src/cmd/server/documents:${APP_PATH_DOCKER}/cmd/server/documents
