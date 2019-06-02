@@ -5,7 +5,7 @@ import (
 	"crypto/sha512"
 	"database/sql"
 	"fmt"
-	v12 "golang-service/src/pkg/api/v1"
+	v1 "golang-service/src/pkg/api/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"io/ioutil"
@@ -30,7 +30,7 @@ type taxiServiceServer struct {
 }
 
 // NewTaxiServiceServer creates taxi service
-func NewTaxiServiceServer(db *sql.DB) v12.TaxiServiceServer {
+func NewTaxiServiceServer(db *sql.DB) v1.TaxiServiceServer {
 	return &taxiServiceServer{db: db}
 }
 
@@ -93,7 +93,7 @@ func passwordGenerate(unhashedPassword string) string {
 
 }*/
 
-func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v12.LoginRequest) (*v12.LoginResponse, error) {
+func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v1.LoginRequest) (*v1.LoginResponse, error) {
 
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
@@ -121,7 +121,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v12.LoginRequest
 				req.Login))
 		}
 
-		var td v12.Customer
+		var td v1.Customer
 		if err := rows.Scan(&td.Password, &td.Id); err != nil {
 			return nil, status.Error(codes.Unknown, "failed to retrieve field values from Customer row-> "+err.Error())
 		}
@@ -139,7 +139,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v12.LoginRequest
 				return nil, status.Error(codes.Unknown, "failed to set token to Customer-> "+err.Error())
 			}
 			defer rows.Close()
-			return &v12.LoginResponse{
+			return &v1.LoginResponse{
 				Api:       apiVersion,
 				AuthToken: authToken,
 				UserId:    int32(td.Id),
@@ -164,7 +164,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v12.LoginRequest
 				req.Login))
 		}
 
-		var td v12.Driver
+		var td v1.Driver
 		if err := rows.Scan(&td.Password, &td.Id); err != nil {
 			return nil, status.Error(codes.Unknown, "failed to retrieve field values from Driver row-> "+err.Error())
 		}
@@ -181,7 +181,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v12.LoginRequest
 				return nil, status.Error(codes.Unknown, "failed to set token to Driver-> "+err.Error())
 			}
 			defer rows.Close()
-			return &v12.LoginResponse{
+			return &v1.LoginResponse{
 				Api:       apiVersion,
 				AuthToken: authToken,
 				UserId:    int32(td.Id),
@@ -206,7 +206,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v12.LoginRequest
 				req.Login))
 		}
 
-		var td v12.Dispatcher
+		var td v1.Dispatcher
 		if err := rows.Scan(&td.Password, &td.Id); err != nil {
 			return nil, status.Error(codes.Unknown, "failed to retrieve field values from Dispatcher row-> "+err.Error())
 		}
@@ -223,7 +223,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v12.LoginRequest
 				return nil, status.Error(codes.Unknown, "failed to set token to Dispatcher-> "+err.Error())
 			}
 			defer rows.Close()
-			return &v12.LoginResponse{
+			return &v1.LoginResponse{
 				Api:       apiVersion,
 				AuthToken: authToken,
 				UserId:    int32(td.Id),
@@ -235,7 +235,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v12.LoginRequest
 	}
 }
 
-func (s *taxiServiceServer) TokenCheck(ctx context.Context, req *v12.TokenCheckRequest) (*v12.TokenCheckResponse, error) {
+func (s *taxiServiceServer) TokenCheck(ctx context.Context, req *v1.TokenCheckRequest) (*v1.TokenCheckResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -262,7 +262,7 @@ func (s *taxiServiceServer) TokenCheck(ctx context.Context, req *v12.TokenCheckR
 				req.Login))
 		}
 
-		var td v12.Customer
+		var td v1.Customer
 		if err := rows.Scan(&td.AuthToken); err != nil {
 			return nil, status.Error(codes.Unknown, "failed to retrieve field values from Customer row-> "+err.Error())
 		}
@@ -275,7 +275,7 @@ func (s *taxiServiceServer) TokenCheck(ctx context.Context, req *v12.TokenCheckR
 				return nil, status.Error(codes.Unknown, "failed to set token to Customer-> "+err.Error())
 			}
 			defer rows.Close()
-			return &v12.TokenCheckResponse{
+			return &v1.TokenCheckResponse{
 				Api:          apiVersion,
 				IsValidToken: true,
 			}, nil
@@ -298,7 +298,7 @@ func (s *taxiServiceServer) TokenCheck(ctx context.Context, req *v12.TokenCheckR
 				req.Login))
 		}
 
-		var td v12.Driver
+		var td v1.Driver
 		if err := rows.Scan(&td.AuthToken); err != nil {
 			return nil, status.Error(codes.Unknown, "failed to retrieve field values from Driver row-> "+err.Error())
 		}
@@ -311,7 +311,7 @@ func (s *taxiServiceServer) TokenCheck(ctx context.Context, req *v12.TokenCheckR
 				return nil, status.Error(codes.Unknown, "failed to set token to Driver-> "+err.Error())
 			}
 			defer rows.Close()
-			return &v12.TokenCheckResponse{
+			return &v1.TokenCheckResponse{
 				Api:          apiVersion,
 				IsValidToken: true,
 			}, nil
@@ -335,7 +335,7 @@ func (s *taxiServiceServer) TokenCheck(ctx context.Context, req *v12.TokenCheckR
 				req.Login))
 		}
 
-		var td v12.Dispatcher
+		var td v1.Dispatcher
 		if err := rows.Scan(&td.AuthToken); err != nil {
 			return nil, status.Error(codes.Unknown, "failed to retrieve field values from Dispatcher row-> "+err.Error())
 		}
@@ -348,7 +348,7 @@ func (s *taxiServiceServer) TokenCheck(ctx context.Context, req *v12.TokenCheckR
 				return nil, status.Error(codes.Unknown, "failed to set token to Dispatcher-> "+err.Error())
 			}
 			defer rows.Close()
-			return &v12.TokenCheckResponse{
+			return &v1.TokenCheckResponse{
 				Api:          apiVersion,
 				IsValidToken: true,
 			}, nil
@@ -359,7 +359,7 @@ func (s *taxiServiceServer) TokenCheck(ctx context.Context, req *v12.TokenCheckR
 }
 
 // customer CRUD
-func (s *taxiServiceServer) CreateCustomer(ctx context.Context, req *v12.CreateCustomerRequest) (*v12.CreateCustomerResponse, error) {
+func (s *taxiServiceServer) CreateCustomer(ctx context.Context, req *v1.CreateCustomerRequest) (*v1.CreateCustomerResponse, error) {
 	// check if the API version requested by client is supported by server
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
@@ -388,14 +388,14 @@ func (s *taxiServiceServer) CreateCustomer(ctx context.Context, req *v12.CreateC
 		return nil, status.Error(codes.Unknown, "failed to retrieve id for created Customer -> "+err.Error())
 	}
 	fmt.Println("Customer \"" + req.Customer.PhoneNumber + "\" has been created!")
-	return &v12.CreateCustomerResponse{
+	return &v1.CreateCustomerResponse{
 		Api:       apiVersion,
 		Id:        int32(id),
 		AuthToken: authToken,
 	}, nil
 }
 
-func (s *taxiServiceServer) ReadCustomer(ctx context.Context, req *v12.ReadCustomerRequest) (*v12.ReadCustomerResponse, error) {
+func (s *taxiServiceServer) ReadCustomer(ctx context.Context, req *v1.ReadCustomerRequest) (*v1.ReadCustomerResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -422,7 +422,7 @@ func (s *taxiServiceServer) ReadCustomer(ctx context.Context, req *v12.ReadCusto
 	}
 
 	// get user data
-	var td v12.Customer
+	var td v1.Customer
 	if err := rows.Scan(&td.Id, &td.Name, &td.PhoneNumber, &td.Email); err != nil {
 		return nil, status.Error(codes.Unknown, "failed to retrieve field values from Customer row-> "+err.Error())
 	}
@@ -431,13 +431,13 @@ func (s *taxiServiceServer) ReadCustomer(ctx context.Context, req *v12.ReadCusto
 			req.Customer.PhoneNumber))
 	}
 
-	return &v12.ReadCustomerResponse{
+	return &v1.ReadCustomerResponse{
 		Api:      apiVersion,
 		Customer: &td,
 	}, nil
 }
 
-func (s *taxiServiceServer) UpdateCustomer(ctx context.Context, req *v12.UpdateCustomerRequest) (*v12.UpdateCustomerResponse, error) {
+func (s *taxiServiceServer) UpdateCustomer(ctx context.Context, req *v1.UpdateCustomerRequest) (*v1.UpdateCustomerResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -468,13 +468,13 @@ func (s *taxiServiceServer) UpdateCustomer(ctx context.Context, req *v12.UpdateC
 			req.Customer.Id))
 	}
 
-	return &v12.UpdateCustomerResponse{
+	return &v1.UpdateCustomerResponse{
 		Api:     apiVersion,
 		Updated: int32(rows),
 	}, nil
 }
 
-func (s *taxiServiceServer) DeleteCustomer(ctx context.Context, req *v12.DeleteCustomerRequest) (*v12.DeleteCustomerResponse, error) {
+func (s *taxiServiceServer) DeleteCustomer(ctx context.Context, req *v1.DeleteCustomerRequest) (*v1.DeleteCustomerResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -502,13 +502,13 @@ func (s *taxiServiceServer) DeleteCustomer(ctx context.Context, req *v12.DeleteC
 			req.Customer.PhoneNumber))
 	}
 
-	return &v12.DeleteCustomerResponse{
+	return &v1.DeleteCustomerResponse{
 		Api:     apiVersion,
 		Deleted: int32(rows),
 	}, nil
 }
 
-func (s *taxiServiceServer) CreateCabRide(ctx context.Context, req *v12.CreateCabRideRequest) (*v12.CreateCabRideResponse, error) {
+func (s *taxiServiceServer) CreateCabRide(ctx context.Context, req *v1.CreateCabRideRequest) (*v1.CreateCabRideResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -543,13 +543,13 @@ func (s *taxiServiceServer) CreateCabRide(ctx context.Context, req *v12.CreateCa
 
 	fmt.Println("cab_ride_status " + string(id) + " has been created!")
 
-	return &v12.CreateCabRideResponse{
+	return &v1.CreateCabRideResponse{
 		Api:       apiVersion,
 		CabRideId: int32(id),
 	}, nil
 }
 
-func (s *taxiServiceServer) DeleteCabRide(ctx context.Context, req *v12.DeleteCabRideRequest) (*v12.DeleteCabRideResponse, error) {
+func (s *taxiServiceServer) DeleteCabRide(ctx context.Context, req *v1.DeleteCabRideRequest) (*v1.DeleteCabRideResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -576,7 +576,7 @@ func (s *taxiServiceServer) DeleteCabRide(ctx context.Context, req *v12.DeleteCa
 			req.CustomerId))
 	}
 
-	var td v12.Customer
+	var td v1.Customer
 	if err := rows.Scan(&td.AuthToken); err != nil {
 		return nil, status.Error(codes.Unknown, "failed to retrieve field values from Customer row-> "+err.Error())
 	}
@@ -601,7 +601,7 @@ func (s *taxiServiceServer) DeleteCabRide(ctx context.Context, req *v12.DeleteCa
 			return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with id='%d' is not found",
 				req.CabRideId))
 		}
-		return &v12.DeleteCabRideResponse{
+		return &v1.DeleteCabRideResponse{
 			Api:              apiVersion,
 			IsSuccessDeleted: true,
 		}, nil
@@ -611,11 +611,11 @@ func (s *taxiServiceServer) DeleteCabRide(ctx context.Context, req *v12.DeleteCa
 }
 
 // TODO: update cab_ride
-func (s *taxiServiceServer) UpdateCabRide(ctx context.Context, req *v12.UpdateCabRideRequest) (*v12.UpdateCabRideResponse, error) {
+func (s *taxiServiceServer) UpdateCabRide(ctx context.Context, req *v1.UpdateCabRideRequest) (*v1.UpdateCabRideResponse, error) {
 	panic("implement me")
 }
 
-func (s *taxiServiceServer) CreateDriver(ctx context.Context, req *v12.CreateDriverRequest) (*v12.CreateDriverResponse, error) {
+func (s *taxiServiceServer) CreateDriver(ctx context.Context, req *v1.CreateDriverRequest) (*v1.CreateDriverResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -694,26 +694,26 @@ func (s *taxiServiceServer) CreateDriver(ctx context.Context, req *v12.CreateDri
 	}
 	println("Driver documents" + strconv.FormatInt(id, 10) + "has been added to driver!")
 
-	return &v12.CreateDriverResponse{
+	return &v1.CreateDriverResponse{
 		Api:       apiVersion,
 		Id:        int32(driverId),
 		AuthToken: authToken,
 	}, nil
 }
 
-func (s *taxiServiceServer) ReadDriver(ctx context.Context, req *v12.ReadDriverRequest) (*v12.ReadDriverResponse, error) {
+func (s *taxiServiceServer) ReadDriver(ctx context.Context, req *v1.ReadDriverRequest) (*v1.ReadDriverResponse, error) {
 	panic("implement me")
 }
 
-func (s *taxiServiceServer) UpdateDriver(ctx context.Context, req *v12.UpdateDriverRequest) (*v12.UpdateDriverResponse, error) {
+func (s *taxiServiceServer) UpdateDriver(ctx context.Context, req *v1.UpdateDriverRequest) (*v1.UpdateDriverResponse, error) {
 	panic("implement me")
 }
 
-func (s *taxiServiceServer) DeleteDriver(ctx context.Context, req *v12.DeleteDriverRequest) (*v12.DeleteDriverResponse, error) {
+func (s *taxiServiceServer) DeleteDriver(ctx context.Context, req *v1.DeleteDriverRequest) (*v1.DeleteDriverResponse, error) {
 	panic("implement me")
 }
 
-func (s *taxiServiceServer) CheckCabRideStatus(ctx context.Context, req *v12.CheckCabRideStatusRequest) (*v12.CheckCabRideStatusResponse, error) {
+func (s *taxiServiceServer) CheckCabRideStatus(ctx context.Context, req *v1.CheckCabRideStatusRequest) (*v1.CheckCabRideStatusResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -758,7 +758,7 @@ func (s *taxiServiceServer) CheckCabRideStatus(ctx context.Context, req *v12.Che
 		return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple cab_rides rows with id='%d'",
 			req.CabRideId))
 	}
-	return &v12.CheckCabRideStatusResponse{
+	return &v1.CheckCabRideStatusResponse{
 		Api:          apiVersion,
 		FirstName:    td.FirstName,
 		Surname:      td.Surname,
@@ -780,7 +780,7 @@ func savePhoto(byteArray []byte, path string) (string, error) {
 	return fileName, nil
 }
 
-func (s *taxiServiceServer) ReadAllCarBrands(ctx context.Context, req *v12.ReadAllCarBrandsRequest) (*v12.ReadAllCarBrandsResponse, error) {
+func (s *taxiServiceServer) ReadAllCarBrands(ctx context.Context, req *v1.ReadAllCarBrandsRequest) (*v1.ReadAllCarBrandsResponse, error) {
 
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
@@ -798,10 +798,10 @@ func (s *taxiServiceServer) ReadAllCarBrands(ctx context.Context, req *v12.ReadA
 	}
 	defer rows.Close()
 
-	var brands []*v12.CarBrand
+	var brands []*v1.CarBrand
 
 	for rows.Next() {
-		td := new(v12.CarBrand)
+		td := new(v1.CarBrand)
 		if err := rows.Scan(&td.Id, &td.BrandName); err != nil {
 			return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_brand-> "+err.Error())
 		}
@@ -812,14 +812,14 @@ func (s *taxiServiceServer) ReadAllCarBrands(ctx context.Context, req *v12.ReadA
 		return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_brand-> "+err.Error())
 	}
 
-	return &v12.ReadAllCarBrandsResponse{
+	return &v1.ReadAllCarBrandsResponse{
 		Api:      apiVersion,
 		CarBrand: brands,
 	}, nil
 
 }
 
-func (s *taxiServiceServer) ReadAllCarModels(ctx context.Context, req *v12.ReadAllCarModelsRequest) (*v12.ReadAllCarModelsResponse, error) {
+func (s *taxiServiceServer) ReadAllCarModels(ctx context.Context, req *v1.ReadAllCarModelsRequest) (*v1.ReadAllCarModelsResponse, error) {
 
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
@@ -838,10 +838,10 @@ func (s *taxiServiceServer) ReadAllCarModels(ctx context.Context, req *v12.ReadA
 	}
 	defer rows.Close()
 
-	var models []*v12.CarModel
+	var models []*v1.CarModel
 
 	for rows.Next() {
-		td := new(v12.CarModel)
+		td := new(v1.CarModel)
 		if err := rows.Scan(&td.Id, &td.ModelName, &td.CarBrandId); err != nil {
 			return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
 		}
@@ -852,14 +852,14 @@ func (s *taxiServiceServer) ReadAllCarModels(ctx context.Context, req *v12.ReadA
 		return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
 	}
 
-	return &v12.ReadAllCarModelsResponse{
+	return &v1.ReadAllCarModelsResponse{
 		Api:       apiVersion,
 		CarModels: models,
 	}, nil
 
 }
 
-func (s *taxiServiceServer) GetColors(ctx context.Context, req *v12.ReadAllColorsRequest) (*v12.ReadAllColorsResponse, error) {
+func (s *taxiServiceServer) GetColors(ctx context.Context, req *v1.ReadAllColorsRequest) (*v1.ReadAllColorsResponse, error) {
 
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
@@ -878,10 +878,10 @@ func (s *taxiServiceServer) GetColors(ctx context.Context, req *v12.ReadAllColor
 	}
 	defer rows.Close()
 
-	var colors []*v12.Color
+	var colors []*v1.Color
 
 	for rows.Next() {
-		td := new(v12.Color)
+		td := new(v1.Color)
 		if err := rows.Scan(&td.Code, &td.Description); err != nil {
 			return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
 		}
@@ -892,7 +892,7 @@ func (s *taxiServiceServer) GetColors(ctx context.Context, req *v12.ReadAllColor
 		return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
 	}
 
-	return &v12.ReadAllColorsResponse{
+	return &v1.ReadAllColorsResponse{
 		Api:   apiVersion,
 		Color: colors,
 	}, nil
@@ -961,7 +961,7 @@ func (s *taxiServiceServer) GetColors(ctx context.Context, req *v12.ReadAllColor
 
 // TODO: add cab to driver
 
-func (s *taxiServiceServer) CreateCab(ctx context.Context, req *v12.CreateCabRequest) (*v12.CreateCabResponse, error) {
+func (s *taxiServiceServer) CreateCab(ctx context.Context, req *v1.CreateCabRequest) (*v1.CreateCabResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -1009,14 +1009,14 @@ func (s *taxiServiceServer) CreateCab(ctx context.Context, req *v12.CreateCabReq
 		return nil, status.Error(codes.Unknown, "failed to retrieve id for created Customer -> "+err.Error())
 	}
 	fmt.Println("Cab " + fmt.Sprintf("%d", id) + " has been created!")
-	return &v12.CreateCabResponse{
+	return &v1.CreateCabResponse{
 		Api:   apiVersion,
 		CabId: int32(id),
 	}, nil
 
 }
 
-func (s *taxiServiceServer) GetDriversCabs(ctx context.Context, req *v12.GetDriversCabsRequest) (*v12.GetDriversCabsResponse, error) {
+func (s *taxiServiceServer) GetDriversCabs(ctx context.Context, req *v1.GetDriversCabsRequest) (*v1.GetDriversCabsResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -1036,10 +1036,10 @@ func (s *taxiServiceServer) GetDriversCabs(ctx context.Context, req *v12.GetDriv
 	}
 	defer rows.Close()
 
-	var colors []*v12.Color
+	var colors []*v1.Color
 
 	for rows.Next() {
-		td := new(v12.Color)
+		td := new(v1.Color)
 		if err := rows.Scan(&td.Code, &td.Description); err != nil {
 			return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
 		}
@@ -1050,14 +1050,14 @@ func (s *taxiServiceServer) GetDriversCabs(ctx context.Context, req *v12.GetDriv
 		return nil, status.Error(codes.Unknown, "failed to retrieve data from Car_model-> "+err.Error())
 	}
 
-	return &v12.GetDriversCabsResponse{
+	return &v1.GetDriversCabsResponse{
 		Api: apiVersion,
 		// TODO this method
 	}, nil
 }
 
 // Drivers shift starting
-func (s *taxiServiceServer) StartShift(ctx context.Context, req *v12.StartShiftRequest) (*v12.StartShiftResponse, error) {
+func (s *taxiServiceServer) StartShift(ctx context.Context, req *v1.StartShiftRequest) (*v1.StartShiftResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -1094,7 +1094,7 @@ func (s *taxiServiceServer) StartShift(ctx context.Context, req *v12.StartShiftR
 	}
 
 	if rows == 0 { // if working status is already set
-		return &v12.StartShiftResponse{
+		return &v1.StartShiftResponse{
 			Api:       apiVersion,
 			IsStarted: true,
 		}, nil
@@ -1102,14 +1102,14 @@ func (s *taxiServiceServer) StartShift(ctx context.Context, req *v12.StartShiftR
 
 	fmt.Println("Driver " + fmt.Sprintf("%d", req.DriverId) + " now is working!")
 
-	return &v12.StartShiftResponse{
+	return &v1.StartShiftResponse{
 		Api:       apiVersion,
 		IsStarted: true,
 	}, nil
 }
 
 // Drivers shift ending
-func (s *taxiServiceServer) StopShift(ctx context.Context, req *v12.StopShiftRequest) (*v12.StopShiftResponse, error) {
+func (s *taxiServiceServer) StopShift(ctx context.Context, req *v1.StopShiftRequest) (*v1.StopShiftResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -1162,13 +1162,13 @@ func (s *taxiServiceServer) StopShift(ctx context.Context, req *v12.StopShiftReq
 
 	fmt.Println("Driver " + fmt.Sprintf("%d", req.DriverId) + " stops working!")
 
-	return &v12.StopShiftResponse{
+	return &v1.StopShiftResponse{
 		Api:       apiVersion,
 		IsStopped: true,
 	}, nil
 }
 
-func (s *taxiServiceServer) CheckAvailableOrders(ctx context.Context, req *v12.CheckAvailableOrdersRequest) (*v12.CheckAvailableOrdersResponse, error) {
+func (s *taxiServiceServer) CheckAvailableOrders(ctx context.Context, req *v1.CheckAvailableOrdersRequest) (*v1.CheckAvailableOrdersResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -1217,24 +1217,24 @@ func (s *taxiServiceServer) CheckAvailableOrders(ctx context.Context, req *v12.C
 			req.IgnoredOrder))
 	}
 
-	var td v12.CabRide
+	var td v1.CabRide
 	if err := rows.Scan(&td.Id, &td.StartingPoint, &td.Entrance, &td.EndingPoint, &td.OrderForAnother, &td.PendingOrder, &td.PaymentTypeId, &td.Price, &td.Comment); err != nil {
 		return nil, status.Error(codes.Unknown, "failed to retrieve field values from car_model or color row-> "+err.Error())
 	}
 	if rows.Next() {
-		return &v12.CheckAvailableOrdersResponse{
+		return &v1.CheckAvailableOrdersResponse{
 			Api:     apiVersion,
 			CabRide: &td,
 		}, nil
 	}
-	return &v12.CheckAvailableOrdersResponse{
+	return &v1.CheckAvailableOrdersResponse{
 		Api:     apiVersion,
 		CabRide: &td,
 	}, nil
 }
 
 // TODO: test order accepting
-func (s *taxiServiceServer) AcceptOrder(ctx context.Context, req *v12.AcceptOrderRequest) (*v12.AcceptOrderResponse, error) {
+func (s *taxiServiceServer) AcceptOrder(ctx context.Context, req *v1.AcceptOrderRequest) (*v1.AcceptOrderResponse, error) {
 
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
@@ -1263,14 +1263,14 @@ func (s *taxiServiceServer) AcceptOrder(ctx context.Context, req *v12.AcceptOrde
 			req.CabRideId))
 	}
 
-	return &v12.AcceptOrderResponse{
+	return &v1.AcceptOrderResponse{
 		Api:        apiVersion,
 		IsAccepted: true,
 	}, nil
 
 }
 
-func (s *taxiServiceServer) CancelOrder(ctx context.Context, req *v12.CancelOrderRequest) (*v12.CancelOrderResponse, error) {
+func (s *taxiServiceServer) CancelOrder(ctx context.Context, req *v1.CancelOrderRequest) (*v1.CancelOrderResponse, error) {
 
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
@@ -1299,14 +1299,14 @@ func (s *taxiServiceServer) CancelOrder(ctx context.Context, req *v12.CancelOrde
 			req.CabRideId))
 	}
 
-	return &v12.CancelOrderResponse{
+	return &v1.CancelOrderResponse{
 		Api:        apiVersion,
 		IsCanceled: true,
 	}, nil
 
 }
 
-func (s *taxiServiceServer) StartTrip(ctx context.Context, req *v12.StartTripRequest) (*v12.StartTripResponse, error) {
+func (s *taxiServiceServer) StartTrip(ctx context.Context, req *v1.StartTripRequest) (*v1.StartTripResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -1334,14 +1334,14 @@ func (s *taxiServiceServer) StartTrip(ctx context.Context, req *v12.StartTripReq
 			req.CabRideId))
 	}
 
-	return &v12.StartTripResponse{
+	return &v1.StartTripResponse{
 		Api:       apiVersion,
 		IsStarted: true,
 	}, nil
 
 }
 
-func (s *taxiServiceServer) EndTrip(ctx context.Context, req *v12.EndTripRequest) (*v12.EndTripResponse, error) {
+func (s *taxiServiceServer) EndTrip(ctx context.Context, req *v1.EndTripRequest) (*v1.EndTripResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
@@ -1369,7 +1369,7 @@ func (s *taxiServiceServer) EndTrip(ctx context.Context, req *v12.EndTripRequest
 			req.CabRideId))
 	}
 
-	return &v12.EndTripResponse{
+	return &v1.EndTripResponse{
 		Api:     apiVersion,
 		IsEnded: true,
 	}, nil

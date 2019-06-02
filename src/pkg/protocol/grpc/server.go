@@ -2,7 +2,7 @@ package grpc
 
 import (
 	"context"
-	v12 "golang-service/src/pkg/api/v1"
+	v1 "golang-service/src/pkg/api/v1"
 	"log"
 	"net"
 	"os"
@@ -12,7 +12,7 @@ import (
 )
 
 // RunServer runs gRPC service to publish taxi service
-func RunServer(ctx context.Context, v1API v12.TaxiServiceServer, port string) error {
+func RunServer(ctx context.Context, v1API v1.TaxiServiceServer, port string) error {
 	listen, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		return err
@@ -20,7 +20,7 @@ func RunServer(ctx context.Context, v1API v12.TaxiServiceServer, port string) er
 
 	// register service
 	server := grpc.NewServer()
-	v12.RegisterTaxiServiceServer(server, v1API)
+	v1.RegisterTaxiServiceServer(server, v1API)
 
 	// graceful shutdown
 	c := make(chan os.Signal, 1)

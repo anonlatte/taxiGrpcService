@@ -5,8 +5,8 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
-	grpc2 "golang-service/src/pkg/protocol/grpc"
-	v12 "golang-service/src/pkg/service/v1"
+	"golang-service/src/pkg/protocol/grpc"
+	v1 "golang-service/src/pkg/service/v1"
 
 	// mysql driver
 	_ "github.com/go-sql-driver/mysql"
@@ -62,7 +62,7 @@ func RunServer() error {
 	}
 	defer db.Close()
 
-	v1API := v12.NewTaxiServiceServer(db)
+	v1API := v1.NewTaxiServiceServer(db)
 
-	return grpc2.RunServer(ctx, v1API, cfg.GRPCPort)
+	return grpc.RunServer(ctx, v1API, cfg.GRPCPort)
 }
