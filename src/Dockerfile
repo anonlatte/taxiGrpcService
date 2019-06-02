@@ -8,7 +8,10 @@ RUN chmod +x /usr/bin/dep
 # Copy the code from the host and compile it
 WORKDIR $GOPATH/src/golang-service/src/
 
+
 COPY Gopkg.toml Gopkg.lock ./
 RUN dep ensure --vendor-only
 
 ADD . ./
+
+RUN mkdir documents
