@@ -5,7 +5,7 @@ services:
     image: vimagick/pure-ftpd
     container_name: pure-ftpd
     ports:
-      - "21:21"
+      - "2121:21"
     volumes:
       - ./src/cmd/server/documents:/home/ftpuser
       - ./ftp:/etc/pure-ftpd
