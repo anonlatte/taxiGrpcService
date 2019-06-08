@@ -1,5 +1,17 @@
 version: '3.1'
 services:
+
+  pureftpd:
+    image: vimagick/pure-ftpd
+    container_name: pure-ftpd
+    ports:
+      - "21:21"
+    volumes:
+      - ./src/cmd/server/documents:/home/ftpuser
+      - ./ftp:/etc/pure-ftpd
+    privileged: true
+    restart: always
+
   db:
     image: mysql
     container_name: mysql
