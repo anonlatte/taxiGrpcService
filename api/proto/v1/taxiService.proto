@@ -226,7 +226,7 @@ message DeleteDriverResponse {
 message CreateCabRideRequest {
     string api = 1;
     CabRide cabRide = 2;
-    string price = 3;
+    int32 price = 3;
     string authToken = 4;
 }
 
@@ -423,6 +423,53 @@ message EndTripResponse {
     bool isEnded = 2;
 }
 
+// For dispatchers
+
+
+message CreateDispatcherRequest {
+    string api = 1;
+    Dispatcher dispatcher = 2;
+}
+
+message CreateDispatcherResponse {
+    string api = 1;
+    int32 id = 2;
+    string authToken = 3;
+}
+
+message CreateCabRideDispatcherRequest {
+    string api = 1;
+    CabRide cabRide = 2;
+    Customer customer = 3;
+    int32 price = 4;
+    string authToken = 5;
+}
+
+message CreateCabRideDispatcherResponse {
+    string api = 1;
+    bool isCreated = 2;
+}
+
+message SetDetailsToOrderRequest {
+    string api = 1;
+    string message = 2;
+    int32 cabRideId = 3;
+}
+
+message SetDetailsToOrderResponse {
+    string api = 1;
+    bool isUpdated = 2;
+}
+
+message VerifyDriversAccountRequest {
+    string api = 1;
+    int32 driverId = 2;
+}
+
+message VerifyDriversAccountResponse {
+    string api = 1;
+    bool isVerified = 2;
+}
 
 service taxiService {
     // Auth routes
@@ -466,4 +513,10 @@ service taxiService {
     rpc CreateCab (CreateCabRequest) returns (CreateCabResponse);
 
     rpc CheckAvailableOrders (CheckAvailableOrdersRequest) returns (CheckAvailableOrdersResponse);
+
+    // For dispatchers
+    rpc CreateDispatcher (CreateDispatcherRequest) returns (CreateDispatcherResponse);
+    rpc CreateCabRideDispatcher (CreateCabRideDispatcherRequest) returns (CreateCabRideDispatcherResponse);
+    rpc SetDetailsToOrder (SetDetailsToOrderRequest) returns (SetDetailsToOrderResponse);
+    rpc VerifyDriversAccount (VerifyDriversAccountRequest) returns (VerifyDriversAccountResponse);
 }

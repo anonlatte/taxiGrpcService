@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"fmt"
 	v1 "golang-service/src/pkg/api/v1"
+	_ "golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"io/ioutil"
@@ -85,6 +86,15 @@ func passwordGenerate(unhashedPassword string) string {
 	passwordSha512.Write([]byte(unhashedPassword))
 	hashedPass := fmt.Sprintf("%x", passwordSha512.Sum(nil))
 	return hashedPass
+}
+
+func savePhoto(byteArray []byte, path string) (string, error) {
+	fileName := RandStringBytesMaskImprSrc(32) + ".webp"
+	err := ioutil.WriteFile(path+fileName, byteArray, os.ModePerm)
+	if err != nil {
+		return "", status.Error(codes.InvalidArgument, "Failed to save a photo "+err.Error())
+	}
+	return fileName, nil
 }
 
 // TODO: cleanup excess checkApi && checkConnection code
@@ -512,14 +522,12 @@ func (s *taxiServiceServer) CreateCabRide(ctx context.Context, req *v1.CreateCab
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
 	}
-	// TODO: Test this func
 	c, err := s.connect(ctx)
 	if err != nil {
 		return nil, err
 	}
 	defer c.Close()
 
-	// TODO check price set
 	res, err := c.ExecContext(ctx, "INSERT INTO cab_ride(customer_id, GPS_starting_point, entrance, GPS_destination, order_for_another, pending_order, payment_type_id, price, comment) VALUES(?, ?, ?, ? ,?, ?, ?, ?, ?)",
 		req.CabRide.CustomerId, req.CabRide.StartingPoint, req.CabRide.Entrance, req.CabRide.EndingPoint, req.CabRide.OrderForAnother, req.CabRide.PendingOrder, req.CabRide.PaymentTypeId, req.Price, req.CabRide.Comment)
 	if err != nil {
@@ -769,15 +777,6 @@ func (s *taxiServiceServer) CheckCabRideStatus(ctx context.Context, req *v1.Chec
 		BrandName:    td.BrandName,
 		RideStatus:   td.RideStatus,
 	}, nil
-}
-
-func savePhoto(byteArray []byte, path string) (string, error) {
-	fileName := RandStringBytesMaskImprSrc(32) + ".webp"
-	err := ioutil.WriteFile(path+fileName, byteArray, os.ModePerm)
-	if err != nil {
-		return "", status.Error(codes.InvalidArgument, "Failed to save a photo "+err.Error())
-	}
-	return fileName, nil
 }
 
 func (s *taxiServiceServer) ReadAllCarBrands(ctx context.Context, req *v1.ReadAllCarBrandsRequest) (*v1.ReadAllCarBrandsResponse, error) {
@@ -1375,3 +1374,193 @@ func (s *taxiServiceServer) EndTrip(ctx context.Context, req *v1.EndTripRequest)
 	}, nil
 
 }
+
+// Dispatcher functions
+
+func (s *taxiServiceServer) CreateDispatcher(ctx context.Context, req *v1.CreateDispatcherRequest) (*v1.CreateDispatcherResponse, error) {
+	{
+		if err := s.checkAPI(req.Api); err != nil {
+			return nil, err
+		}
+
+		c, err := s.connect(ctx)
+		if err != nil {
+			return nil, err
+		}
+		defer c.Close()
+
+		authToken := RandStringBytesMaskImprSrc(32)
+		hashedPass := passwordGenerate(req.Dispatcher.Password)
+		res, err := c.ExecContext(ctx, "INSERT INTO dispatcher VALUES(?,?,?,?,?,?,?,?,?,?)",
+			req.Dispatcher.FirstName, req.Dispatcher.Surname, req.Dispatcher.Partronymic, req.Dispatcher.PhoneNumber,
+			req.Dispatcher.Email, hashedPass, authToken)
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "failed to insert into Dispatcher -> "+err.Error())
+		}
+
+		// get ID of creates user
+		id, err := res.LastInsertId()
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve id for created Dispatcher -> "+err.Error())
+		}
+		fmt.Println("Dispatcher \"" + req.Dispatcher.PhoneNumber + "\" has been created!")
+		return &v1.CreateDispatcherResponse{
+			Api:       apiVersion,
+			Id:        int32(id),
+			AuthToken: authToken,
+		}, nil
+	}
+}
+
+func (s *taxiServiceServer) CreateCabRideDispatcher(ctx context.Context, req *v1.CreateCabRideDispatcherRequest) (*v1.CreateCabRideDispatcherResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// Check is user registered in service by phone_number
+
+	rows, err := c.QueryContext(ctx, "SELECT id FROM taxi.customer WHERE `phone_number`=?",
+		req.Customer.PhoneNumber)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from Customer-> "+err.Error())
+	}
+	defer rows.Close()
+
+	var customerId int64
+	// Create or select customer from DB
+
+	// If user is not registered
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from Customer-> "+err.Error())
+		}
+		hashedPass := passwordGenerate(RandStringBytesMaskImprSrc(8))
+		res, err := c.ExecContext(ctx, "INSERT INTO customer(phone_number, password) VALUES(?, ?)",
+			req.Customer.PhoneNumber, hashedPass)
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "failed to insert into Customer -> "+err.Error())
+		}
+
+		customerId, err = res.LastInsertId()
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve id for created Customer -> "+err.Error())
+		}
+		fmt.Println("Customer \"" + req.Customer.PhoneNumber + "\" has been created!")
+
+	} else {
+		if err = rows.Scan(&customerId); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve field values from Customer row-> "+err.Error())
+		}
+		if rows.Next() {
+			return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple Customer rows with phone_number='%s'",
+				req.Customer.PhoneNumber))
+		}
+	}
+
+	res, err := c.ExecContext(ctx, "INSERT INTO cab_ride(customer_id, GPS_starting_point, entrance, GPS_destination, price, comment) VALUES(?, ?, ?, ?, ?, ?)",
+		customerId, req.CabRide.StartingPoint, req.CabRide.Entrance, req.CabRide.EndingPoint, req.Price, req.CabRide.Comment)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to insert into cab_ride -> "+err.Error())
+	}
+
+	id, err := res.LastInsertId()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve id for created cab_ride -> "+err.Error())
+	}
+	fmt.Println("cab_ride " + string(id) + " has been created!")
+
+	res, err = c.ExecContext(ctx, "INSERT INTO cab_ride_status(cab_ride_id) VALUES(?)", id)
+
+	if res != nil {
+		id, err = res.LastInsertId()
+	}
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to insert into cab_ride_status -> "+err.Error())
+	}
+
+	fmt.Println("cab_ride_status " + string(id) + " has been created!")
+	return &v1.CreateCabRideDispatcherResponse{
+		Api:       apiVersion,
+		IsCreated: true,
+	}, nil
+}
+
+// TODO check добавление сведений по заказу
+func (s *taxiServiceServer) SetDetailsToOrder(ctx context.Context, req *v1.SetDetailsToOrderRequest) (*v1.SetDetailsToOrderResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	res, err := c.ExecContext(ctx, "UPDATE cab_ride_status SET cab_ride_status.status_details=? WHERE cab_ride_status.cab_ride_id=?", req.CabRideId, req.Message)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to update cab_ride-> "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with id='%d' is not found",
+			req.CabRideId))
+	}
+
+	return &v1.SetDetailsToOrderResponse{
+		Api:       apiVersion,
+		IsUpdated: true,
+	}, nil
+
+}
+
+// TODO подтверждение аккаунта таксиста
+func (s *taxiServiceServer) VerifyDriversAccount(ctx context.Context, req *v1.VerifyDriversAccountRequest) (*v1.VerifyDriversAccountResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	res, err := c.ExecContext(ctx, "UPDATE driver SET activated=1 WHERE id=?", req.DriverId)
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to update cab_ride-> "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with id='%d' is not found",
+			req.DriverId))
+	}
+
+	return &v1.VerifyDriversAccountResponse{
+		Api:        apiVersion,
+		IsVerified: true,
+	}, nil
+
+}
+
+// TODO получение сведений по заказам отдельного таксиста
+// TODO получение сведений по сменам таксиста
+// TODO получение сведений о заказах клиента
