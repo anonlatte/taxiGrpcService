@@ -46,3 +46,4 @@ services:
       - db
     volumes:
       - ./src/cmd/server/documents:/go/src/golang-service/src/documents
+      - ./src/pkg:/go/src/golang-service/src/pkg

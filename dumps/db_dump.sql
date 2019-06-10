@@ -239,19 +239,19 @@ DROP TABLE IF EXISTS `dispatcher`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dispatcher` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(128) NOT NULL,
-  `lasr_name` varchar(128) NOT NULL,
-  `patronymic` varchar(128) NOT NULL,
-  `phone_number` varchar(20) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `authToken` varchar(255) DEFAULT NULL,
-  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `phone_number_UNIQUE` (`phone_number`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+                              `id`           int(11)      NOT NULL AUTO_INCREMENT,
+                              `first_name`   varchar(128) NOT NULL,
+                              `last_name`    varchar(128) NOT NULL,
+                              `patronymic`   varchar(128) NOT NULL,
+                              `phone_number` varchar(20)  NOT NULL,
+                              `email`        varchar(255) DEFAULT NULL,
+                              `password`     varchar(255) NOT NULL,
+                              `authToken`    varchar(255) DEFAULT NULL,
+                              `create_time`  timestamp    NULL DEFAULT CURRENT_TIMESTAMP,
+                              `update_time`  timestamp    NULL DEFAULT CURRENT_TIMESTAMP,
+                              PRIMARY KEY (`id`),
+                              UNIQUE KEY `phone_number_UNIQUE` (`phone_number`),
+                              UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

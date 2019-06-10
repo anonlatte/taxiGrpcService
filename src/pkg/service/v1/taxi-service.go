@@ -5,6 +5,9 @@ import (
 	"crypto/sha512"
 	"database/sql"
 	"fmt"
+	"github.com/go-sql-driver/mysql"
+	"github.com/golang/protobuf/ptypes"
+	"github.com/golang/protobuf/ptypes/timestamp"
 	v1 "golang-service/src/pkg/api/v1"
 	_ "golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
@@ -447,6 +450,46 @@ func (s *taxiServiceServer) ReadCustomer(ctx context.Context, req *v1.ReadCustom
 	}, nil
 }
 
+func (s *taxiServiceServer) ReadAllCustomers(ctx context.Context, req *v1.ReadAllCustomersRequest) (*v1.ReadAllCustomersResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	rows, err := c.QueryContext(ctx, "SELECT id, name, phone_number, email, create_time FROM customer")
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from Car_model -> "+err.Error())
+	}
+	defer rows.Close()
+
+	var customers []*v1.Customer
+	var createTime time.Time
+	for rows.Next() {
+		td := new(v1.Customer)
+		if err := rows.Scan(&td.Id, &td.Name, &td.PhoneNumber, &td.Email, &createTime); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from Driver-> "+err.Error())
+		}
+		td.CreateTime = parseDate(createTime)
+		customers = append(customers, td)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve data from Driver-> "+err.Error())
+	}
+
+	return &v1.ReadAllCustomersResponse{
+		Api:      apiVersion,
+		Customer: customers,
+	}, nil
+
+}
+
 func (s *taxiServiceServer) UpdateCustomer(ctx context.Context, req *v1.UpdateCustomerRequest) (*v1.UpdateCustomerResponse, error) {
 	if err := s.checkAPI(req.Api); err != nil {
 		return nil, err
@@ -566,56 +609,77 @@ func (s *taxiServiceServer) DeleteCabRide(ctx context.Context, req *v1.DeleteCab
 		return nil, err
 	}
 	defer c.Close()
+	/*
+		// Token check
+		rows, err := c.QueryContext(ctx, "SELECT authToken FROM taxi.customer WHERE `id`=?",
+			req.CustomerId)
 
-	// Token check
-	rows, err := c.QueryContext(ctx, "SELECT authToken FROM taxi.customer WHERE `id`=?",
-		req.CustomerId)
-
-	if err != nil {
-		return nil, status.Error(codes.Unknown, "failed to select from Customer-> "+err.Error())
-	}
-	defer rows.Close()
-
-	if !rows.Next() {
-		if err := rows.Err(); err != nil {
-			return nil, status.Error(codes.Unknown, "failed to retrieve data from Customer-> "+err.Error())
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "failed to select from Customer-> "+err.Error())
 		}
-		return nil, status.Error(codes.NotFound, fmt.Sprintf("Customer with id='%d' is not found",
-			req.CustomerId))
-	}
-
-	var td v1.Customer
-	if err := rows.Scan(&td.AuthToken); err != nil {
-		return nil, status.Error(codes.Unknown, "failed to retrieve field values from Customer row-> "+err.Error())
-	}
-	if rows.Next() {
-		return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple Customer rows with id='%d'",
-			req.CustomerId))
-	}
-	if req.AuthToken == td.AuthToken {
 		defer rows.Close()
-		// Deleting cab_ride
-		res, err := c.ExecContext(ctx, "DELETE FROM cab_ride WHERE `id`=?", req.CabRideId)
-		if err != nil {
-			return nil, status.Error(codes.Unknown, "failed to delete cab_ride-> "+err.Error())
+
+		if !rows.Next() {
+			if err := rows.Err(); err != nil {
+				return nil, status.Error(codes.Unknown, "failed to retrieve data from Customer-> "+err.Error())
+			}
+			return nil, status.Error(codes.NotFound, fmt.Sprintf("Customer with id='%d' is not found",
+				req.CustomerId))
 		}
 
-		rows, err := res.RowsAffected()
-		if err != nil {
-			return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+		var td v1.Customer
+		if err := rows.Scan(&td.AuthToken); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve field values from Customer row-> "+err.Error())
 		}
+		if rows.Next() {
+			return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple Customer rows with id='%d'",
+				req.CustomerId))
+		}
+		if req.AuthToken == td.AuthToken {
+			defer rows.Close()
+			// Deleting cab_ride
+			res, err := c.ExecContext(ctx, "DELETE FROM cab_ride WHERE `id`=?", req.CabRideId)
+			if err != nil {
+				return nil, status.Error(codes.Unknown, "failed to delete cab_ride-> "+err.Error())
+			}
 
-		if rows == 0 {
-			return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with id='%d' is not found",
-				req.CabRideId))
-		}
-		return &v1.DeleteCabRideResponse{
-			Api:              apiVersion,
-			IsSuccessDeleted: true,
-		}, nil
-	} else {
-		return nil, status.Error(codes.Unauthenticated, fmt.Sprintf("Wrong token!"))
+			rows, err := res.RowsAffected()
+			if err != nil {
+				return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+			}
+
+			if rows == 0 {
+				return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with id='%d' is not found",
+					req.CabRideId))
+			}
+			return &v1.DeleteCabRideResponse{
+				Api:              apiVersion,
+				IsSuccessDeleted: true,
+			}, nil
+		} else {
+			return nil, status.Error(codes.Unauthenticated, fmt.Sprintf("Wrong token!"))
+		}*/
+
+	// Deleting cab_ride
+	res, err := c.ExecContext(ctx, "DELETE FROM cab_ride WHERE `id`=?", req.CabRideId)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to delete cab_ride-> "+err.Error())
 	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with id='%d' is not found",
+			req.CabRideId))
+	}
+	return &v1.DeleteCabRideResponse{
+		Api:              apiVersion,
+		IsSuccessDeleted: true,
+	}, nil
+
 }
 
 // TODO: update cab_ride
@@ -639,7 +703,6 @@ func (s *taxiServiceServer) CreateDriver(ctx context.Context, req *v1.CreateDriv
 		panic(err)
 	}
 	parsedBirthDate := time.Unix(birthDate, 0).Format("2006-01-02 15:04:05")
-
 	expiryDate, err := strconv.ParseInt(fmt.Sprintf("%d", req.Driver.BirthDate.GetSeconds()/1000), 10, 64)
 	if err != nil {
 		panic(err)
@@ -749,14 +812,14 @@ func (s *taxiServiceServer) CheckCabRideStatus(ctx context.Context, req *v1.Chec
 
 	// get user data
 	type responseTD struct {
-		FirstName    string
-		Surname      string
-		PhoneNumber  string
-		LicensePlate string
-		Color        string
-		ModelName    string
-		BrandName    string
-		RideStatus   int32
+		FirstName    sql.NullString
+		Surname      sql.NullString
+		PhoneNumber  sql.NullString
+		LicensePlate sql.NullString
+		Color        sql.NullString
+		ModelName    sql.NullString
+		BrandName    sql.NullString
+		RideStatus   sql.NullInt64
 	}
 	var td responseTD
 	if err := rows.Scan(&td.FirstName, &td.Surname, &td.PhoneNumber, &td.LicensePlate, &td.Color, &td.ModelName, &td.BrandName, &td.RideStatus); err != nil {
@@ -768,14 +831,14 @@ func (s *taxiServiceServer) CheckCabRideStatus(ctx context.Context, req *v1.Chec
 	}
 	return &v1.CheckCabRideStatusResponse{
 		Api:          apiVersion,
-		FirstName:    td.FirstName,
-		Surname:      td.Surname,
-		PhoneNumber:  td.PhoneNumber,
-		LicensePlate: td.LicensePlate,
-		Color:        td.Color,
-		ModelName:    td.ModelName,
-		BrandName:    td.BrandName,
-		RideStatus:   td.RideStatus,
+		FirstName:    td.FirstName.String,
+		Surname:      td.Surname.String,
+		PhoneNumber:  td.PhoneNumber.String,
+		LicensePlate: td.LicensePlate.String,
+		Color:        td.Color.String,
+		ModelName:    td.ModelName.String,
+		BrandName:    td.BrandName.String,
+		RideStatus:   int32(td.RideStatus.Int64),
 	}, nil
 }
 
@@ -1216,10 +1279,22 @@ func (s *taxiServiceServer) CheckAvailableOrders(ctx context.Context, req *v1.Ch
 			req.IgnoredOrder))
 	}
 
+	type CabRidesNull struct {
+		ShiftId       sql.NullInt64
+		RideStartTime mysql.NullTime
+		RideEndTime   mysql.NullTime
+		Entrance      sql.NullInt64
+		Comment       sql.NullString
+		FeedBack      sql.NullString
+	}
+	var cabRidesNull CabRidesNull
+
 	var td v1.CabRide
-	if err := rows.Scan(&td.Id, &td.StartingPoint, &td.Entrance, &td.EndingPoint, &td.OrderForAnother, &td.PendingOrder, &td.PaymentTypeId, &td.Price, &td.Comment); err != nil {
+	if err := rows.Scan(&td.Id, &td.StartingPoint, &cabRidesNull.Entrance, &td.EndingPoint, &td.OrderForAnother, &td.PendingOrder, &td.PaymentTypeId, &td.Price, &cabRidesNull.Comment); err != nil {
 		return nil, status.Error(codes.Unknown, "failed to retrieve field values from car_model or color row-> "+err.Error())
 	}
+	td.Entrance = int32(cabRidesNull.Entrance.Int64)
+	td.Comment = cabRidesNull.Comment.String
 	if rows.Next() {
 		return &v1.CheckAvailableOrdersResponse{
 			Api:     apiVersion,
@@ -1378,38 +1453,38 @@ func (s *taxiServiceServer) EndTrip(ctx context.Context, req *v1.EndTripRequest)
 // Dispatcher functions
 
 func (s *taxiServiceServer) CreateDispatcher(ctx context.Context, req *v1.CreateDispatcherRequest) (*v1.CreateDispatcherResponse, error) {
-	{
-		if err := s.checkAPI(req.Api); err != nil {
-			return nil, err
-		}
 
-		c, err := s.connect(ctx)
-		if err != nil {
-			return nil, err
-		}
-		defer c.Close()
-
-		authToken := RandStringBytesMaskImprSrc(32)
-		hashedPass := passwordGenerate(req.Dispatcher.Password)
-		res, err := c.ExecContext(ctx, "INSERT INTO dispatcher VALUES(?,?,?,?,?,?,?,?,?,?)",
-			req.Dispatcher.FirstName, req.Dispatcher.Surname, req.Dispatcher.Partronymic, req.Dispatcher.PhoneNumber,
-			req.Dispatcher.Email, hashedPass, authToken)
-		if err != nil {
-			return nil, status.Error(codes.Unknown, "failed to insert into Dispatcher -> "+err.Error())
-		}
-
-		// get ID of creates user
-		id, err := res.LastInsertId()
-		if err != nil {
-			return nil, status.Error(codes.Unknown, "failed to retrieve id for created Dispatcher -> "+err.Error())
-		}
-		fmt.Println("Dispatcher \"" + req.Dispatcher.PhoneNumber + "\" has been created!")
-		return &v1.CreateDispatcherResponse{
-			Api:       apiVersion,
-			Id:        int32(id),
-			AuthToken: authToken,
-		}, nil
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
 	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	authToken := RandStringBytesMaskImprSrc(32)
+	hashedPass := passwordGenerate(req.Dispatcher.Password)
+	res, err := c.ExecContext(ctx, "INSERT INTO dispatcher(first_name, last_name, patronymic, phone_number, email, password, authToken) VALUES(?, ?, ?, ?, ?, ?, ?)",
+		req.Dispatcher.FirstName, req.Dispatcher.Surname, req.Dispatcher.Partronymic, req.Dispatcher.PhoneNumber,
+		req.Dispatcher.Email, hashedPass, authToken)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to insert into Dispatcher -> "+err.Error())
+	}
+
+	// get ID of creates user
+	id, err := res.LastInsertId()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve id for created Dispatcher -> "+err.Error())
+	}
+	fmt.Println("Dispatcher \"" + req.Dispatcher.PhoneNumber + "\" has been created!")
+	return &v1.CreateDispatcherResponse{
+		Api:       apiVersion,
+		Id:        int32(id),
+		AuthToken: authToken,
+	}, nil
+
 }
 
 func (s *taxiServiceServer) CreateCabRideDispatcher(ctx context.Context, req *v1.CreateCabRideDispatcherRequest) (*v1.CreateCabRideDispatcherResponse, error) {
@@ -1462,32 +1537,32 @@ func (s *taxiServiceServer) CreateCabRideDispatcher(ctx context.Context, req *v1
 				req.Customer.PhoneNumber))
 		}
 	}
-
-	res, err := c.ExecContext(ctx, "INSERT INTO cab_ride(customer_id, GPS_starting_point, entrance, GPS_destination, price, comment) VALUES(?, ?, ?, ?, ?, ?)",
-		customerId, req.CabRide.StartingPoint, req.CabRide.Entrance, req.CabRide.EndingPoint, req.Price, req.CabRide.Comment)
+	res, err := c.ExecContext(ctx, "INSERT INTO cab_ride(customer_id, GPS_starting_point, GPS_destination) VALUES(?,?,?)",
+		int32(customerId), req.CabRide.StartingPoint, req.CabRide.EndingPoint)
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "failed to insert into cab_ride -> "+err.Error())
 	}
 
-	id, err := res.LastInsertId()
+	cabRideId, err := res.LastInsertId()
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "failed to retrieve id for created cab_ride -> "+err.Error())
 	}
-	fmt.Println("cab_ride " + string(id) + " has been created!")
+	fmt.Println("cab_ride " + string(cabRideId) + " has been created!")
 
-	res, err = c.ExecContext(ctx, "INSERT INTO cab_ride_status(cab_ride_id) VALUES(?)", id)
+	res, err = c.ExecContext(ctx, "INSERT INTO cab_ride_status(cab_ride_id) VALUES(?)", cabRideId)
 
 	if res != nil {
-		id, err = res.LastInsertId()
-	}
-	if err != nil {
-		return nil, status.Error(codes.Unknown, "failed to insert into cab_ride_status -> "+err.Error())
+		id, err := res.LastInsertId()
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "failed to insert into cab_ride_status -> "+err.Error())
+		}
+		fmt.Println("cab_ride_status " + string(id) + " has been created!")
 	}
 
-	fmt.Println("cab_ride_status " + string(id) + " has been created!")
 	return &v1.CreateCabRideDispatcherResponse{
 		Api:       apiVersion,
 		IsCreated: true,
+		CabRideId: int32(cabRideId),
 	}, nil
 }
 
@@ -1503,7 +1578,7 @@ func (s *taxiServiceServer) SetDetailsToOrder(ctx context.Context, req *v1.SetDe
 	}
 	defer c.Close()
 
-	res, err := c.ExecContext(ctx, "UPDATE cab_ride_status SET cab_ride_status.status_details=? WHERE cab_ride_status.cab_ride_id=?", req.CabRideId, req.Message)
+	res, err := c.ExecContext(ctx, "UPDATE cab_ride_status SET cab_ride_status.status_details=? WHERE cab_ride_status.cab_ride_id=?", req.Message, req.CabRideId)
 
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "failed to update cab_ride-> "+err.Error())
@@ -1524,6 +1599,56 @@ func (s *taxiServiceServer) SetDetailsToOrder(ctx context.Context, req *v1.SetDe
 		IsUpdated: true,
 	}, nil
 
+}
+
+func (s *taxiServiceServer) ReadAllDrivers(ctx context.Context, req *v1.ReadAllDriversRequest) (*v1.ReadAllDriversResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	rows, err := c.QueryContext(ctx, "SELECT id, first_name, surname, patronymic, birth_date, phone_number, working, email, activated, create_time FROM driver")
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from Car_model -> "+err.Error())
+	}
+	defer rows.Close()
+
+	var drivers []*v1.Driver
+	var birthDate, createTime time.Time
+	for rows.Next() {
+		td := new(v1.Driver)
+		if err := rows.Scan(&td.Id, &td.FirstName, &td.Surname, &td.Partronymic, &birthDate, &td.PhoneNumber,
+			&td.Working, &td.Email, &td.Activated, &createTime); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from Driver-> "+err.Error())
+		}
+		td.BirthDate = parseDate(birthDate)
+		td.CreateTime = parseDate(createTime)
+		drivers = append(drivers, td)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve data from Driver-> "+err.Error())
+	}
+
+	return &v1.ReadAllDriversResponse{
+		Api:    apiVersion,
+		Driver: drivers,
+	}, nil
+
+}
+
+func parseDate(birthDate time.Time) *timestamp.Timestamp {
+	parsedBirthDate := &timestamp.Timestamp{
+		Seconds: birthDate.Unix(),
+		Nanos:   int32(birthDate.Nanosecond()),
+	}
+	return parsedBirthDate
 }
 
 // TODO подтверждение аккаунта таксиста
@@ -1564,3 +1689,202 @@ func (s *taxiServiceServer) VerifyDriversAccount(ctx context.Context, req *v1.Ve
 // TODO получение сведений по заказам отдельного таксиста
 // TODO получение сведений по сменам таксиста
 // TODO получение сведений о заказах клиента
+
+func (s *taxiServiceServer) ReadAllCabRides(ctx context.Context, req *v1.ReadAllCabRidesRequest) (*v1.ReadAllCabRidesResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	rows, err := c.QueryContext(ctx, "SELECT id, customer_id, shift_id, ride_start_time, ride_end_time, GPS_starting_point, entrance, GPS_destination, canceled, order_for_another, pending_order, payment_type_id, price, comment, feedback FROM cab_ride")
+
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from Cab_ride -> "+err.Error())
+	}
+	defer rows.Close()
+
+	var cabRides []*v1.CabRide
+	var rideStartTime time.Time
+	var rideEndTime time.Time
+	type CabRidesNull struct {
+		ShiftId       sql.NullInt64
+		RideStartTime mysql.NullTime
+		RideEndTime   mysql.NullTime
+		Entrance      sql.NullInt64
+		Comment       sql.NullString
+		FeedBack      sql.NullString
+	}
+	var cabRidesNull CabRidesNull
+	for rows.Next() {
+		td := new(v1.CabRide)
+		if err := rows.Scan(&td.Id, &td.CustomerId, &cabRidesNull.ShiftId, &cabRidesNull.RideStartTime, &cabRidesNull.RideEndTime, &td.StartingPoint,
+			&cabRidesNull.Entrance, &td.EndingPoint, &td.Canceled, &td.OrderForAnother, &td.PendingOrder, &td.PaymentTypeId,
+			&td.Price, &cabRidesNull.Comment, &cabRidesNull.FeedBack); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from Cab_ride-> "+err.Error())
+		}
+		td.RideStartTime = parseDate(rideStartTime)
+		td.RideEndTime = parseDate(rideEndTime)
+		td.ShiftId = int32(cabRidesNull.ShiftId.Int64)
+		if cabRidesNull.RideStartTime.Time.Unix() > 1 {
+			td.RideStartTime, _ = ptypes.TimestampProto(cabRidesNull.RideStartTime.Time)
+		}
+		if cabRidesNull.RideEndTime.Time.Unix() > 1 {
+			td.RideEndTime, _ = ptypes.TimestampProto(cabRidesNull.RideEndTime.Time)
+		}
+		td.Entrance = int32(cabRidesNull.Entrance.Int64)
+		td.Comment = cabRidesNull.Comment.String
+		td.Feedback = cabRidesNull.FeedBack.String
+		cabRides = append(cabRides, td)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve data from Cab_ride-> "+err.Error())
+	}
+
+	return &v1.ReadAllCabRidesResponse{
+		Api:     apiVersion,
+		CabRide: cabRides,
+	}, nil
+
+}
+
+func (s *taxiServiceServer) ReadCabRideStatus(ctx context.Context, req *v1.ReadCabRideStatusRequest) (*v1.ReadCabRideStatusResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+	rows, err := c.QueryContext(ctx, "SELECT id, cab_ride_id, shift_id, ride_status, status_details FROM taxi.cab_ride_status WHERE `cab_ride_id`=?",
+		req.CabRideId)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from cab_ride_status-> "+err.Error())
+	}
+	defer rows.Close()
+
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from cab_ride_status-> "+err.Error())
+		}
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride_status with phone_number='%s' is not found",
+			req.CabRideId))
+	}
+
+	var td v1.CabRideStatus
+	if err := rows.Scan(&td.Id, &td.CabRideId, &td.ShiftId, &td.RideStatus, &td.StatusDetails); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve field values from cab_ride_status row-> "+err.Error())
+	}
+	if rows.Next() {
+		return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple cab_ride_status rows with phone_number='%s'",
+			req.CabRideId))
+	}
+
+	return &v1.ReadCabRideStatusResponse{
+		Api:           apiVersion,
+		CabRideStatus: &td,
+	}, nil
+
+}
+
+func (s *taxiServiceServer) ReadDriverStatistic(ctx context.Context, req *v1.ReadDriverStatisticRequest) (*v1.ReadDriverStatisticResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+	rows, err := c.QueryContext(ctx, "SELECT COUNT(*) FROM cab_ride, taxi.shift WHERE `shift_id`=shift.id AND driver_id=?",
+		req.DriverId)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from cab_ride-> "+err.Error())
+	}
+	defer rows.Close()
+
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from cab_ride-> "+err.Error())
+		}
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with driver_id='%d' is not found",
+			req.DriverId))
+	}
+
+	var cabRideCount sql.NullInt64
+	if err := rows.Scan(&cabRideCount); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve field values from cab_ride_status row-> "+err.Error())
+	}
+	if rows.Next() {
+		return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple cab_ride rows with driver_id='%d'",
+			req.DriverId))
+	}
+
+	if _, err := cabRideCount.Value(); err != nil {
+		return &v1.ReadDriverStatisticResponse{
+			Api:           apiVersion,
+			EndedCabRides: 0,
+		}, nil
+	} else {
+		return &v1.ReadDriverStatisticResponse{
+			Api:           apiVersion,
+			EndedCabRides: int32(cabRideCount.Int64),
+		}, nil
+	}
+
+}
+
+func (s *taxiServiceServer) ReadCustomerStatistic(ctx context.Context, req *v1.ReadCustomerStatisticRequest) (*v1.ReadCustomerStatisticResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+	rows, err := c.QueryContext(ctx, "SELECT COUNT(*) FROM cab_ride WHERE `customer_id`=?",
+		req.CustomerId)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from cab_ride-> "+err.Error())
+	}
+	defer rows.Close()
+
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from cab_ride-> "+err.Error())
+		}
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("cab_ride with customer_id='%d' is not found",
+			req.CustomerId))
+	}
+
+	var cabRideCount sql.NullInt64
+	if err := rows.Scan(&cabRideCount); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve field values from cab_ride_status row-> "+err.Error())
+	}
+	if rows.Next() {
+		return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple cab_ride rows with customer_id='%d'",
+			req.CustomerId))
+	}
+
+	if _, err := cabRideCount.Value(); err != nil {
+		return &v1.ReadCustomerStatisticResponse{
+			Api:             apiVersion,
+			OrderedCabRides: 0,
+		}, nil
+	} else {
+		return &v1.ReadCustomerStatisticResponse{
+			Api:             apiVersion,
+			OrderedCabRides: int32(cabRideCount.Int64),
+		}, nil
+	}
+}

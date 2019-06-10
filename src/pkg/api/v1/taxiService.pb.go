@@ -43,7 +43,7 @@ func (m *Customer) Reset()         { *m = Customer{} }
 func (m *Customer) String() string { return proto.CompactTextString(m) }
 func (*Customer) ProtoMessage()    {}
 func (*Customer) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{0}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{0}
 }
 func (m *Customer) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Customer.Unmarshal(m, b)
@@ -142,7 +142,7 @@ func (m *Driver) Reset()         { *m = Driver{} }
 func (m *Driver) String() string { return proto.CompactTextString(m) }
 func (*Driver) ProtoMessage()    {}
 func (*Driver) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{1}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{1}
 }
 func (m *Driver) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Driver.Unmarshal(m, b)
@@ -271,7 +271,7 @@ func (m *DriverDocuments) Reset()         { *m = DriverDocuments{} }
 func (m *DriverDocuments) String() string { return proto.CompactTextString(m) }
 func (*DriverDocuments) ProtoMessage()    {}
 func (*DriverDocuments) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{2}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{2}
 }
 func (m *DriverDocuments) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DriverDocuments.Unmarshal(m, b)
@@ -367,7 +367,7 @@ func (m *Dispatcher) Reset()         { *m = Dispatcher{} }
 func (m *Dispatcher) String() string { return proto.CompactTextString(m) }
 func (*Dispatcher) ProtoMessage()    {}
 func (*Dispatcher) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{3}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{3}
 }
 func (m *Dispatcher) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Dispatcher.Unmarshal(m, b)
@@ -470,7 +470,7 @@ func (m *Color) Reset()         { *m = Color{} }
 func (m *Color) String() string { return proto.CompactTextString(m) }
 func (*Color) ProtoMessage()    {}
 func (*Color) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{4}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{4}
 }
 func (m *Color) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Color.Unmarshal(m, b)
@@ -527,7 +527,7 @@ func (m *Cab) Reset()         { *m = Cab{} }
 func (m *Cab) String() string { return proto.CompactTextString(m) }
 func (*Cab) ProtoMessage()    {}
 func (*Cab) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{5}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{5}
 }
 func (m *Cab) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Cab.Unmarshal(m, b)
@@ -602,7 +602,7 @@ func (m *CarModel) Reset()         { *m = CarModel{} }
 func (m *CarModel) String() string { return proto.CompactTextString(m) }
 func (*CarModel) ProtoMessage()    {}
 func (*CarModel) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{6}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{6}
 }
 func (m *CarModel) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CarModel.Unmarshal(m, b)
@@ -655,7 +655,7 @@ func (m *CarBrand) Reset()         { *m = CarBrand{} }
 func (m *CarBrand) String() string { return proto.CompactTextString(m) }
 func (*CarBrand) ProtoMessage()    {}
 func (*CarBrand) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{7}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{7}
 }
 func (m *CarBrand) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CarBrand.Unmarshal(m, b)
@@ -714,7 +714,7 @@ func (m *CabRide) Reset()         { *m = CabRide{} }
 func (m *CabRide) String() string { return proto.CompactTextString(m) }
 func (*CabRide) ProtoMessage()    {}
 func (*CabRide) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{8}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{8}
 }
 func (m *CabRide) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CabRide.Unmarshal(m, b)
@@ -840,22 +840,23 @@ func (m *CabRide) GetFeedback() string {
 }
 
 type CabRideStatus struct {
-	Id                   int32                `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	CabRideId            int32                `protobuf:"varint,2,opt,name=cabRideId,proto3" json:"cabRideId,omitempty"`
-	ShiftId              int32                `protobuf:"varint,3,opt,name=shiftId,proto3" json:"shiftId,omitempty"`
-	StatusTime           *timestamp.Timestamp `protobuf:"bytes,4,opt,name=statusTime,proto3" json:"statusTime,omitempty"`
-	StatusDetails        int32                `protobuf:"varint,5,opt,name=statusDetails,proto3" json:"statusDetails,omitempty"`
-	DispatcherId         int32                `protobuf:"varint,6,opt,name=dispatcherId,proto3" json:"dispatcherId,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
+	Id                   int32    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CabRideId            int32    `protobuf:"varint,2,opt,name=cabRideId,proto3" json:"cabRideId,omitempty"`
+	ShiftId              int32    `protobuf:"varint,3,opt,name=shiftId,proto3" json:"shiftId,omitempty"`
+	StatusTime           int32    `protobuf:"varint,4,opt,name=statusTime,proto3" json:"statusTime,omitempty"`
+	StatusDetails        string   `protobuf:"bytes,5,opt,name=statusDetails,proto3" json:"statusDetails,omitempty"`
+	RideStatus           int32    `protobuf:"varint,6,opt,name=ride_status,json=rideStatus,proto3" json:"ride_status,omitempty"`
+	DispatcherId         int32    `protobuf:"varint,7,opt,name=dispatcherId,proto3" json:"dispatcherId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *CabRideStatus) Reset()         { *m = CabRideStatus{} }
 func (m *CabRideStatus) String() string { return proto.CompactTextString(m) }
 func (*CabRideStatus) ProtoMessage()    {}
 func (*CabRideStatus) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{9}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{9}
 }
 func (m *CabRideStatus) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CabRideStatus.Unmarshal(m, b)
@@ -896,16 +897,23 @@ func (m *CabRideStatus) GetShiftId() int32 {
 	return 0
 }
 
-func (m *CabRideStatus) GetStatusTime() *timestamp.Timestamp {
+func (m *CabRideStatus) GetStatusTime() int32 {
 	if m != nil {
 		return m.StatusTime
 	}
-	return nil
+	return 0
 }
 
-func (m *CabRideStatus) GetStatusDetails() int32 {
+func (m *CabRideStatus) GetStatusDetails() string {
 	if m != nil {
 		return m.StatusDetails
+	}
+	return ""
+}
+
+func (m *CabRideStatus) GetRideStatus() int32 {
+	if m != nil {
+		return m.RideStatus
 	}
 	return 0
 }
@@ -932,7 +940,7 @@ func (m *TokenCheckRequest) Reset()         { *m = TokenCheckRequest{} }
 func (m *TokenCheckRequest) String() string { return proto.CompactTextString(m) }
 func (*TokenCheckRequest) ProtoMessage()    {}
 func (*TokenCheckRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{10}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{10}
 }
 func (m *TokenCheckRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_TokenCheckRequest.Unmarshal(m, b)
@@ -999,7 +1007,7 @@ func (m *TokenCheckResponse) Reset()         { *m = TokenCheckResponse{} }
 func (m *TokenCheckResponse) String() string { return proto.CompactTextString(m) }
 func (*TokenCheckResponse) ProtoMessage()    {}
 func (*TokenCheckResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{11}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{11}
 }
 func (m *TokenCheckResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_TokenCheckResponse.Unmarshal(m, b)
@@ -1047,7 +1055,7 @@ func (m *LoginRequest) Reset()         { *m = LoginRequest{} }
 func (m *LoginRequest) String() string { return proto.CompactTextString(m) }
 func (*LoginRequest) ProtoMessage()    {}
 func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{12}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{12}
 }
 func (m *LoginRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LoginRequest.Unmarshal(m, b)
@@ -1108,7 +1116,7 @@ func (m *LoginResponse) Reset()         { *m = LoginResponse{} }
 func (m *LoginResponse) String() string { return proto.CompactTextString(m) }
 func (*LoginResponse) ProtoMessage()    {}
 func (*LoginResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{13}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{13}
 }
 func (m *LoginResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LoginResponse.Unmarshal(m, b)
@@ -1161,7 +1169,7 @@ func (m *CreateCustomerRequest) Reset()         { *m = CreateCustomerRequest{} }
 func (m *CreateCustomerRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateCustomerRequest) ProtoMessage()    {}
 func (*CreateCustomerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{14}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{14}
 }
 func (m *CreateCustomerRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateCustomerRequest.Unmarshal(m, b)
@@ -1208,7 +1216,7 @@ func (m *CreateCustomerResponse) Reset()         { *m = CreateCustomerResponse{}
 func (m *CreateCustomerResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateCustomerResponse) ProtoMessage()    {}
 func (*CreateCustomerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{15}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{15}
 }
 func (m *CreateCustomerResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateCustomerResponse.Unmarshal(m, b)
@@ -1261,7 +1269,7 @@ func (m *ReadCustomerRequest) Reset()         { *m = ReadCustomerRequest{} }
 func (m *ReadCustomerRequest) String() string { return proto.CompactTextString(m) }
 func (*ReadCustomerRequest) ProtoMessage()    {}
 func (*ReadCustomerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{16}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{16}
 }
 func (m *ReadCustomerRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadCustomerRequest.Unmarshal(m, b)
@@ -1307,7 +1315,7 @@ func (m *ReadCustomerResponse) Reset()         { *m = ReadCustomerResponse{} }
 func (m *ReadCustomerResponse) String() string { return proto.CompactTextString(m) }
 func (*ReadCustomerResponse) ProtoMessage()    {}
 func (*ReadCustomerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{17}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{17}
 }
 func (m *ReadCustomerResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadCustomerResponse.Unmarshal(m, b)
@@ -1353,7 +1361,7 @@ func (m *UpdateCustomerRequest) Reset()         { *m = UpdateCustomerRequest{} }
 func (m *UpdateCustomerRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateCustomerRequest) ProtoMessage()    {}
 func (*UpdateCustomerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{18}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{18}
 }
 func (m *UpdateCustomerRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateCustomerRequest.Unmarshal(m, b)
@@ -1399,7 +1407,7 @@ func (m *UpdateCustomerResponse) Reset()         { *m = UpdateCustomerResponse{}
 func (m *UpdateCustomerResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateCustomerResponse) ProtoMessage()    {}
 func (*UpdateCustomerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{19}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{19}
 }
 func (m *UpdateCustomerResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateCustomerResponse.Unmarshal(m, b)
@@ -1445,7 +1453,7 @@ func (m *DeleteCustomerRequest) Reset()         { *m = DeleteCustomerRequest{} }
 func (m *DeleteCustomerRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteCustomerRequest) ProtoMessage()    {}
 func (*DeleteCustomerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{20}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{20}
 }
 func (m *DeleteCustomerRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteCustomerRequest.Unmarshal(m, b)
@@ -1491,7 +1499,7 @@ func (m *DeleteCustomerResponse) Reset()         { *m = DeleteCustomerResponse{}
 func (m *DeleteCustomerResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteCustomerResponse) ProtoMessage()    {}
 func (*DeleteCustomerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{21}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{21}
 }
 func (m *DeleteCustomerResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteCustomerResponse.Unmarshal(m, b)
@@ -1538,7 +1546,7 @@ func (m *CreateDriverRequest) Reset()         { *m = CreateDriverRequest{} }
 func (m *CreateDriverRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateDriverRequest) ProtoMessage()    {}
 func (*CreateDriverRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{22}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{22}
 }
 func (m *CreateDriverRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateDriverRequest.Unmarshal(m, b)
@@ -1592,7 +1600,7 @@ func (m *CreateDriverResponse) Reset()         { *m = CreateDriverResponse{} }
 func (m *CreateDriverResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateDriverResponse) ProtoMessage()    {}
 func (*CreateDriverResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{23}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{23}
 }
 func (m *CreateDriverResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateDriverResponse.Unmarshal(m, b)
@@ -1645,7 +1653,7 @@ func (m *ReadDriverRequest) Reset()         { *m = ReadDriverRequest{} }
 func (m *ReadDriverRequest) String() string { return proto.CompactTextString(m) }
 func (*ReadDriverRequest) ProtoMessage()    {}
 func (*ReadDriverRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{24}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{24}
 }
 func (m *ReadDriverRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadDriverRequest.Unmarshal(m, b)
@@ -1692,7 +1700,7 @@ func (m *ReadDriverResponse) Reset()         { *m = ReadDriverResponse{} }
 func (m *ReadDriverResponse) String() string { return proto.CompactTextString(m) }
 func (*ReadDriverResponse) ProtoMessage()    {}
 func (*ReadDriverResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{25}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{25}
 }
 func (m *ReadDriverResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadDriverResponse.Unmarshal(m, b)
@@ -1746,7 +1754,7 @@ func (m *UpdateDriverRequest) Reset()         { *m = UpdateDriverRequest{} }
 func (m *UpdateDriverRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateDriverRequest) ProtoMessage()    {}
 func (*UpdateDriverRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{26}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{26}
 }
 func (m *UpdateDriverRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateDriverRequest.Unmarshal(m, b)
@@ -1799,7 +1807,7 @@ func (m *UpdateDriverResponse) Reset()         { *m = UpdateDriverResponse{} }
 func (m *UpdateDriverResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateDriverResponse) ProtoMessage()    {}
 func (*UpdateDriverResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{27}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{27}
 }
 func (m *UpdateDriverResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateDriverResponse.Unmarshal(m, b)
@@ -1845,7 +1853,7 @@ func (m *DeleteDriverRequest) Reset()         { *m = DeleteDriverRequest{} }
 func (m *DeleteDriverRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteDriverRequest) ProtoMessage()    {}
 func (*DeleteDriverRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{28}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{28}
 }
 func (m *DeleteDriverRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteDriverRequest.Unmarshal(m, b)
@@ -1891,7 +1899,7 @@ func (m *DeleteDriverResponse) Reset()         { *m = DeleteDriverResponse{} }
 func (m *DeleteDriverResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteDriverResponse) ProtoMessage()    {}
 func (*DeleteDriverResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{29}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{29}
 }
 func (m *DeleteDriverResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteDriverResponse.Unmarshal(m, b)
@@ -1939,7 +1947,7 @@ func (m *CreateCabRideRequest) Reset()         { *m = CreateCabRideRequest{} }
 func (m *CreateCabRideRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateCabRideRequest) ProtoMessage()    {}
 func (*CreateCabRideRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{30}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{30}
 }
 func (m *CreateCabRideRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateCabRideRequest.Unmarshal(m, b)
@@ -1999,7 +2007,7 @@ func (m *CreateCabRideResponse) Reset()         { *m = CreateCabRideResponse{} }
 func (m *CreateCabRideResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateCabRideResponse) ProtoMessage()    {}
 func (*CreateCabRideResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{31}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{31}
 }
 func (m *CreateCabRideResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateCabRideResponse.Unmarshal(m, b)
@@ -2046,7 +2054,7 @@ func (m *UpdateCabRideRequest) Reset()         { *m = UpdateCabRideRequest{} }
 func (m *UpdateCabRideRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateCabRideRequest) ProtoMessage()    {}
 func (*UpdateCabRideRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{32}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{32}
 }
 func (m *UpdateCabRideRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateCabRideRequest.Unmarshal(m, b)
@@ -2099,7 +2107,7 @@ func (m *UpdateCabRideResponse) Reset()         { *m = UpdateCabRideResponse{} }
 func (m *UpdateCabRideResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateCabRideResponse) ProtoMessage()    {}
 func (*UpdateCabRideResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{33}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{33}
 }
 func (m *UpdateCabRideResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateCabRideResponse.Unmarshal(m, b)
@@ -2147,7 +2155,7 @@ func (m *DeleteCabRideRequest) Reset()         { *m = DeleteCabRideRequest{} }
 func (m *DeleteCabRideRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteCabRideRequest) ProtoMessage()    {}
 func (*DeleteCabRideRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{34}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{34}
 }
 func (m *DeleteCabRideRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteCabRideRequest.Unmarshal(m, b)
@@ -2207,7 +2215,7 @@ func (m *DeleteCabRideResponse) Reset()         { *m = DeleteCabRideResponse{} }
 func (m *DeleteCabRideResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteCabRideResponse) ProtoMessage()    {}
 func (*DeleteCabRideResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{35}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{35}
 }
 func (m *DeleteCabRideResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteCabRideResponse.Unmarshal(m, b)
@@ -2254,7 +2262,7 @@ func (m *CheckCabRideStatusRequest) Reset()         { *m = CheckCabRideStatusReq
 func (m *CheckCabRideStatusRequest) String() string { return proto.CompactTextString(m) }
 func (*CheckCabRideStatusRequest) ProtoMessage()    {}
 func (*CheckCabRideStatusRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{36}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{36}
 }
 func (m *CheckCabRideStatusRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckCabRideStatusRequest.Unmarshal(m, b)
@@ -2314,7 +2322,7 @@ func (m *CheckCabRideStatusResponse) Reset()         { *m = CheckCabRideStatusRe
 func (m *CheckCabRideStatusResponse) String() string { return proto.CompactTextString(m) }
 func (*CheckCabRideStatusResponse) ProtoMessage()    {}
 func (*CheckCabRideStatusResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{37}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{37}
 }
 func (m *CheckCabRideStatusResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckCabRideStatusResponse.Unmarshal(m, b)
@@ -2408,7 +2416,7 @@ func (m *ReadAllCarBrandsRequest) Reset()         { *m = ReadAllCarBrandsRequest
 func (m *ReadAllCarBrandsRequest) String() string { return proto.CompactTextString(m) }
 func (*ReadAllCarBrandsRequest) ProtoMessage()    {}
 func (*ReadAllCarBrandsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{38}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{38}
 }
 func (m *ReadAllCarBrandsRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadAllCarBrandsRequest.Unmarshal(m, b)
@@ -2447,7 +2455,7 @@ func (m *ReadAllCarBrandsResponse) Reset()         { *m = ReadAllCarBrandsRespon
 func (m *ReadAllCarBrandsResponse) String() string { return proto.CompactTextString(m) }
 func (*ReadAllCarBrandsResponse) ProtoMessage()    {}
 func (*ReadAllCarBrandsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{39}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{39}
 }
 func (m *ReadAllCarBrandsResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadAllCarBrandsResponse.Unmarshal(m, b)
@@ -2493,7 +2501,7 @@ func (m *ReadAllCarModelsRequest) Reset()         { *m = ReadAllCarModelsRequest
 func (m *ReadAllCarModelsRequest) String() string { return proto.CompactTextString(m) }
 func (*ReadAllCarModelsRequest) ProtoMessage()    {}
 func (*ReadAllCarModelsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{40}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{40}
 }
 func (m *ReadAllCarModelsRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadAllCarModelsRequest.Unmarshal(m, b)
@@ -2539,7 +2547,7 @@ func (m *ReadAllCarModelsResponse) Reset()         { *m = ReadAllCarModelsRespon
 func (m *ReadAllCarModelsResponse) String() string { return proto.CompactTextString(m) }
 func (*ReadAllCarModelsResponse) ProtoMessage()    {}
 func (*ReadAllCarModelsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{41}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{41}
 }
 func (m *ReadAllCarModelsResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadAllCarModelsResponse.Unmarshal(m, b)
@@ -2584,7 +2592,7 @@ func (m *ReadAllColorsRequest) Reset()         { *m = ReadAllColorsRequest{} }
 func (m *ReadAllColorsRequest) String() string { return proto.CompactTextString(m) }
 func (*ReadAllColorsRequest) ProtoMessage()    {}
 func (*ReadAllColorsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{42}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{42}
 }
 func (m *ReadAllColorsRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadAllColorsRequest.Unmarshal(m, b)
@@ -2623,7 +2631,7 @@ func (m *ReadAllColorsResponse) Reset()         { *m = ReadAllColorsResponse{} }
 func (m *ReadAllColorsResponse) String() string { return proto.CompactTextString(m) }
 func (*ReadAllColorsResponse) ProtoMessage()    {}
 func (*ReadAllColorsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{43}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{43}
 }
 func (m *ReadAllColorsResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadAllColorsResponse.Unmarshal(m, b)
@@ -2673,7 +2681,7 @@ func (m *CreateCabRequest) Reset()         { *m = CreateCabRequest{} }
 func (m *CreateCabRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateCabRequest) ProtoMessage()    {}
 func (*CreateCabRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{44}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{44}
 }
 func (m *CreateCabRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateCabRequest.Unmarshal(m, b)
@@ -2747,7 +2755,7 @@ func (m *CreateCabResponse) Reset()         { *m = CreateCabResponse{} }
 func (m *CreateCabResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateCabResponse) ProtoMessage()    {}
 func (*CreateCabResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{45}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{45}
 }
 func (m *CreateCabResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateCabResponse.Unmarshal(m, b)
@@ -2793,7 +2801,7 @@ func (m *GetDriversCabsRequest) Reset()         { *m = GetDriversCabsRequest{} }
 func (m *GetDriversCabsRequest) String() string { return proto.CompactTextString(m) }
 func (*GetDriversCabsRequest) ProtoMessage()    {}
 func (*GetDriversCabsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{46}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{46}
 }
 func (m *GetDriversCabsRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetDriversCabsRequest.Unmarshal(m, b)
@@ -2839,7 +2847,7 @@ func (m *GetDriversCabsResponse) Reset()         { *m = GetDriversCabsResponse{}
 func (m *GetDriversCabsResponse) String() string { return proto.CompactTextString(m) }
 func (*GetDriversCabsResponse) ProtoMessage()    {}
 func (*GetDriversCabsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{47}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{47}
 }
 func (m *GetDriversCabsResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetDriversCabsResponse.Unmarshal(m, b)
@@ -2885,7 +2893,7 @@ func (m *StartShiftRequest) Reset()         { *m = StartShiftRequest{} }
 func (m *StartShiftRequest) String() string { return proto.CompactTextString(m) }
 func (*StartShiftRequest) ProtoMessage()    {}
 func (*StartShiftRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{48}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{48}
 }
 func (m *StartShiftRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StartShiftRequest.Unmarshal(m, b)
@@ -2931,7 +2939,7 @@ func (m *StartShiftResponse) Reset()         { *m = StartShiftResponse{} }
 func (m *StartShiftResponse) String() string { return proto.CompactTextString(m) }
 func (*StartShiftResponse) ProtoMessage()    {}
 func (*StartShiftResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{49}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{49}
 }
 func (m *StartShiftResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StartShiftResponse.Unmarshal(m, b)
@@ -2977,7 +2985,7 @@ func (m *StopShiftRequest) Reset()         { *m = StopShiftRequest{} }
 func (m *StopShiftRequest) String() string { return proto.CompactTextString(m) }
 func (*StopShiftRequest) ProtoMessage()    {}
 func (*StopShiftRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{50}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{50}
 }
 func (m *StopShiftRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StopShiftRequest.Unmarshal(m, b)
@@ -3023,7 +3031,7 @@ func (m *StopShiftResponse) Reset()         { *m = StopShiftResponse{} }
 func (m *StopShiftResponse) String() string { return proto.CompactTextString(m) }
 func (*StopShiftResponse) ProtoMessage()    {}
 func (*StopShiftResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{51}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{51}
 }
 func (m *StopShiftResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StopShiftResponse.Unmarshal(m, b)
@@ -3071,7 +3079,7 @@ func (m *CheckAvailableOrdersRequest) Reset()         { *m = CheckAvailableOrder
 func (m *CheckAvailableOrdersRequest) String() string { return proto.CompactTextString(m) }
 func (*CheckAvailableOrdersRequest) ProtoMessage()    {}
 func (*CheckAvailableOrdersRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{52}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{52}
 }
 func (m *CheckAvailableOrdersRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckAvailableOrdersRequest.Unmarshal(m, b)
@@ -3131,7 +3139,7 @@ func (m *CheckAvailableOrdersResponse) Reset()         { *m = CheckAvailableOrde
 func (m *CheckAvailableOrdersResponse) String() string { return proto.CompactTextString(m) }
 func (*CheckAvailableOrdersResponse) ProtoMessage()    {}
 func (*CheckAvailableOrdersResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{53}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{53}
 }
 func (m *CheckAvailableOrdersResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckAvailableOrdersResponse.Unmarshal(m, b)
@@ -3178,7 +3186,7 @@ func (m *AcceptOrderRequest) Reset()         { *m = AcceptOrderRequest{} }
 func (m *AcceptOrderRequest) String() string { return proto.CompactTextString(m) }
 func (*AcceptOrderRequest) ProtoMessage()    {}
 func (*AcceptOrderRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{54}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{54}
 }
 func (m *AcceptOrderRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AcceptOrderRequest.Unmarshal(m, b)
@@ -3231,7 +3239,7 @@ func (m *AcceptOrderResponse) Reset()         { *m = AcceptOrderResponse{} }
 func (m *AcceptOrderResponse) String() string { return proto.CompactTextString(m) }
 func (*AcceptOrderResponse) ProtoMessage()    {}
 func (*AcceptOrderResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{55}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{55}
 }
 func (m *AcceptOrderResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AcceptOrderResponse.Unmarshal(m, b)
@@ -3278,7 +3286,7 @@ func (m *CancelOrderRequest) Reset()         { *m = CancelOrderRequest{} }
 func (m *CancelOrderRequest) String() string { return proto.CompactTextString(m) }
 func (*CancelOrderRequest) ProtoMessage()    {}
 func (*CancelOrderRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{56}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{56}
 }
 func (m *CancelOrderRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CancelOrderRequest.Unmarshal(m, b)
@@ -3331,7 +3339,7 @@ func (m *CancelOrderResponse) Reset()         { *m = CancelOrderResponse{} }
 func (m *CancelOrderResponse) String() string { return proto.CompactTextString(m) }
 func (*CancelOrderResponse) ProtoMessage()    {}
 func (*CancelOrderResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{57}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{57}
 }
 func (m *CancelOrderResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CancelOrderResponse.Unmarshal(m, b)
@@ -3378,7 +3386,7 @@ func (m *StartTripRequest) Reset()         { *m = StartTripRequest{} }
 func (m *StartTripRequest) String() string { return proto.CompactTextString(m) }
 func (*StartTripRequest) ProtoMessage()    {}
 func (*StartTripRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{58}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{58}
 }
 func (m *StartTripRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StartTripRequest.Unmarshal(m, b)
@@ -3431,7 +3439,7 @@ func (m *StartTripResponse) Reset()         { *m = StartTripResponse{} }
 func (m *StartTripResponse) String() string { return proto.CompactTextString(m) }
 func (*StartTripResponse) ProtoMessage()    {}
 func (*StartTripResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{59}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{59}
 }
 func (m *StartTripResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StartTripResponse.Unmarshal(m, b)
@@ -3478,7 +3486,7 @@ func (m *EndTripRequest) Reset()         { *m = EndTripRequest{} }
 func (m *EndTripRequest) String() string { return proto.CompactTextString(m) }
 func (*EndTripRequest) ProtoMessage()    {}
 func (*EndTripRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{60}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{60}
 }
 func (m *EndTripRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_EndTripRequest.Unmarshal(m, b)
@@ -3531,7 +3539,7 @@ func (m *EndTripResponse) Reset()         { *m = EndTripResponse{} }
 func (m *EndTripResponse) String() string { return proto.CompactTextString(m) }
 func (*EndTripResponse) ProtoMessage()    {}
 func (*EndTripResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{61}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{61}
 }
 func (m *EndTripResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_EndTripResponse.Unmarshal(m, b)
@@ -3577,7 +3585,7 @@ func (m *CreateDispatcherRequest) Reset()         { *m = CreateDispatcherRequest
 func (m *CreateDispatcherRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateDispatcherRequest) ProtoMessage()    {}
 func (*CreateDispatcherRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{62}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{62}
 }
 func (m *CreateDispatcherRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateDispatcherRequest.Unmarshal(m, b)
@@ -3624,7 +3632,7 @@ func (m *CreateDispatcherResponse) Reset()         { *m = CreateDispatcherRespon
 func (m *CreateDispatcherResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateDispatcherResponse) ProtoMessage()    {}
 func (*CreateDispatcherResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{63}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{63}
 }
 func (m *CreateDispatcherResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateDispatcherResponse.Unmarshal(m, b)
@@ -3680,7 +3688,7 @@ func (m *CreateCabRideDispatcherRequest) Reset()         { *m = CreateCabRideDis
 func (m *CreateCabRideDispatcherRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateCabRideDispatcherRequest) ProtoMessage()    {}
 func (*CreateCabRideDispatcherRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{64}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{64}
 }
 func (m *CreateCabRideDispatcherRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateCabRideDispatcherRequest.Unmarshal(m, b)
@@ -3738,6 +3746,7 @@ func (m *CreateCabRideDispatcherRequest) GetAuthToken() string {
 type CreateCabRideDispatcherResponse struct {
 	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
 	IsCreated            bool     `protobuf:"varint,2,opt,name=isCreated,proto3" json:"isCreated,omitempty"`
+	CabRideId            int32    `protobuf:"varint,3,opt,name=cabRideId,proto3" json:"cabRideId,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -3747,7 +3756,7 @@ func (m *CreateCabRideDispatcherResponse) Reset()         { *m = CreateCabRideDi
 func (m *CreateCabRideDispatcherResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateCabRideDispatcherResponse) ProtoMessage()    {}
 func (*CreateCabRideDispatcherResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{65}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{65}
 }
 func (m *CreateCabRideDispatcherResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateCabRideDispatcherResponse.Unmarshal(m, b)
@@ -3781,6 +3790,13 @@ func (m *CreateCabRideDispatcherResponse) GetIsCreated() bool {
 	return false
 }
 
+func (m *CreateCabRideDispatcherResponse) GetCabRideId() int32 {
+	if m != nil {
+		return m.CabRideId
+	}
+	return 0
+}
+
 type SetDetailsToOrderRequest struct {
 	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
 	Message              string   `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
@@ -3794,7 +3810,7 @@ func (m *SetDetailsToOrderRequest) Reset()         { *m = SetDetailsToOrderReque
 func (m *SetDetailsToOrderRequest) String() string { return proto.CompactTextString(m) }
 func (*SetDetailsToOrderRequest) ProtoMessage()    {}
 func (*SetDetailsToOrderRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{66}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{66}
 }
 func (m *SetDetailsToOrderRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SetDetailsToOrderRequest.Unmarshal(m, b)
@@ -3847,7 +3863,7 @@ func (m *SetDetailsToOrderResponse) Reset()         { *m = SetDetailsToOrderResp
 func (m *SetDetailsToOrderResponse) String() string { return proto.CompactTextString(m) }
 func (*SetDetailsToOrderResponse) ProtoMessage()    {}
 func (*SetDetailsToOrderResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{67}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{67}
 }
 func (m *SetDetailsToOrderResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SetDetailsToOrderResponse.Unmarshal(m, b)
@@ -3881,6 +3897,98 @@ func (m *SetDetailsToOrderResponse) GetIsUpdated() bool {
 	return false
 }
 
+type ReadAllDriversRequest struct {
+	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	AuthToken            string   `protobuf:"bytes,2,opt,name=authToken,proto3" json:"authToken,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReadAllDriversRequest) Reset()         { *m = ReadAllDriversRequest{} }
+func (m *ReadAllDriversRequest) String() string { return proto.CompactTextString(m) }
+func (*ReadAllDriversRequest) ProtoMessage()    {}
+func (*ReadAllDriversRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{68}
+}
+func (m *ReadAllDriversRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadAllDriversRequest.Unmarshal(m, b)
+}
+func (m *ReadAllDriversRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadAllDriversRequest.Marshal(b, m, deterministic)
+}
+func (dst *ReadAllDriversRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadAllDriversRequest.Merge(dst, src)
+}
+func (m *ReadAllDriversRequest) XXX_Size() int {
+	return xxx_messageInfo_ReadAllDriversRequest.Size(m)
+}
+func (m *ReadAllDriversRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadAllDriversRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadAllDriversRequest proto.InternalMessageInfo
+
+func (m *ReadAllDriversRequest) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadAllDriversRequest) GetAuthToken() string {
+	if m != nil {
+		return m.AuthToken
+	}
+	return ""
+}
+
+type ReadAllDriversResponse struct {
+	Api                  string    `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	Driver               []*Driver `protobuf:"bytes,2,rep,name=driver,proto3" json:"driver,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *ReadAllDriversResponse) Reset()         { *m = ReadAllDriversResponse{} }
+func (m *ReadAllDriversResponse) String() string { return proto.CompactTextString(m) }
+func (*ReadAllDriversResponse) ProtoMessage()    {}
+func (*ReadAllDriversResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{69}
+}
+func (m *ReadAllDriversResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadAllDriversResponse.Unmarshal(m, b)
+}
+func (m *ReadAllDriversResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadAllDriversResponse.Marshal(b, m, deterministic)
+}
+func (dst *ReadAllDriversResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadAllDriversResponse.Merge(dst, src)
+}
+func (m *ReadAllDriversResponse) XXX_Size() int {
+	return xxx_messageInfo_ReadAllDriversResponse.Size(m)
+}
+func (m *ReadAllDriversResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadAllDriversResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadAllDriversResponse proto.InternalMessageInfo
+
+func (m *ReadAllDriversResponse) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadAllDriversResponse) GetDriver() []*Driver {
+	if m != nil {
+		return m.Driver
+	}
+	return nil
+}
+
 type VerifyDriversAccountRequest struct {
 	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
 	DriverId             int32    `protobuf:"varint,2,opt,name=driverId,proto3" json:"driverId,omitempty"`
@@ -3893,7 +4001,7 @@ func (m *VerifyDriversAccountRequest) Reset()         { *m = VerifyDriversAccoun
 func (m *VerifyDriversAccountRequest) String() string { return proto.CompactTextString(m) }
 func (*VerifyDriversAccountRequest) ProtoMessage()    {}
 func (*VerifyDriversAccountRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{68}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{70}
 }
 func (m *VerifyDriversAccountRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_VerifyDriversAccountRequest.Unmarshal(m, b)
@@ -3939,7 +4047,7 @@ func (m *VerifyDriversAccountResponse) Reset()         { *m = VerifyDriversAccou
 func (m *VerifyDriversAccountResponse) String() string { return proto.CompactTextString(m) }
 func (*VerifyDriversAccountResponse) ProtoMessage()    {}
 func (*VerifyDriversAccountResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_taxiService_13cab814ad3696f9, []int{69}
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{71}
 }
 func (m *VerifyDriversAccountResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_VerifyDriversAccountResponse.Unmarshal(m, b)
@@ -3971,6 +4079,474 @@ func (m *VerifyDriversAccountResponse) GetIsVerified() bool {
 		return m.IsVerified
 	}
 	return false
+}
+
+type ReadAllCustomersRequest struct {
+	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	AuthToken            string   `protobuf:"bytes,2,opt,name=authToken,proto3" json:"authToken,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReadAllCustomersRequest) Reset()         { *m = ReadAllCustomersRequest{} }
+func (m *ReadAllCustomersRequest) String() string { return proto.CompactTextString(m) }
+func (*ReadAllCustomersRequest) ProtoMessage()    {}
+func (*ReadAllCustomersRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{72}
+}
+func (m *ReadAllCustomersRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadAllCustomersRequest.Unmarshal(m, b)
+}
+func (m *ReadAllCustomersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadAllCustomersRequest.Marshal(b, m, deterministic)
+}
+func (dst *ReadAllCustomersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadAllCustomersRequest.Merge(dst, src)
+}
+func (m *ReadAllCustomersRequest) XXX_Size() int {
+	return xxx_messageInfo_ReadAllCustomersRequest.Size(m)
+}
+func (m *ReadAllCustomersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadAllCustomersRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadAllCustomersRequest proto.InternalMessageInfo
+
+func (m *ReadAllCustomersRequest) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadAllCustomersRequest) GetAuthToken() string {
+	if m != nil {
+		return m.AuthToken
+	}
+	return ""
+}
+
+type ReadAllCustomersResponse struct {
+	Api                  string      `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	Customer             []*Customer `protobuf:"bytes,2,rep,name=customer,proto3" json:"customer,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *ReadAllCustomersResponse) Reset()         { *m = ReadAllCustomersResponse{} }
+func (m *ReadAllCustomersResponse) String() string { return proto.CompactTextString(m) }
+func (*ReadAllCustomersResponse) ProtoMessage()    {}
+func (*ReadAllCustomersResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{73}
+}
+func (m *ReadAllCustomersResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadAllCustomersResponse.Unmarshal(m, b)
+}
+func (m *ReadAllCustomersResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadAllCustomersResponse.Marshal(b, m, deterministic)
+}
+func (dst *ReadAllCustomersResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadAllCustomersResponse.Merge(dst, src)
+}
+func (m *ReadAllCustomersResponse) XXX_Size() int {
+	return xxx_messageInfo_ReadAllCustomersResponse.Size(m)
+}
+func (m *ReadAllCustomersResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadAllCustomersResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadAllCustomersResponse proto.InternalMessageInfo
+
+func (m *ReadAllCustomersResponse) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadAllCustomersResponse) GetCustomer() []*Customer {
+	if m != nil {
+		return m.Customer
+	}
+	return nil
+}
+
+type ReadAllCabRidesRequest struct {
+	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	AuthToken            string   `protobuf:"bytes,2,opt,name=authToken,proto3" json:"authToken,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReadAllCabRidesRequest) Reset()         { *m = ReadAllCabRidesRequest{} }
+func (m *ReadAllCabRidesRequest) String() string { return proto.CompactTextString(m) }
+func (*ReadAllCabRidesRequest) ProtoMessage()    {}
+func (*ReadAllCabRidesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{74}
+}
+func (m *ReadAllCabRidesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadAllCabRidesRequest.Unmarshal(m, b)
+}
+func (m *ReadAllCabRidesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadAllCabRidesRequest.Marshal(b, m, deterministic)
+}
+func (dst *ReadAllCabRidesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadAllCabRidesRequest.Merge(dst, src)
+}
+func (m *ReadAllCabRidesRequest) XXX_Size() int {
+	return xxx_messageInfo_ReadAllCabRidesRequest.Size(m)
+}
+func (m *ReadAllCabRidesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadAllCabRidesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadAllCabRidesRequest proto.InternalMessageInfo
+
+func (m *ReadAllCabRidesRequest) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadAllCabRidesRequest) GetAuthToken() string {
+	if m != nil {
+		return m.AuthToken
+	}
+	return ""
+}
+
+type ReadAllCabRidesResponse struct {
+	Api                  string     `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	CabRide              []*CabRide `protobuf:"bytes,2,rep,name=cabRide,proto3" json:"cabRide,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *ReadAllCabRidesResponse) Reset()         { *m = ReadAllCabRidesResponse{} }
+func (m *ReadAllCabRidesResponse) String() string { return proto.CompactTextString(m) }
+func (*ReadAllCabRidesResponse) ProtoMessage()    {}
+func (*ReadAllCabRidesResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{75}
+}
+func (m *ReadAllCabRidesResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadAllCabRidesResponse.Unmarshal(m, b)
+}
+func (m *ReadAllCabRidesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadAllCabRidesResponse.Marshal(b, m, deterministic)
+}
+func (dst *ReadAllCabRidesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadAllCabRidesResponse.Merge(dst, src)
+}
+func (m *ReadAllCabRidesResponse) XXX_Size() int {
+	return xxx_messageInfo_ReadAllCabRidesResponse.Size(m)
+}
+func (m *ReadAllCabRidesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadAllCabRidesResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadAllCabRidesResponse proto.InternalMessageInfo
+
+func (m *ReadAllCabRidesResponse) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadAllCabRidesResponse) GetCabRide() []*CabRide {
+	if m != nil {
+		return m.CabRide
+	}
+	return nil
+}
+
+type ReadCabRideStatusRequest struct {
+	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	AuthToken            string   `protobuf:"bytes,2,opt,name=authToken,proto3" json:"authToken,omitempty"`
+	CabRideId            int32    `protobuf:"varint,3,opt,name=cabRideId,proto3" json:"cabRideId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReadCabRideStatusRequest) Reset()         { *m = ReadCabRideStatusRequest{} }
+func (m *ReadCabRideStatusRequest) String() string { return proto.CompactTextString(m) }
+func (*ReadCabRideStatusRequest) ProtoMessage()    {}
+func (*ReadCabRideStatusRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{76}
+}
+func (m *ReadCabRideStatusRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadCabRideStatusRequest.Unmarshal(m, b)
+}
+func (m *ReadCabRideStatusRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadCabRideStatusRequest.Marshal(b, m, deterministic)
+}
+func (dst *ReadCabRideStatusRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadCabRideStatusRequest.Merge(dst, src)
+}
+func (m *ReadCabRideStatusRequest) XXX_Size() int {
+	return xxx_messageInfo_ReadCabRideStatusRequest.Size(m)
+}
+func (m *ReadCabRideStatusRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadCabRideStatusRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadCabRideStatusRequest proto.InternalMessageInfo
+
+func (m *ReadCabRideStatusRequest) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadCabRideStatusRequest) GetAuthToken() string {
+	if m != nil {
+		return m.AuthToken
+	}
+	return ""
+}
+
+func (m *ReadCabRideStatusRequest) GetCabRideId() int32 {
+	if m != nil {
+		return m.CabRideId
+	}
+	return 0
+}
+
+type ReadCabRideStatusResponse struct {
+	Api                  string         `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	CabRideStatus        *CabRideStatus `protobuf:"bytes,2,opt,name=cabRideStatus,proto3" json:"cabRideStatus,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *ReadCabRideStatusResponse) Reset()         { *m = ReadCabRideStatusResponse{} }
+func (m *ReadCabRideStatusResponse) String() string { return proto.CompactTextString(m) }
+func (*ReadCabRideStatusResponse) ProtoMessage()    {}
+func (*ReadCabRideStatusResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{77}
+}
+func (m *ReadCabRideStatusResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadCabRideStatusResponse.Unmarshal(m, b)
+}
+func (m *ReadCabRideStatusResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadCabRideStatusResponse.Marshal(b, m, deterministic)
+}
+func (dst *ReadCabRideStatusResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadCabRideStatusResponse.Merge(dst, src)
+}
+func (m *ReadCabRideStatusResponse) XXX_Size() int {
+	return xxx_messageInfo_ReadCabRideStatusResponse.Size(m)
+}
+func (m *ReadCabRideStatusResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadCabRideStatusResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadCabRideStatusResponse proto.InternalMessageInfo
+
+func (m *ReadCabRideStatusResponse) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadCabRideStatusResponse) GetCabRideStatus() *CabRideStatus {
+	if m != nil {
+		return m.CabRideStatus
+	}
+	return nil
+}
+
+type ReadDriverStatisticRequest struct {
+	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	DriverId             int32    `protobuf:"varint,2,opt,name=driverId,proto3" json:"driverId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReadDriverStatisticRequest) Reset()         { *m = ReadDriverStatisticRequest{} }
+func (m *ReadDriverStatisticRequest) String() string { return proto.CompactTextString(m) }
+func (*ReadDriverStatisticRequest) ProtoMessage()    {}
+func (*ReadDriverStatisticRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{78}
+}
+func (m *ReadDriverStatisticRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadDriverStatisticRequest.Unmarshal(m, b)
+}
+func (m *ReadDriverStatisticRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadDriverStatisticRequest.Marshal(b, m, deterministic)
+}
+func (dst *ReadDriverStatisticRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadDriverStatisticRequest.Merge(dst, src)
+}
+func (m *ReadDriverStatisticRequest) XXX_Size() int {
+	return xxx_messageInfo_ReadDriverStatisticRequest.Size(m)
+}
+func (m *ReadDriverStatisticRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadDriverStatisticRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadDriverStatisticRequest proto.InternalMessageInfo
+
+func (m *ReadDriverStatisticRequest) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadDriverStatisticRequest) GetDriverId() int32 {
+	if m != nil {
+		return m.DriverId
+	}
+	return 0
+}
+
+type ReadDriverStatisticResponse struct {
+	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	EndedCabRides        int32    `protobuf:"varint,2,opt,name=endedCabRides,proto3" json:"endedCabRides,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReadDriverStatisticResponse) Reset()         { *m = ReadDriverStatisticResponse{} }
+func (m *ReadDriverStatisticResponse) String() string { return proto.CompactTextString(m) }
+func (*ReadDriverStatisticResponse) ProtoMessage()    {}
+func (*ReadDriverStatisticResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{79}
+}
+func (m *ReadDriverStatisticResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadDriverStatisticResponse.Unmarshal(m, b)
+}
+func (m *ReadDriverStatisticResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadDriverStatisticResponse.Marshal(b, m, deterministic)
+}
+func (dst *ReadDriverStatisticResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadDriverStatisticResponse.Merge(dst, src)
+}
+func (m *ReadDriverStatisticResponse) XXX_Size() int {
+	return xxx_messageInfo_ReadDriverStatisticResponse.Size(m)
+}
+func (m *ReadDriverStatisticResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadDriverStatisticResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadDriverStatisticResponse proto.InternalMessageInfo
+
+func (m *ReadDriverStatisticResponse) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadDriverStatisticResponse) GetEndedCabRides() int32 {
+	if m != nil {
+		return m.EndedCabRides
+	}
+	return 0
+}
+
+type ReadCustomerStatisticRequest struct {
+	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	CustomerId           int32    `protobuf:"varint,2,opt,name=customerId,proto3" json:"customerId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReadCustomerStatisticRequest) Reset()         { *m = ReadCustomerStatisticRequest{} }
+func (m *ReadCustomerStatisticRequest) String() string { return proto.CompactTextString(m) }
+func (*ReadCustomerStatisticRequest) ProtoMessage()    {}
+func (*ReadCustomerStatisticRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{80}
+}
+func (m *ReadCustomerStatisticRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadCustomerStatisticRequest.Unmarshal(m, b)
+}
+func (m *ReadCustomerStatisticRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadCustomerStatisticRequest.Marshal(b, m, deterministic)
+}
+func (dst *ReadCustomerStatisticRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadCustomerStatisticRequest.Merge(dst, src)
+}
+func (m *ReadCustomerStatisticRequest) XXX_Size() int {
+	return xxx_messageInfo_ReadCustomerStatisticRequest.Size(m)
+}
+func (m *ReadCustomerStatisticRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadCustomerStatisticRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadCustomerStatisticRequest proto.InternalMessageInfo
+
+func (m *ReadCustomerStatisticRequest) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadCustomerStatisticRequest) GetCustomerId() int32 {
+	if m != nil {
+		return m.CustomerId
+	}
+	return 0
+}
+
+type ReadCustomerStatisticResponse struct {
+	Api                  string   `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
+	OrderedCabRides      int32    `protobuf:"varint,2,opt,name=orderedCabRides,proto3" json:"orderedCabRides,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReadCustomerStatisticResponse) Reset()         { *m = ReadCustomerStatisticResponse{} }
+func (m *ReadCustomerStatisticResponse) String() string { return proto.CompactTextString(m) }
+func (*ReadCustomerStatisticResponse) ProtoMessage()    {}
+func (*ReadCustomerStatisticResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_taxiService_90d45b49998fecec, []int{81}
+}
+func (m *ReadCustomerStatisticResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadCustomerStatisticResponse.Unmarshal(m, b)
+}
+func (m *ReadCustomerStatisticResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadCustomerStatisticResponse.Marshal(b, m, deterministic)
+}
+func (dst *ReadCustomerStatisticResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadCustomerStatisticResponse.Merge(dst, src)
+}
+func (m *ReadCustomerStatisticResponse) XXX_Size() int {
+	return xxx_messageInfo_ReadCustomerStatisticResponse.Size(m)
+}
+func (m *ReadCustomerStatisticResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadCustomerStatisticResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadCustomerStatisticResponse proto.InternalMessageInfo
+
+func (m *ReadCustomerStatisticResponse) GetApi() string {
+	if m != nil {
+		return m.Api
+	}
+	return ""
+}
+
+func (m *ReadCustomerStatisticResponse) GetOrderedCabRides() int32 {
+	if m != nil {
+		return m.OrderedCabRides
+	}
+	return 0
 }
 
 func init() {
@@ -4042,8 +4618,20 @@ func init() {
 	proto.RegisterType((*CreateCabRideDispatcherResponse)(nil), "v1.CreateCabRideDispatcherResponse")
 	proto.RegisterType((*SetDetailsToOrderRequest)(nil), "v1.SetDetailsToOrderRequest")
 	proto.RegisterType((*SetDetailsToOrderResponse)(nil), "v1.SetDetailsToOrderResponse")
+	proto.RegisterType((*ReadAllDriversRequest)(nil), "v1.ReadAllDriversRequest")
+	proto.RegisterType((*ReadAllDriversResponse)(nil), "v1.ReadAllDriversResponse")
 	proto.RegisterType((*VerifyDriversAccountRequest)(nil), "v1.VerifyDriversAccountRequest")
 	proto.RegisterType((*VerifyDriversAccountResponse)(nil), "v1.VerifyDriversAccountResponse")
+	proto.RegisterType((*ReadAllCustomersRequest)(nil), "v1.ReadAllCustomersRequest")
+	proto.RegisterType((*ReadAllCustomersResponse)(nil), "v1.ReadAllCustomersResponse")
+	proto.RegisterType((*ReadAllCabRidesRequest)(nil), "v1.ReadAllCabRidesRequest")
+	proto.RegisterType((*ReadAllCabRidesResponse)(nil), "v1.ReadAllCabRidesResponse")
+	proto.RegisterType((*ReadCabRideStatusRequest)(nil), "v1.ReadCabRideStatusRequest")
+	proto.RegisterType((*ReadCabRideStatusResponse)(nil), "v1.ReadCabRideStatusResponse")
+	proto.RegisterType((*ReadDriverStatisticRequest)(nil), "v1.ReadDriverStatisticRequest")
+	proto.RegisterType((*ReadDriverStatisticResponse)(nil), "v1.ReadDriverStatisticResponse")
+	proto.RegisterType((*ReadCustomerStatisticRequest)(nil), "v1.ReadCustomerStatisticRequest")
+	proto.RegisterType((*ReadCustomerStatisticResponse)(nil), "v1.ReadCustomerStatisticResponse")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -4064,6 +4652,7 @@ type TaxiServiceClient interface {
 	// customer CRUD
 	CreateCustomer(ctx context.Context, in *CreateCustomerRequest, opts ...grpc.CallOption) (*CreateCustomerResponse, error)
 	ReadCustomer(ctx context.Context, in *ReadCustomerRequest, opts ...grpc.CallOption) (*ReadCustomerResponse, error)
+	ReadAllCustomers(ctx context.Context, in *ReadAllCustomersRequest, opts ...grpc.CallOption) (*ReadAllCustomersResponse, error)
 	UpdateCustomer(ctx context.Context, in *UpdateCustomerRequest, opts ...grpc.CallOption) (*UpdateCustomerResponse, error)
 	DeleteCustomer(ctx context.Context, in *DeleteCustomerRequest, opts ...grpc.CallOption) (*DeleteCustomerResponse, error)
 	// driver CRUD
@@ -4076,6 +4665,9 @@ type TaxiServiceClient interface {
 	DeleteCabRide(ctx context.Context, in *DeleteCabRideRequest, opts ...grpc.CallOption) (*DeleteCabRideResponse, error)
 	UpdateCabRide(ctx context.Context, in *UpdateCabRideRequest, opts ...grpc.CallOption) (*UpdateCabRideResponse, error)
 	CheckCabRideStatus(ctx context.Context, in *CheckCabRideStatusRequest, opts ...grpc.CallOption) (*CheckCabRideStatusResponse, error)
+	ReadAllCabRides(ctx context.Context, in *ReadAllCabRidesRequest, opts ...grpc.CallOption) (*ReadAllCabRidesResponse, error)
+	// CabRide status
+	ReadCabRideStatus(ctx context.Context, in *ReadCabRideStatusRequest, opts ...grpc.CallOption) (*ReadCabRideStatusResponse, error)
 	// Cabs routes
 	ReadAllCarBrands(ctx context.Context, in *ReadAllCarBrandsRequest, opts ...grpc.CallOption) (*ReadAllCarBrandsResponse, error)
 	ReadAllCarModels(ctx context.Context, in *ReadAllCarModelsRequest, opts ...grpc.CallOption) (*ReadAllCarModelsResponse, error)
@@ -4094,7 +4686,11 @@ type TaxiServiceClient interface {
 	CreateDispatcher(ctx context.Context, in *CreateDispatcherRequest, opts ...grpc.CallOption) (*CreateDispatcherResponse, error)
 	CreateCabRideDispatcher(ctx context.Context, in *CreateCabRideDispatcherRequest, opts ...grpc.CallOption) (*CreateCabRideDispatcherResponse, error)
 	SetDetailsToOrder(ctx context.Context, in *SetDetailsToOrderRequest, opts ...grpc.CallOption) (*SetDetailsToOrderResponse, error)
+	ReadAllDrivers(ctx context.Context, in *ReadAllDriversRequest, opts ...grpc.CallOption) (*ReadAllDriversResponse, error)
 	VerifyDriversAccount(ctx context.Context, in *VerifyDriversAccountRequest, opts ...grpc.CallOption) (*VerifyDriversAccountResponse, error)
+	// Statistic
+	ReadDriverStatistic(ctx context.Context, in *ReadDriverStatisticRequest, opts ...grpc.CallOption) (*ReadDriverStatisticResponse, error)
+	ReadCustomerStatistic(ctx context.Context, in *ReadCustomerStatisticRequest, opts ...grpc.CallOption) (*ReadCustomerStatisticResponse, error)
 }
 
 type taxiServiceClient struct {
@@ -4135,6 +4731,15 @@ func (c *taxiServiceClient) CreateCustomer(ctx context.Context, in *CreateCustom
 func (c *taxiServiceClient) ReadCustomer(ctx context.Context, in *ReadCustomerRequest, opts ...grpc.CallOption) (*ReadCustomerResponse, error) {
 	out := new(ReadCustomerResponse)
 	err := c.cc.Invoke(ctx, "/v1.taxiService/ReadCustomer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *taxiServiceClient) ReadAllCustomers(ctx context.Context, in *ReadAllCustomersRequest, opts ...grpc.CallOption) (*ReadAllCustomersResponse, error) {
+	out := new(ReadAllCustomersResponse)
+	err := c.cc.Invoke(ctx, "/v1.taxiService/ReadAllCustomers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4225,6 +4830,24 @@ func (c *taxiServiceClient) UpdateCabRide(ctx context.Context, in *UpdateCabRide
 func (c *taxiServiceClient) CheckCabRideStatus(ctx context.Context, in *CheckCabRideStatusRequest, opts ...grpc.CallOption) (*CheckCabRideStatusResponse, error) {
 	out := new(CheckCabRideStatusResponse)
 	err := c.cc.Invoke(ctx, "/v1.taxiService/CheckCabRideStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *taxiServiceClient) ReadAllCabRides(ctx context.Context, in *ReadAllCabRidesRequest, opts ...grpc.CallOption) (*ReadAllCabRidesResponse, error) {
+	out := new(ReadAllCabRidesResponse)
+	err := c.cc.Invoke(ctx, "/v1.taxiService/ReadAllCabRides", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *taxiServiceClient) ReadCabRideStatus(ctx context.Context, in *ReadCabRideStatusRequest, opts ...grpc.CallOption) (*ReadCabRideStatusResponse, error) {
+	out := new(ReadCabRideStatusResponse)
+	err := c.cc.Invoke(ctx, "/v1.taxiService/ReadCabRideStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4366,9 +4989,36 @@ func (c *taxiServiceClient) SetDetailsToOrder(ctx context.Context, in *SetDetail
 	return out, nil
 }
 
+func (c *taxiServiceClient) ReadAllDrivers(ctx context.Context, in *ReadAllDriversRequest, opts ...grpc.CallOption) (*ReadAllDriversResponse, error) {
+	out := new(ReadAllDriversResponse)
+	err := c.cc.Invoke(ctx, "/v1.taxiService/ReadAllDrivers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *taxiServiceClient) VerifyDriversAccount(ctx context.Context, in *VerifyDriversAccountRequest, opts ...grpc.CallOption) (*VerifyDriversAccountResponse, error) {
 	out := new(VerifyDriversAccountResponse)
 	err := c.cc.Invoke(ctx, "/v1.taxiService/VerifyDriversAccount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *taxiServiceClient) ReadDriverStatistic(ctx context.Context, in *ReadDriverStatisticRequest, opts ...grpc.CallOption) (*ReadDriverStatisticResponse, error) {
+	out := new(ReadDriverStatisticResponse)
+	err := c.cc.Invoke(ctx, "/v1.taxiService/ReadDriverStatistic", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *taxiServiceClient) ReadCustomerStatistic(ctx context.Context, in *ReadCustomerStatisticRequest, opts ...grpc.CallOption) (*ReadCustomerStatisticResponse, error) {
+	out := new(ReadCustomerStatisticResponse)
+	err := c.cc.Invoke(ctx, "/v1.taxiService/ReadCustomerStatistic", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4383,6 +5033,7 @@ type TaxiServiceServer interface {
 	// customer CRUD
 	CreateCustomer(context.Context, *CreateCustomerRequest) (*CreateCustomerResponse, error)
 	ReadCustomer(context.Context, *ReadCustomerRequest) (*ReadCustomerResponse, error)
+	ReadAllCustomers(context.Context, *ReadAllCustomersRequest) (*ReadAllCustomersResponse, error)
 	UpdateCustomer(context.Context, *UpdateCustomerRequest) (*UpdateCustomerResponse, error)
 	DeleteCustomer(context.Context, *DeleteCustomerRequest) (*DeleteCustomerResponse, error)
 	// driver CRUD
@@ -4395,6 +5046,9 @@ type TaxiServiceServer interface {
 	DeleteCabRide(context.Context, *DeleteCabRideRequest) (*DeleteCabRideResponse, error)
 	UpdateCabRide(context.Context, *UpdateCabRideRequest) (*UpdateCabRideResponse, error)
 	CheckCabRideStatus(context.Context, *CheckCabRideStatusRequest) (*CheckCabRideStatusResponse, error)
+	ReadAllCabRides(context.Context, *ReadAllCabRidesRequest) (*ReadAllCabRidesResponse, error)
+	// CabRide status
+	ReadCabRideStatus(context.Context, *ReadCabRideStatusRequest) (*ReadCabRideStatusResponse, error)
 	// Cabs routes
 	ReadAllCarBrands(context.Context, *ReadAllCarBrandsRequest) (*ReadAllCarBrandsResponse, error)
 	ReadAllCarModels(context.Context, *ReadAllCarModelsRequest) (*ReadAllCarModelsResponse, error)
@@ -4413,7 +5067,11 @@ type TaxiServiceServer interface {
 	CreateDispatcher(context.Context, *CreateDispatcherRequest) (*CreateDispatcherResponse, error)
 	CreateCabRideDispatcher(context.Context, *CreateCabRideDispatcherRequest) (*CreateCabRideDispatcherResponse, error)
 	SetDetailsToOrder(context.Context, *SetDetailsToOrderRequest) (*SetDetailsToOrderResponse, error)
+	ReadAllDrivers(context.Context, *ReadAllDriversRequest) (*ReadAllDriversResponse, error)
 	VerifyDriversAccount(context.Context, *VerifyDriversAccountRequest) (*VerifyDriversAccountResponse, error)
+	// Statistic
+	ReadDriverStatistic(context.Context, *ReadDriverStatisticRequest) (*ReadDriverStatisticResponse, error)
+	ReadCustomerStatistic(context.Context, *ReadCustomerStatisticRequest) (*ReadCustomerStatisticResponse, error)
 }
 
 func RegisterTaxiServiceServer(s *grpc.Server, srv TaxiServiceServer) {
@@ -4488,6 +5146,24 @@ func _TaxiService_ReadCustomer_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TaxiServiceServer).ReadCustomer(ctx, req.(*ReadCustomerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TaxiService_ReadAllCustomers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadAllCustomersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaxiServiceServer).ReadAllCustomers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.taxiService/ReadAllCustomers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaxiServiceServer).ReadAllCustomers(ctx, req.(*ReadAllCustomersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -4668,6 +5344,42 @@ func _TaxiService_CheckCabRideStatus_Handler(srv interface{}, ctx context.Contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TaxiServiceServer).CheckCabRideStatus(ctx, req.(*CheckCabRideStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TaxiService_ReadAllCabRides_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadAllCabRidesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaxiServiceServer).ReadAllCabRides(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.taxiService/ReadAllCabRides",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaxiServiceServer).ReadAllCabRides(ctx, req.(*ReadAllCabRidesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TaxiService_ReadCabRideStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadCabRideStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaxiServiceServer).ReadCabRideStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.taxiService/ReadCabRideStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaxiServiceServer).ReadCabRideStatus(ctx, req.(*ReadCabRideStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -4942,6 +5654,24 @@ func _TaxiService_SetDetailsToOrder_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TaxiService_ReadAllDrivers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadAllDriversRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaxiServiceServer).ReadAllDrivers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.taxiService/ReadAllDrivers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaxiServiceServer).ReadAllDrivers(ctx, req.(*ReadAllDriversRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TaxiService_VerifyDriversAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(VerifyDriversAccountRequest)
 	if err := dec(in); err != nil {
@@ -4956,6 +5686,42 @@ func _TaxiService_VerifyDriversAccount_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TaxiServiceServer).VerifyDriversAccount(ctx, req.(*VerifyDriversAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TaxiService_ReadDriverStatistic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadDriverStatisticRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaxiServiceServer).ReadDriverStatistic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.taxiService/ReadDriverStatistic",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaxiServiceServer).ReadDriverStatistic(ctx, req.(*ReadDriverStatisticRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TaxiService_ReadCustomerStatistic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadCustomerStatisticRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaxiServiceServer).ReadCustomerStatistic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.taxiService/ReadCustomerStatistic",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaxiServiceServer).ReadCustomerStatistic(ctx, req.(*ReadCustomerStatisticRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -4979,6 +5745,10 @@ var _TaxiService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReadCustomer",
 			Handler:    _TaxiService_ReadCustomer_Handler,
+		},
+		{
+			MethodName: "ReadAllCustomers",
+			Handler:    _TaxiService_ReadAllCustomers_Handler,
 		},
 		{
 			MethodName: "UpdateCustomer",
@@ -5019,6 +5789,14 @@ var _TaxiService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckCabRideStatus",
 			Handler:    _TaxiService_CheckCabRideStatus_Handler,
+		},
+		{
+			MethodName: "ReadAllCabRides",
+			Handler:    _TaxiService_ReadAllCabRides_Handler,
+		},
+		{
+			MethodName: "ReadCabRideStatus",
+			Handler:    _TaxiService_ReadCabRideStatus_Handler,
 		},
 		{
 			MethodName: "ReadAllCarBrands",
@@ -5081,169 +5859,198 @@ var _TaxiService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _TaxiService_SetDetailsToOrder_Handler,
 		},
 		{
+			MethodName: "ReadAllDrivers",
+			Handler:    _TaxiService_ReadAllDrivers_Handler,
+		},
+		{
 			MethodName: "VerifyDriversAccount",
 			Handler:    _TaxiService_VerifyDriversAccount_Handler,
+		},
+		{
+			MethodName: "ReadDriverStatistic",
+			Handler:    _TaxiService_ReadDriverStatistic_Handler,
+		},
+		{
+			MethodName: "ReadCustomerStatistic",
+			Handler:    _TaxiService_ReadCustomerStatistic_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "taxiService.proto",
 }
 
-func init() { proto.RegisterFile("taxiService.proto", fileDescriptor_taxiService_13cab814ad3696f9) }
+func init() { proto.RegisterFile("taxiService.proto", fileDescriptor_taxiService_90d45b49998fecec) }
 
-var fileDescriptor_taxiService_13cab814ad3696f9 = []byte{
-	// 2443 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xcc, 0x5a, 0x4b, 0x73, 0x1c, 0x49,
-	0x11, 0x8e, 0x79, 0x6a, 0x26, 0x47, 0x92, 0xa5, 0xd2, 0xc3, 0xe3, 0xb1, 0xd7, 0x76, 0x34, 0x8f,
-	0x70, 0x40, 0x84, 0x76, 0x57, 0x5c, 0x1c, 0x18, 0x08, 0x6b, 0x35, 0x8b, 0xc3, 0xbb, 0x6b, 0x23,
-	0x5a, 0x96, 0x59, 0x1e, 0x01, 0xf4, 0x4c, 0xb7, 0xa4, 0x0e, 0xcf, 0x4c, 0x0f, 0xdd, 0x3d, 0x62,
-	0x75, 0x86, 0x0b, 0x44, 0x70, 0x20, 0xb8, 0x71, 0xe0, 0xca, 0x4f, 0xe0, 0x37, 0xc0, 0x89, 0x23,
-	0x17, 0x2e, 0xfc, 0x12, 0xb2, 0x9e, 0x5d, 0xd5, 0x5d, 0xdd, 0xa3, 0x95, 0x65, 0x82, 0xdb, 0x54,
-	0x56, 0x55, 0xf6, 0x57, 0x99, 0x5f, 0x65, 0x65, 0xa6, 0x04, 0x9b, 0xa9, 0xf7, 0x45, 0x78, 0x1c,
-	0xc4, 0x17, 0xe1, 0x38, 0xd8, 0x9b, 0xc7, 0x51, 0x1a, 0x91, 0xfa, 0xc5, 0x87, 0x83, 0x07, 0x67,
-	0x51, 0x74, 0x36, 0x09, 0xde, 0x67, 0x92, 0xd1, 0xe2, 0xf4, 0xfd, 0x34, 0x9c, 0x06, 0x49, 0xea,
-	0x4d, 0xe7, 0x7c, 0x91, 0xf3, 0xe7, 0x3a, 0x74, 0x0e, 0x17, 0x49, 0x1a, 0x4d, 0x83, 0x98, 0xac,
-	0x43, 0x3d, 0xf4, 0xfb, 0xb5, 0x87, 0xb5, 0x47, 0x2d, 0x17, 0x7f, 0x11, 0x02, 0xcd, 0x99, 0x37,
-	0x0d, 0xfa, 0x75, 0x94, 0x74, 0x5d, 0xf6, 0x9b, 0x3c, 0x84, 0xde, 0xfc, 0x3c, 0x9a, 0x05, 0x2f,
-	0x17, 0xd3, 0x51, 0x10, 0xf7, 0x1b, 0x6c, 0x4a, 0x17, 0x91, 0x6d, 0x68, 0x05, 0x53, 0x2f, 0x9c,
-	0xf4, 0x9b, 0x6c, 0x8e, 0x0f, 0xc8, 0x00, 0x3a, 0x73, 0x2f, 0x49, 0x7e, 0x1d, 0xc5, 0x7e, 0xbf,
-	0xc5, 0x26, 0xd4, 0x98, 0xdc, 0x83, 0xae, 0xb7, 0x48, 0xcf, 0x5f, 0x45, 0x6f, 0x82, 0x59, 0xbf,
-	0xcd, 0x26, 0x33, 0x01, 0x79, 0x02, 0xbd, 0x71, 0x1c, 0x78, 0x69, 0xf0, 0x0b, 0x0a, 0xbe, 0xbf,
-	0x82, 0xf3, 0xbd, 0xfd, 0xc1, 0x1e, 0x3f, 0xd9, 0x9e, 0x3c, 0xd9, 0xde, 0x2b, 0x79, 0x32, 0x17,
-	0xf8, 0x72, 0x2a, 0xa0, 0x9b, 0x17, 0x73, 0x5f, 0x6d, 0xee, 0x2c, 0xdf, 0xcc, 0x97, 0x53, 0x81,
-	0xf3, 0xcf, 0x06, 0xb4, 0x87, 0x71, 0x78, 0x61, 0x31, 0x0d, 0x42, 0x3e, 0x0d, 0xe3, 0x24, 0x7d,
-	0x99, 0xd9, 0x27, 0x13, 0x90, 0x3e, 0xac, 0x24, 0x8b, 0x98, 0xd9, 0x8e, 0x1b, 0x48, 0x0e, 0x99,
-	0xf9, 0xbc, 0x38, 0x8d, 0xa3, 0xd9, 0xe5, 0x34, 0x1c, 0x0b, 0x13, 0xe9, 0x22, 0xf2, 0x18, 0xba,
-	0xa3, 0x30, 0x4e, 0xcf, 0x87, 0x88, 0x82, 0x59, 0xaa, 0x1a, 0x6f, 0xb6, 0x38, 0xef, 0x9a, 0x76,
-	0xd1, 0x35, 0x88, 0x0b, 0x0d, 0xfe, 0x26, 0x9c, 0x9d, 0x31, 0x33, 0x76, 0x5c, 0x39, 0xcc, 0x9c,
-	0xd6, 0x29, 0x73, 0x5a, 0xb7, 0xca, 0x69, 0x90, 0x77, 0x1a, 0x9d, 0x1d, 0xa7, 0xe1, 0x05, 0xe2,
-	0xf2, 0xfb, 0x3d, 0xf6, 0xad, 0x4c, 0x90, 0x77, 0xe9, 0xea, 0xdb, 0xb8, 0x74, 0xed, 0x4b, 0xb9,
-	0xf4, 0xef, 0x75, 0xb8, 0xc5, 0x5d, 0x3a, 0x8c, 0xc6, 0x8b, 0x69, 0x30, 0x4b, 0x93, 0x82, 0x6f,
-	0xf1, 0xd4, 0x3e, 0x5b, 0xf2, 0xdc, 0x67, 0xae, 0x6d, 0xb9, 0x6a, 0x4c, 0xbe, 0x0e, 0xeb, 0xd4,
-	0x02, 0xf3, 0x28, 0x4e, 0x8d, 0x1b, 0x90, 0x93, 0x92, 0xaf, 0xc2, 0x9a, 0x94, 0x3c, 0x9f, 0x7a,
-	0x67, 0x01, 0xf3, 0xf4, 0xaa, 0x6b, 0x0a, 0xc9, 0x3e, 0x6c, 0x53, 0xcd, 0xe8, 0x80, 0xcf, 0xf0,
-	0xde, 0xce, 0x12, 0xe9, 0x3a, 0x7e, 0x41, 0xac, 0x73, 0xe4, 0xdb, 0x00, 0xc1, 0x17, 0xf3, 0x30,
-	0xbe, 0x64, 0x04, 0x69, 0x2f, 0x3f, 0x7d, 0xb6, 0x9a, 0x7c, 0x00, 0x5b, 0xa6, 0x4e, 0x8e, 0x6d,
-	0x85, 0x61, 0xb3, 0x4d, 0x51, 0x5b, 0x24, 0x69, 0x72, 0x74, 0x8e, 0x6a, 0x19, 0x35, 0x56, 0x5d,
-	0x35, 0x76, 0xfe, 0x53, 0x07, 0x18, 0x86, 0xc9, 0xdc, 0x4b, 0xc7, 0xe7, 0xff, 0xd3, 0x2b, 0x92,
-	0x23, 0x7a, 0xab, 0x22, 0x06, 0xb5, 0xcb, 0xe8, 0xbc, 0x52, 0x45, 0xe7, 0xce, 0x92, 0x18, 0xd4,
-	0x7d, 0x1b, 0xc2, 0xc2, 0x97, 0x22, 0xec, 0x0b, 0x68, 0x1d, 0x46, 0x93, 0xc8, 0x1a, 0x9c, 0xc7,
-	0x91, 0x1f, 0x08, 0x86, 0xb2, 0xdf, 0xd4, 0x30, 0x7e, 0x90, 0x8c, 0xe3, 0x70, 0x9e, 0x86, 0xd1,
-	0x4c, 0x06, 0x67, 0x4d, 0xe4, 0xfc, 0xb5, 0x06, 0x8d, 0x43, 0x6f, 0x54, 0xd0, 0x86, 0xee, 0x18,
-	0xd3, 0xcf, 0x28, 0xca, 0xcb, 0x21, 0x71, 0x60, 0x75, 0xc2, 0x19, 0x71, 0x34, 0xa1, 0x8c, 0xe3,
-	0x4a, 0x0d, 0x19, 0xb9, 0x0f, 0x30, 0xf6, 0xe2, 0x17, 0x08, 0x61, 0x82, 0x0a, 0x9a, 0x4c, 0x81,
-	0x26, 0x31, 0x6e, 0x54, 0x2b, 0x77, 0xa3, 0x76, 0xa1, 0xcd, 0x02, 0x03, 0xe7, 0x72, 0xc7, 0x15,
-	0x23, 0xe7, 0x73, 0x7c, 0x98, 0x84, 0x06, 0x1b, 0xb5, 0xa6, 0x74, 0x42, 0xa7, 0x96, 0x12, 0x08,
-	0x34, 0x1f, 0xc5, 0xde, 0xcc, 0xc7, 0xef, 0x35, 0x14, 0x1a, 0x21, 0x71, 0x1e, 0x33, 0xcd, 0x6c,
-	0x64, 0xd3, 0x3c, 0xa2, 0x13, 0xba, 0x66, 0x25, 0x70, 0xfe, 0xd4, 0x84, 0x15, 0xb4, 0x9e, 0x1b,
-	0xa2, 0xad, 0xf3, 0x3b, 0xe9, 0x57, 0xc5, 0x43, 0xaa, 0x8c, 0xa8, 0x49, 0x18, 0xe1, 0xcf, 0xc3,
-	0xd3, 0x54, 0x41, 0x92, 0x43, 0xf2, 0x14, 0xd6, 0x62, 0xd4, 0x78, 0x9c, 0x22, 0xc5, 0xa9, 0xcf,
-	0x99, 0x01, 0xab, 0x19, 0x62, 0x6e, 0x20, 0xdf, 0x81, 0x1e, 0x15, 0x7c, 0x3c, 0xf3, 0xd9, 0xfe,
-	0xe5, 0xaf, 0x86, 0xbe, 0x9c, 0xc6, 0xaa, 0x84, 0xaa, 0xc2, 0xbb, 0x7f, 0x14, 0x85, 0xb3, 0x54,
-	0x5c, 0x1a, 0x53, 0x48, 0x7d, 0x88, 0xd1, 0x12, 0x4d, 0x31, 0xe6, 0x01, 0x03, 0x7d, 0x28, 0xc7,
-	0x94, 0x77, 0xc1, 0xcc, 0x57, 0xfb, 0xf9, 0xf5, 0xd1, 0x45, 0x74, 0xf7, 0x98, 0x2e, 0x9d, 0x04,
-	0xfc, 0x25, 0xe9, 0xb8, 0x6a, 0x4c, 0x1e, 0xc1, 0x2d, 0xbc, 0x81, 0x41, 0xfc, 0xfd, 0x28, 0x3e,
-	0x98, 0x45, 0x29, 0xc6, 0x12, 0x76, 0x47, 0x3a, 0x6e, 0x5e, 0x4c, 0xb9, 0x38, 0xe7, 0x5a, 0x7f,
-	0x40, 0x67, 0xc4, 0xc3, 0x62, 0xc8, 0x78, 0xe4, 0xbd, 0xa4, 0x91, 0xfd, 0xd5, 0xe5, 0x3c, 0x40,
-	0x6b, 0xaf, 0x32, 0xb0, 0xa6, 0x90, 0x06, 0x88, 0x79, 0x8c, 0x14, 0x66, 0xcf, 0x47, 0xcb, 0xe5,
-	0x03, 0x7e, 0x0b, 0xa6, 0x74, 0x59, 0x7f, 0x9d, 0x07, 0x25, 0x31, 0xa4, 0xf8, 0x4f, 0x83, 0xc0,
-	0x1f, 0x79, 0xe3, 0x37, 0xfd, 0x5b, 0x3c, 0x74, 0xc8, 0xb1, 0xf3, 0xef, 0x1a, 0xac, 0x09, 0x56,
-	0xa0, 0x4b, 0xd2, 0x45, 0x62, 0x63, 0xd5, 0x98, 0x2f, 0x50, 0xd4, 0xc8, 0x04, 0x15, 0xcc, 0xc0,
-	0x58, 0x9f, 0x30, 0x8d, 0x57, 0xa4, 0x85, 0xb6, 0x5a, 0x78, 0x15, 0x47, 0xc3, 0x20, 0xc5, 0xe0,
-	0x97, 0x88, 0x8b, 0x67, 0x0a, 0xa9, 0x45, 0x7d, 0x15, 0xc2, 0x11, 0x40, 0x9b, 0x2d, 0x32, 0x64,
-	0xce, 0x1f, 0x6b, 0xb0, 0xc9, 0xc2, 0xe0, 0xe1, 0x79, 0x30, 0x7e, 0xe3, 0x06, 0xbf, 0x5a, 0xe0,
-	0xe7, 0xc8, 0x06, 0x34, 0xbc, 0x79, 0xc8, 0x0e, 0xd9, 0x75, 0xe9, 0x4f, 0x6a, 0xa3, 0x45, 0x12,
-	0xc4, 0xd4, 0xc2, 0xf2, 0xdd, 0x94, 0x63, 0x6a, 0xef, 0x49, 0x74, 0x16, 0xca, 0x98, 0xc4, 0x07,
-	0x46, 0x40, 0x6e, 0x56, 0x05, 0xe4, 0x56, 0x2e, 0x20, 0x3b, 0x9f, 0x00, 0xd1, 0x21, 0xe1, 0x9b,
-	0x8a, 0xc1, 0xc8, 0x82, 0x09, 0xcf, 0x17, 0x26, 0xaf, 0xbd, 0x49, 0xe8, 0x73, 0x45, 0x75, 0xce,
-	0x18, 0x5d, 0xe6, 0xcc, 0x60, 0xf5, 0x33, 0x0a, 0xa7, 0xfc, 0x64, 0x0a, 0x7d, 0xbd, 0x0c, 0x7d,
-	0x23, 0x87, 0x5e, 0xb7, 0x45, 0xd3, 0xb4, 0x85, 0xf3, 0x23, 0x58, 0x13, 0xdf, 0x2b, 0x85, 0x6d,
-	0x1c, 0xbe, 0x9e, 0x7f, 0x8d, 0x30, 0x64, 0x52, 0x65, 0x8a, 0x2f, 0x62, 0xe4, 0x1c, 0xc3, 0xce,
-	0x21, 0x7b, 0x76, 0x64, 0x46, 0x5f, 0x7e, 0xa2, 0x47, 0x78, 0x1f, 0xc5, 0x22, 0xa6, 0xbf, 0xb7,
-	0xbf, 0xba, 0x77, 0xf1, 0xe1, 0x9e, 0xda, 0xa8, 0x66, 0x31, 0x0e, 0xef, 0xe6, 0x95, 0x96, 0xc2,
-	0xe6, 0xbc, 0xaf, 0xeb, 0xbc, 0xcf, 0x8e, 0xd1, 0xc8, 0xfb, 0xf0, 0x87, 0xb0, 0xe5, 0x06, 0x9e,
-	0x7f, 0x93, 0x60, 0x5d, 0xd8, 0x36, 0x55, 0x96, 0x42, 0xbd, 0xba, 0x4e, 0xb4, 0xea, 0x09, 0x7b,
-	0x8f, 0x6f, 0x12, 0xe8, 0x10, 0x76, 0xf3, 0x4a, 0x4b, 0xa1, 0x62, 0x7c, 0xe0, 0x09, 0x81, 0x7a,
-	0x9b, 0xc5, 0x90, 0x42, 0x1b, 0x62, 0x08, 0xbd, 0x71, 0x68, 0x79, 0xa5, 0x55, 0xd0, 0x7c, 0xb6,
-	0x56, 0x41, 0x13, 0x43, 0xe7, 0xf7, 0x35, 0xd8, 0xe2, 0xbc, 0xe1, 0xe9, 0x76, 0x39, 0x32, 0x07,
-	0xda, 0x3c, 0x19, 0x10, 0xb8, 0x80, 0xe2, 0x12, 0x9b, 0xc4, 0x0c, 0xf9, 0x2e, 0xdc, 0xf2, 0xcd,
-	0xac, 0x9d, 0xd1, 0xa9, 0xb7, 0xbf, 0x95, 0x2d, 0x56, 0x53, 0x6e, 0x7e, 0xad, 0xf3, 0x1a, 0xb6,
-	0x4d, 0x2c, 0x37, 0xc4, 0xe0, 0xe7, 0xb0, 0x49, 0xe9, 0x76, 0x03, 0x27, 0x74, 0x7e, 0x57, 0x03,
-	0xa2, 0xeb, 0xaa, 0x88, 0x68, 0xef, 0xdc, 0x5c, 0xd4, 0x77, 0x9c, 0x9d, 0xff, 0x07, 0xbe, 0xfb,
-	0x08, 0xb6, 0x4d, 0x2c, 0xd7, 0xb8, 0x27, 0x9f, 0xc2, 0x16, 0xa7, 0xf4, 0x4d, 0x78, 0x0a, 0x01,
-	0x99, 0xca, 0xae, 0x71, 0x3b, 0x7e, 0x53, 0x93, 0x8c, 0x14, 0x89, 0x43, 0x39, 0xa4, 0xaf, 0x61,
-	0x4e, 0xc2, 0xd7, 0x08, 0x4c, 0x3d, 0x76, 0x6f, 0xc5, 0x36, 0x39, 0x97, 0x25, 0x34, 0x0d, 0x3d,
-	0xa1, 0x31, 0xe8, 0xdb, 0xcc, 0xd3, 0xf7, 0x99, 0x7a, 0x2f, 0x24, 0x88, 0xaa, 0x07, 0xa9, 0x3c,
-	0x83, 0x71, 0xa6, 0xd2, 0x47, 0x37, 0x75, 0x9a, 0xea, 0x6b, 0x77, 0xa4, 0x22, 0xf2, 0x52, 0xdc,
-	0x57, 0xfb, 0x9e, 0xf3, 0xdb, 0x9a, 0x74, 0xea, 0xd2, 0x13, 0x54, 0xe7, 0x72, 0x66, 0x15, 0xd0,
-	0x28, 0x54, 0x01, 0xd5, 0x0e, 0x39, 0x51, 0xf1, 0x7c, 0xe9, 0xc1, 0xbe, 0x01, 0x1b, 0x61, 0x72,
-	0xbc, 0x18, 0x8f, 0x83, 0x24, 0x19, 0x6a, 0x24, 0xeb, 0xb8, 0x05, 0xb9, 0x13, 0xc2, 0x1d, 0x96,
-	0x27, 0x19, 0x49, 0xea, 0x75, 0x4f, 0x58, 0xed, 0x9a, 0xbf, 0xd4, 0x61, 0x60, 0xfb, 0x56, 0x15,
-	0xb1, 0xae, 0xdd, 0x25, 0xd0, 0x7a, 0x00, 0xcd, 0x62, 0x0f, 0x20, 0x5f, 0xb8, 0xb6, 0x2c, 0x85,
-	0x2b, 0xde, 0x1a, 0x56, 0xe7, 0xca, 0x3e, 0x01, 0x1b, 0x98, 0xe5, 0xe5, 0x4a, 0xbe, 0xbc, 0x34,
-	0x4a, 0xc4, 0x4e, 0xae, 0x44, 0xa4, 0x04, 0x88, 0xd5, 0xb9, 0x59, 0xa9, 0x83, 0x04, 0xc8, 0x24,
-	0xce, 0x37, 0xe1, 0x36, 0x0d, 0xf3, 0x07, 0x93, 0x89, 0xac, 0x41, 0xcb, 0x3d, 0x81, 0xef, 0x56,
-	0xbf, 0xb8, 0xb8, 0x32, 0xa5, 0x11, 0xcb, 0xd0, 0x92, 0x0d, 0xf5, 0xc4, 0x0b, 0x99, 0xab, 0x66,
-	0x31, 0x1e, 0x6a, 0x20, 0x58, 0x89, 0x5d, 0x41, 0x07, 0xb3, 0x9c, 0xae, 0x17, 0xca, 0xe9, 0xcf,
-	0x75, 0x90, 0x52, 0x59, 0x05, 0x6f, 0xbb, 0xb2, 0x31, 0x90, 0xe4, 0x50, 0x32, 0xa1, 0x9b, 0x4d,
-	0x3b, 0x8f, 0x78, 0x36, 0x47, 0x35, 0x53, 0xbf, 0x54, 0x18, 0xea, 0x13, 0xd8, 0xc9, 0xad, 0x2c,
-	0x05, 0xf0, 0x40, 0xba, 0x9c, 0x7f, 0xbc, 0xcb, 0x3e, 0x4e, 0x05, 0xc2, 0xfb, 0xce, 0xbf, 0x6a,
-	0xb0, 0x91, 0x85, 0xc5, 0x8a, 0xa7, 0xc2, 0xa4, 0x57, 0xdd, 0x42, 0x2f, 0x5c, 0x23, 0x0d, 0xf5,
-	0x32, 0xe3, 0xb0, 0x21, 0x13, 0x6b, 0x5e, 0x28, 0xbe, 0x35, 0xd5, 0x1a, 0x25, 0xa3, 0x97, 0x9d,
-	0x61, 0x1b, 0x6a, 0xcd, 0x1d, 0x4e, 0xe7, 0x82, 0xdc, 0xe8, 0xb5, 0xb4, 0xcd, 0x5e, 0x8b, 0xf3,
-	0x04, 0x36, 0xb5, 0x93, 0x95, 0x9a, 0x88, 0xde, 0x0a, 0x6f, 0xa4, 0x9c, 0xcd, 0x07, 0xce, 0xc7,
-	0xb0, 0xf3, 0x2c, 0x48, 0xf9, 0xa3, 0x97, 0xa0, 0x82, 0xa4, 0xb2, 0x12, 0x2c, 0xeb, 0xa0, 0xe2,
-	0xa3, 0xb3, 0x9b, 0x57, 0x53, 0x0a, 0xe4, 0x2e, 0x34, 0xf1, 0xdb, 0x92, 0x27, 0x2b, 0x32, 0x74,
-	0x33, 0xa1, 0x73, 0x00, 0x9b, 0xac, 0x03, 0x72, 0x4c, 0x8b, 0xe5, 0xeb, 0x61, 0x19, 0x02, 0xd1,
-	0x55, 0x54, 0x05, 0x29, 0x0c, 0xaa, 0x74, 0xa5, 0x8a, 0xb2, 0x99, 0xc0, 0x79, 0x0a, 0x1b, 0xc7,
-	0x69, 0x34, 0x7f, 0x0b, 0x1c, 0x87, 0xf4, 0x28, 0x4a, 0xc3, 0x32, 0x18, 0xd1, 0x7c, 0x6e, 0xc2,
-	0x60, 0x02, 0xe7, 0x0f, 0x35, 0xb8, 0xcb, 0x42, 0xef, 0xc1, 0x05, 0x96, 0xf6, 0xde, 0x68, 0x12,
-	0xb0, 0x86, 0x48, 0xb5, 0x9b, 0x90, 0xa6, 0x61, 0xba, 0x10, 0xaf, 0x63, 0xc3, 0x55, 0x63, 0xfa,
-	0xad, 0x49, 0x34, 0x3b, 0xe3, 0x93, 0x0d, 0x36, 0x99, 0x09, 0x58, 0x59, 0x7d, 0x36, 0x8b, 0xe2,
-	0xc0, 0xe7, 0x8d, 0x98, 0x26, 0x3a, 0xa8, 0xe5, 0x1a, 0x32, 0x2c, 0x73, 0xef, 0xd9, 0xe1, 0xbc,
-	0xed, 0x63, 0xfd, 0x4b, 0x20, 0x07, 0xf8, 0xbe, 0xcd, 0x53, 0xa6, 0xf0, 0xba, 0xef, 0x98, 0xee,
-	0x8f, 0x46, 0x81, 0xa3, 0x5b, 0xc6, 0x17, 0x4a, 0x11, 0x63, 0x6c, 0x0c, 0x13, 0xbe, 0x54, 0xb9,
-	0x44, 0x93, 0x50, 0xa8, 0x87, 0xac, 0xcd, 0xf5, 0x2e, 0xa1, 0x1a, 0x5f, 0xa8, 0x86, 0x7a, 0x28,
-	0x7b, 0x70, 0x0a, 0xaa, 0x94, 0x38, 0x3f, 0xa7, 0x2c, 0xa6, 0x0d, 0x45, 0x0c, 0x24, 0xef, 0x02,
-	0xe8, 0xa1, 0xb8, 0xae, 0x5c, 0xff, 0x35, 0xaf, 0xda, 0xcf, 0x60, 0x9d, 0x76, 0x2d, 0xdf, 0x11,
-	0x44, 0xac, 0x54, 0x94, 0xf6, 0xaa, 0xa4, 0x3e, 0x4c, 0x70, 0x99, 0x82, 0x27, 0x87, 0xce, 0x4f,
-	0xe1, 0xb6, 0xa8, 0x32, 0x55, 0xf7, 0xac, 0x1c, 0xe5, 0x1e, 0x40, 0xd6, 0x64, 0x13, 0x74, 0x5f,
-	0x67, 0xd5, 0x46, 0xb6, 0x59, 0x5b, 0xe1, 0xfc, 0x04, 0xfa, 0x45, 0xe5, 0x37, 0x54, 0xc6, 0xfe,
-	0xad, 0x06, 0xf7, 0x8d, 0x42, 0xe0, 0x2a, 0x07, 0xb8, 0x62, 0x26, 0xaf, 0xf7, 0x1d, 0x1a, 0x55,
-	0x7d, 0x87, 0xac, 0x82, 0x69, 0x96, 0x56, 0x30, 0xad, 0x62, 0x0b, 0xe9, 0x41, 0x29, 0xf0, 0x6a,
-	0x8a, 0xf1, 0x6d, 0x1a, 0xc5, 0x84, 0xc0, 0xf1, 0xa1, 0x7f, 0x8c, 0xef, 0x13, 0xef, 0x8f, 0xbe,
-	0x8a, 0x96, 0x5c, 0x5c, 0x64, 0xc3, 0x14, 0x33, 0x6d, 0xfa, 0x57, 0x34, 0x9e, 0x00, 0xc8, 0xa1,
-	0x49, 0xc3, 0x46, 0xbe, 0x62, 0xfa, 0x14, 0xee, 0x58, 0xbe, 0x52, 0x0d, 0xf9, 0x44, 0x2b, 0x6e,
-	0x19, 0xe4, 0x13, 0x55, 0xde, 0xde, 0x7d, 0x1d, 0xc4, 0xe1, 0xe9, 0xa5, 0x78, 0x55, 0x31, 0xfc,
-	0x44, 0x8b, 0xd9, 0x35, 0xdf, 0xa2, 0x23, 0xb8, 0x67, 0x57, 0x56, 0x1d, 0x59, 0xd8, 0x9e, 0x50,
-	0x8f, 0x2c, 0x52, 0xb2, 0xff, 0x8f, 0x0d, 0xe8, 0x69, 0xff, 0x9e, 0x40, 0x3e, 0x80, 0x2e, 0xeb,
-	0x7f, 0x9e, 0x24, 0xe8, 0xf5, 0x0d, 0xca, 0x06, 0xbd, 0xfd, 0x3a, 0xd8, 0xd4, 0x24, 0xe2, 0x9b,
-	0x4f, 0x00, 0xb2, 0x6e, 0x2f, 0xd9, 0xa1, 0x0b, 0x0a, 0x0d, 0xe9, 0xc1, 0x6e, 0x5e, 0x2c, 0x36,
-	0x3f, 0x83, 0x75, 0xb3, 0x81, 0x49, 0xee, 0x30, 0x06, 0xda, 0x3a, 0xa5, 0x83, 0x81, 0x6d, 0x4a,
-	0x28, 0x3a, 0x80, 0x55, 0xbd, 0xb9, 0x48, 0x6e, 0xd3, 0xb5, 0x96, 0x0e, 0xe6, 0xa0, 0x5f, 0x9c,
-	0xc8, 0xb0, 0x98, 0x6d, 0x3f, 0x8e, 0xc5, 0xda, 0x5f, 0xe4, 0x58, 0x4a, 0xba, 0x84, 0xa8, 0xc8,
-	0x6c, 0xd2, 0x71, 0x45, 0xd6, 0x6e, 0x20, 0x57, 0x54, 0xd2, 0xd3, 0xc3, 0x43, 0xe9, 0xad, 0x31,
-	0x7e, 0x28, 0x4b, 0xe3, 0x8e, 0x1f, 0xca, 0xda, 0x45, 0x43, 0xef, 0x64, 0x9d, 0x2b, 0xee, 0x9d,
-	0x42, 0x57, 0x8c, 0x7b, 0xc7, 0xd2, 0xe0, 0xc2, 0xef, 0xeb, 0xed, 0x1d, 0xfe, 0x7d, 0x4b, 0xf3,
-	0x89, 0x7f, 0xdf, 0xda, 0x09, 0x42, 0x15, 0x7a, 0x43, 0x86, 0xab, 0xb0, 0xf4, 0x7b, 0xb8, 0x0a,
-	0x6b, 0xef, 0x66, 0x08, 0x6b, 0x46, 0x1c, 0x21, 0xda, 0x69, 0xcd, 0x8e, 0xc0, 0xe0, 0x8e, 0x65,
-	0x26, 0xd3, 0x62, 0x94, 0xef, 0x44, 0xfb, 0xa0, 0x4d, 0x8b, 0xbd, 0xd6, 0x47, 0x2d, 0x46, 0x77,
-	0x83, 0x68, 0x27, 0xb7, 0x69, 0xb1, 0xb7, 0x42, 0x8e, 0x31, 0xf3, 0x28, 0xd4, 0xe1, 0xe4, 0x3d,
-	0x06, 0xbe, 0xac, 0x17, 0x30, 0xb8, 0x5f, 0x36, 0x2d, 0x94, 0xbe, 0x80, 0x8d, 0x7c, 0x3d, 0x4a,
-	0xee, 0x4a, 0xc7, 0x5a, 0x4a, 0xda, 0xc1, 0x3d, 0xfb, 0xa4, 0x4d, 0x1d, 0xaf, 0xf9, 0xf2, 0xea,
-	0x8c, 0xe2, 0x34, 0xaf, 0x2e, 0x57, 0x6c, 0x3e, 0x85, 0x2e, 0x56, 0x16, 0xbc, 0x00, 0x24, 0x7d,
-	0x7d, 0xa9, 0x5e, 0x3d, 0x72, 0xa3, 0xd9, 0xab, 0xc5, 0xef, 0x41, 0x4f, 0xcb, 0xfb, 0x08, 0xe3,
-	0x6c, 0x31, 0xd5, 0x1c, 0xdc, 0x2e, 0xc8, 0xb3, 0xfd, 0x5a, 0x32, 0xc6, 0xf7, 0x17, 0xf3, 0x3f,
-	0xbe, 0xdf, 0x96, 0xb5, 0x3d, 0x86, 0xae, 0xca, 0x91, 0xc8, 0x36, 0x5d, 0x95, 0x4f, 0xc9, 0x06,
-	0x3b, 0x39, 0xa9, 0xd8, 0xb9, 0x0f, 0x2b, 0x22, 0x75, 0x21, 0x84, 0xae, 0x30, 0xb3, 0xa4, 0xc1,
-	0x96, 0x21, 0xcb, 0x62, 0x88, 0x59, 0x89, 0xf1, 0x18, 0x62, 0x2d, 0xf2, 0x78, 0x0c, 0x29, 0x29,
-	0xdc, 0x30, 0x00, 0x64, 0x65, 0x14, 0xc9, 0x10, 0xea, 0x15, 0x11, 0x0f, 0x00, 0x96, 0x6a, 0x8b,
-	0x9d, 0x59, 0xd4, 0x3e, 0xf2, 0xcc, 0x66, 0x31, 0x25, 0xcf, 0x9c, 0x2f, 0x90, 0x70, 0xa7, 0xba,
-	0x87, 0x7c, 0x67, 0xbe, 0x6c, 0xe7, 0x3b, 0x8b, 0x25, 0xef, 0x8f, 0x61, 0xdb, 0x56, 0x9a, 0x90,
-	0x07, 0x8a, 0xff, 0xf6, 0x1a, 0x6a, 0xf0, 0xb0, 0x7c, 0x41, 0xc6, 0xe9, 0x7c, 0x9e, 0xc6, 0x39,
-	0x5d, 0x92, 0x1a, 0x72, 0x4e, 0x97, 0xa6, 0x76, 0x23, 0x99, 0x53, 0x16, 0x12, 0x1c, 0xe2, 0x14,
-	0x02, 0x51, 0x51, 0xf9, 0x57, 0x2a, 0xd7, 0x88, 0x6f, 0x1c, 0x61, 0x66, 0x9e, 0xcf, 0x45, 0x08,
-	0x83, 0x55, 0x96, 0x08, 0x0d, 0xde, 0x2b, 0x99, 0xcd, 0xec, 0x6b, 0xcb, 0x21, 0xb8, 0x7d, 0x2b,
-	0x52, 0x15, 0x6e, 0xdf, 0xaa, 0xf4, 0x63, 0xd4, 0x66, 0x7f, 0xf6, 0xfe, 0xd6, 0x7f, 0x03, 0x00,
-	0x00, 0xff, 0xff, 0xe6, 0x17, 0xd1, 0x36, 0xf1, 0x28, 0x00, 0x00,
+var fileDescriptor_taxiService_90d45b49998fecec = []byte{
+	// 2715 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xcc, 0x5a, 0x4f, 0x73, 0x1b, 0x49,
+	0x15, 0x2f, 0xfd, 0xb3, 0xa5, 0xe7, 0x3f, 0xb1, 0xdb, 0x8e, 0xa3, 0x8c, 0x93, 0x38, 0x0c, 0x0b,
+	0x95, 0x82, 0x2a, 0xef, 0xae, 0x39, 0x90, 0x22, 0x40, 0xc5, 0x6b, 0x2d, 0x21, 0xc9, 0x26, 0x98,
+	0x71, 0x12, 0x16, 0xd8, 0x62, 0x91, 0x34, 0x63, 0x7b, 0x2a, 0x92, 0x46, 0xcc, 0x8c, 0xcc, 0xe6,
+	0x0c, 0x17, 0xa8, 0xe2, 0x40, 0x71, 0xe3, 0xc0, 0x95, 0x6f, 0x00, 0x9f, 0x81, 0x1b, 0x47, 0xce,
+	0xfb, 0x49, 0x78, 0xfd, 0x67, 0x7a, 0xba, 0x7b, 0x7a, 0x46, 0x5e, 0xc5, 0xa1, 0xb8, 0xa9, 0x5f,
+	0xbf, 0x7e, 0xfd, 0xeb, 0x7e, 0xbf, 0x7e, 0xdd, 0xef, 0x8d, 0x60, 0x33, 0xed, 0x7f, 0x11, 0x9e,
+	0x04, 0xf1, 0x45, 0x38, 0x0c, 0xf6, 0xa7, 0x71, 0x94, 0x46, 0xa4, 0x7e, 0xf1, 0xa1, 0xb3, 0x77,
+	0x16, 0x45, 0x67, 0xa3, 0xe0, 0x7d, 0x26, 0x19, 0xcc, 0x4e, 0xdf, 0x4f, 0xc3, 0x71, 0x90, 0xa4,
+	0xfd, 0xf1, 0x94, 0x2b, 0xb9, 0x7f, 0xad, 0x43, 0xfb, 0x68, 0x96, 0xa4, 0xd1, 0x38, 0x88, 0xc9,
+	0x3a, 0xd4, 0x43, 0xbf, 0x5b, 0xbb, 0x5b, 0xbb, 0xd7, 0xf2, 0xf0, 0x17, 0x21, 0xd0, 0x9c, 0xf4,
+	0xc7, 0x41, 0xb7, 0x8e, 0x92, 0x8e, 0xc7, 0x7e, 0x93, 0xbb, 0xb0, 0x32, 0x3d, 0x8f, 0x26, 0xc1,
+	0xf3, 0xd9, 0x78, 0x10, 0xc4, 0xdd, 0x06, 0xeb, 0x52, 0x45, 0x64, 0x1b, 0x5a, 0xc1, 0xb8, 0x1f,
+	0x8e, 0xba, 0x4d, 0xd6, 0xc7, 0x1b, 0xc4, 0x81, 0xf6, 0xb4, 0x9f, 0x24, 0xbf, 0x8d, 0x62, 0xbf,
+	0xdb, 0x62, 0x1d, 0xb2, 0x4d, 0x6e, 0x41, 0xa7, 0x3f, 0x4b, 0xcf, 0x5f, 0x44, 0xaf, 0x83, 0x49,
+	0x77, 0x89, 0x75, 0xe6, 0x02, 0xf2, 0x00, 0x56, 0x86, 0x71, 0xd0, 0x4f, 0x83, 0xcf, 0x29, 0xf8,
+	0xee, 0x32, 0xf6, 0xaf, 0x1c, 0x38, 0xfb, 0x7c, 0x65, 0xfb, 0xd9, 0xca, 0xf6, 0x5f, 0x64, 0x2b,
+	0xf3, 0x80, 0xab, 0x53, 0x01, 0x1d, 0x3c, 0x9b, 0xfa, 0x72, 0x70, 0x7b, 0xfe, 0x60, 0xae, 0x4e,
+	0x05, 0xee, 0xbf, 0x1b, 0xb0, 0xd4, 0x8b, 0xc3, 0x0b, 0xcb, 0xd6, 0x20, 0xe4, 0xd3, 0x30, 0x4e,
+	0xd2, 0xe7, 0xf9, 0xfe, 0xe4, 0x02, 0xd2, 0x85, 0xe5, 0x64, 0x16, 0xb3, 0xbd, 0xe3, 0x1b, 0x94,
+	0x35, 0xd9, 0xf6, 0xf5, 0xe3, 0x34, 0x8e, 0x26, 0x6f, 0xc6, 0xe1, 0x50, 0x6c, 0x91, 0x2a, 0x22,
+	0xf7, 0xa1, 0x33, 0x08, 0xe3, 0xf4, 0xbc, 0x87, 0x28, 0xd8, 0x4e, 0x55, 0xe3, 0xcd, 0x95, 0x4d,
+	0xd7, 0x2c, 0x15, 0x5d, 0x83, 0xb8, 0x70, 0xc3, 0x5f, 0x87, 0x93, 0x33, 0xb6, 0x8d, 0x6d, 0x2f,
+	0x6b, 0xe6, 0x4e, 0x6b, 0x97, 0x39, 0xad, 0x53, 0xe5, 0x34, 0x30, 0x9d, 0x46, 0x7b, 0x87, 0x69,
+	0x78, 0x81, 0xb8, 0xfc, 0xee, 0x0a, 0x9b, 0x2b, 0x17, 0x98, 0x2e, 0x5d, 0x7d, 0x1b, 0x97, 0xae,
+	0x7d, 0x25, 0x97, 0xfe, 0xab, 0x0e, 0xd7, 0xb8, 0x4b, 0x7b, 0xd1, 0x70, 0x36, 0x0e, 0x26, 0x69,
+	0x52, 0xf0, 0x2d, 0xae, 0xda, 0x67, 0x2a, 0x8f, 0x7d, 0xe6, 0xda, 0x96, 0x27, 0xdb, 0xe4, 0x9b,
+	0xb0, 0x4e, 0x77, 0x60, 0x1a, 0xc5, 0xa9, 0x76, 0x02, 0x0c, 0x29, 0x79, 0x0f, 0xd6, 0x32, 0xc9,
+	0xe3, 0x71, 0xff, 0x2c, 0x60, 0x9e, 0x5e, 0xf5, 0x74, 0x21, 0x39, 0x80, 0x6d, 0x6a, 0x19, 0x1d,
+	0xf0, 0x09, 0x9e, 0xdb, 0x49, 0x92, 0xb9, 0x8e, 0x1f, 0x10, 0x6b, 0x1f, 0xf9, 0x1e, 0x40, 0xf0,
+	0xc5, 0x34, 0x8c, 0xdf, 0x30, 0x82, 0x2c, 0xcd, 0x5f, 0x7d, 0xae, 0x4d, 0x3e, 0x80, 0x2d, 0xdd,
+	0x26, 0xc7, 0xb6, 0xcc, 0xb0, 0xd9, 0xba, 0xe8, 0x5e, 0x24, 0x69, 0x72, 0x7c, 0x8e, 0x66, 0x19,
+	0x35, 0x56, 0x3d, 0xd9, 0x76, 0xbf, 0xac, 0x03, 0xf4, 0xc2, 0x64, 0xda, 0x4f, 0x87, 0xe7, 0xff,
+	0xd3, 0x23, 0x62, 0x10, 0xbd, 0x55, 0x11, 0x83, 0x96, 0xca, 0xe8, 0xbc, 0x5c, 0x45, 0xe7, 0xf6,
+	0x9c, 0x18, 0xd4, 0x79, 0x1b, 0xc2, 0xc2, 0x57, 0x22, 0xec, 0x33, 0x68, 0x1d, 0x45, 0xa3, 0xc8,
+	0x1a, 0x9c, 0x87, 0x91, 0x1f, 0x08, 0x86, 0xb2, 0xdf, 0x74, 0x63, 0xfc, 0x20, 0x19, 0xc6, 0xe1,
+	0x34, 0x0d, 0xa3, 0x49, 0x16, 0x9c, 0x15, 0x91, 0xfb, 0xf7, 0x1a, 0x34, 0x8e, 0xfa, 0x83, 0x82,
+	0x35, 0x74, 0xc7, 0x90, 0x4e, 0x23, 0x29, 0x9f, 0x35, 0x89, 0x0b, 0xab, 0x23, 0xce, 0x88, 0xe3,
+	0x11, 0x65, 0x1c, 0x37, 0xaa, 0xc9, 0xc8, 0x1d, 0x80, 0x61, 0x3f, 0x7e, 0x86, 0x10, 0x46, 0x68,
+	0xa0, 0xc9, 0x0c, 0x28, 0x12, 0xed, 0x44, 0xb5, 0x8c, 0x13, 0xb5, 0x03, 0x4b, 0x2c, 0x30, 0x70,
+	0x2e, 0xb7, 0x3d, 0xd1, 0x72, 0x3f, 0xc5, 0x8b, 0x49, 0x58, 0xb0, 0x51, 0x6b, 0x4c, 0x3b, 0x54,
+	0x6a, 0x49, 0x81, 0x40, 0xf3, 0x51, 0xdc, 0x9f, 0xf8, 0x38, 0x5f, 0x43, 0xa2, 0x11, 0x12, 0xf7,
+	0x3e, 0xb3, 0xcc, 0x5a, 0x36, 0xcb, 0x03, 0xda, 0xa1, 0x5a, 0x96, 0x02, 0xf7, 0x2f, 0x4d, 0x58,
+	0xc6, 0xdd, 0xf3, 0x42, 0xdc, 0x6b, 0x73, 0x24, 0x9d, 0x55, 0x5c, 0xa4, 0x72, 0x13, 0x15, 0x09,
+	0x23, 0xfc, 0x79, 0x78, 0x9a, 0x4a, 0x48, 0x59, 0x93, 0x3c, 0x84, 0xb5, 0x18, 0x2d, 0x9e, 0xa4,
+	0x48, 0x71, 0xea, 0x73, 0xb6, 0x81, 0xd5, 0x0c, 0xd1, 0x07, 0x90, 0xef, 0xc3, 0x0a, 0x15, 0x7c,
+	0x3c, 0xf1, 0xd9, 0xf8, 0xf9, 0xb7, 0x86, 0xaa, 0x4e, 0x63, 0x55, 0x42, 0x4d, 0xe1, 0xd9, 0x3f,
+	0x8e, 0xc2, 0x49, 0x2a, 0x0e, 0x8d, 0x2e, 0xa4, 0x3e, 0xc4, 0x68, 0x89, 0x5b, 0x31, 0xe4, 0x01,
+	0x03, 0x7d, 0x98, 0xb5, 0x29, 0xef, 0x82, 0x89, 0x2f, 0xc7, 0xf3, 0xe3, 0xa3, 0x8a, 0xe8, 0xe8,
+	0x21, 0x55, 0x1d, 0x05, 0xfc, 0x26, 0x69, 0x7b, 0xb2, 0x4d, 0xee, 0xc1, 0x35, 0x3c, 0x81, 0x41,
+	0xfc, 0xa3, 0x28, 0x3e, 0x9c, 0x44, 0x29, 0xc6, 0x12, 0x76, 0x46, 0xda, 0x9e, 0x29, 0xa6, 0x5c,
+	0x9c, 0x72, 0xab, 0x3f, 0xa1, 0x3d, 0xe2, 0x62, 0xd1, 0x64, 0x3c, 0xf2, 0xbe, 0xa1, 0x91, 0xfd,
+	0xc5, 0x9b, 0x69, 0x80, 0xbb, 0xbd, 0xca, 0xc0, 0xea, 0x42, 0x1a, 0x20, 0xa6, 0x31, 0x52, 0x98,
+	0x5d, 0x1f, 0x2d, 0x8f, 0x37, 0xf8, 0x29, 0x18, 0x53, 0xb5, 0xee, 0x3a, 0x0f, 0x4a, 0xa2, 0x49,
+	0xf1, 0x9f, 0x06, 0x81, 0x3f, 0xe8, 0x0f, 0x5f, 0x77, 0xaf, 0xf1, 0xd0, 0x91, 0xb5, 0xdd, 0x2f,
+	0x6b, 0xb0, 0x26, 0x58, 0x81, 0x2e, 0x49, 0x67, 0x89, 0x8d, 0x55, 0x43, 0xae, 0x20, 0xa9, 0x91,
+	0x0b, 0x2a, 0x98, 0x81, 0x9c, 0x4a, 0x98, 0x45, 0x49, 0x0b, 0xe4, 0x54, 0x2e, 0x11, 0x9e, 0xc3,
+	0x56, 0x2f, 0x48, 0x31, 0xc0, 0x25, 0x22, 0x14, 0xea, 0x42, 0xb2, 0xc7, 0xd9, 0xf1, 0x39, 0x97,
+	0x32, 0xef, 0xa2, 0x99, 0x38, 0x87, 0x8b, 0xdb, 0xea, 0xcb, 0x38, 0xfe, 0xd8, 0x17, 0xee, 0xd5,
+	0x64, 0xee, 0x9f, 0x6b, 0xb0, 0xc9, 0x62, 0xe1, 0xd1, 0x79, 0x30, 0x7c, 0xed, 0x05, 0xbf, 0x99,
+	0x21, 0x95, 0xc8, 0x06, 0x34, 0xfa, 0xd3, 0x90, 0xad, 0xb4, 0xe3, 0xd1, 0x9f, 0x74, 0xa3, 0x66,
+	0x49, 0x10, 0xd3, 0x6d, 0xce, 0x2e, 0xcf, 0xac, 0x4d, 0x37, 0x7d, 0x14, 0x9d, 0x85, 0x59, 0x60,
+	0xe2, 0x0d, 0x2d, 0x2a, 0x37, 0xab, 0xa2, 0x72, 0xcb, 0x88, 0xca, 0xee, 0x13, 0x20, 0x2a, 0x24,
+	0xbc, 0x58, 0x31, 0x22, 0x59, 0x30, 0xe1, 0xfa, 0xc2, 0xe4, 0x55, 0x7f, 0x14, 0xfa, 0xdc, 0x50,
+	0x9d, 0xd3, 0x46, 0x95, 0xb9, 0x13, 0x58, 0xfd, 0x84, 0xc2, 0x29, 0x5f, 0x99, 0x44, 0x5f, 0x2f,
+	0x43, 0xdf, 0x30, 0xd0, 0xab, 0x7b, 0xd1, 0xd4, 0xf7, 0xc2, 0xfd, 0x19, 0xac, 0x89, 0xf9, 0x4a,
+	0x61, 0x6b, 0x8b, 0xaf, 0x9b, 0x57, 0x12, 0xc6, 0x4d, 0x6a, 0x4c, 0x92, 0x46, 0xb4, 0xdc, 0x13,
+	0xb8, 0x7e, 0xc4, 0xee, 0x9e, 0xec, 0x59, 0x5f, 0xbe, 0xa2, 0x7b, 0x78, 0x28, 0x85, 0x12, 0xb3,
+	0xbf, 0x72, 0xb0, 0xba, 0x7f, 0xf1, 0xe1, 0xbe, 0x1c, 0x28, 0x7b, 0x31, 0x18, 0xef, 0x98, 0x46,
+	0x4b, 0x61, 0x73, 0xf2, 0xd7, 0x55, 0xf2, 0xe7, 0xcb, 0x68, 0x98, 0x3e, 0xfc, 0x29, 0x6c, 0x79,
+	0x41, 0xdf, 0xbf, 0x4a, 0xb0, 0x1e, 0x6c, 0xeb, 0x26, 0x4b, 0xa1, 0x5e, 0xde, 0x26, 0xee, 0xea,
+	0x4b, 0x76, 0x29, 0x5f, 0x25, 0xd0, 0x1e, 0xec, 0x98, 0x46, 0x4b, 0xa1, 0x62, 0x90, 0xe0, 0xaf,
+	0x02, 0x79, 0x41, 0x8b, 0x26, 0x85, 0xd6, 0xc3, 0x38, 0x7a, 0xe5, 0xd0, 0x4c, 0xa3, 0x55, 0xd0,
+	0x7c, 0xa6, 0x2b, 0xa1, 0x89, 0xa6, 0xfb, 0xc7, 0x1a, 0x6c, 0x71, 0xde, 0xf0, 0x37, 0x77, 0x39,
+	0x32, 0x17, 0x96, 0xf8, 0x8b, 0x40, 0xe0, 0x02, 0x8a, 0x4b, 0x0c, 0x12, 0x3d, 0xe4, 0x07, 0x70,
+	0xcd, 0xd7, 0x9f, 0xee, 0x8c, 0x4e, 0x2b, 0x07, 0x5b, 0xb9, 0xb2, 0xec, 0xf2, 0x4c, 0x5d, 0xf7,
+	0x15, 0x6c, 0xeb, 0x58, 0xae, 0x88, 0xc1, 0x8f, 0x61, 0x93, 0xd2, 0xed, 0x0a, 0x56, 0xe8, 0xfe,
+	0xa1, 0x06, 0x44, 0xb5, 0x55, 0x11, 0xd1, 0xde, 0xf9, 0x76, 0x51, 0xdf, 0x71, 0x76, 0xfe, 0x1f,
+	0xf8, 0xee, 0x23, 0xd8, 0xd6, 0xb1, 0x2c, 0x70, 0x4e, 0x9e, 0xc2, 0x16, 0xa7, 0xf4, 0x55, 0x78,
+	0x0a, 0x01, 0xe9, 0xc6, 0x16, 0x38, 0x1d, 0xbf, 0xab, 0x65, 0x8c, 0x14, 0xaf, 0x87, 0x72, 0x48,
+	0xdf, 0xc0, 0x87, 0x09, 0xd7, 0x11, 0x98, 0x56, 0xd8, 0xb9, 0x15, 0xc3, 0xb2, 0xbe, 0xfc, 0x55,
+	0xd3, 0x50, 0x5f, 0x35, 0x1a, 0x7d, 0x9b, 0x26, 0x7d, 0x1f, 0xc9, 0xfb, 0x22, 0x03, 0x51, 0x75,
+	0x21, 0x95, 0x3f, 0x63, 0xdc, 0x71, 0xe6, 0xa3, 0xab, 0x5a, 0x4d, 0xf5, 0xb1, 0x3b, 0x96, 0x11,
+	0x79, 0x2e, 0xee, 0xcb, 0xcd, 0xe7, 0xfe, 0xbe, 0x96, 0x39, 0x75, 0xee, 0x0a, 0xaa, 0x1f, 0x74,
+	0x7a, 0x2a, 0xd0, 0x28, 0xa4, 0x02, 0xd5, 0x0e, 0x79, 0x29, 0xe3, 0xf9, 0xdc, 0x85, 0x7d, 0x0b,
+	0x36, 0xc2, 0xe4, 0x64, 0x36, 0x1c, 0x06, 0x49, 0xd2, 0x53, 0x48, 0xd6, 0xf6, 0x0a, 0x72, 0x37,
+	0x84, 0x9b, 0xec, 0x9d, 0xa4, 0xbd, 0x54, 0x17, 0x5d, 0x61, 0xb5, 0x6b, 0xfe, 0x56, 0x07, 0xc7,
+	0x36, 0x57, 0x15, 0xb1, 0x16, 0x2e, 0x15, 0x28, 0x85, 0x80, 0x66, 0xb1, 0x10, 0x60, 0x66, 0xaf,
+	0x2d, 0x4b, 0xf6, 0x8a, 0xa7, 0x86, 0x25, 0xbb, 0x59, 0xb1, 0x80, 0x35, 0xf4, 0x1c, 0x73, 0xd9,
+	0xcc, 0x31, 0xb5, 0x3c, 0xb1, 0x6d, 0xe4, 0x89, 0x94, 0x00, 0xf9, 0xf3, 0x9a, 0xe5, 0x3b, 0xda,
+	0x83, 0xdb, 0xfd, 0x36, 0xdc, 0xa0, 0x61, 0xfe, 0x70, 0x34, 0xca, 0x12, 0xd1, 0x72, 0x4f, 0xe0,
+	0xbd, 0xd5, 0x2d, 0x2a, 0x57, 0x3e, 0x69, 0x84, 0x1a, 0xee, 0x64, 0x43, 0x5e, 0xf1, 0x42, 0xe6,
+	0xc9, 0x5e, 0x8c, 0x87, 0x0a, 0x08, 0x96, 0x67, 0x57, 0xd0, 0x41, 0xcf, 0xa9, 0xeb, 0x85, 0x9c,
+	0xfa, 0x53, 0x15, 0x64, 0x66, 0xac, 0x82, 0xb7, 0x9d, 0xac, 0x3a, 0x90, 0x18, 0x28, 0x99, 0xd0,
+	0xcb, 0xbb, 0xdd, 0x7b, 0xfc, 0x35, 0x47, 0x2d, 0x53, 0xbf, 0x54, 0x6c, 0xd4, 0x13, 0xb8, 0x6e,
+	0x68, 0x96, 0x02, 0xd8, 0xcb, 0x5c, 0xce, 0x27, 0xef, 0xb0, 0xc9, 0xa9, 0x40, 0x78, 0xdf, 0xfd,
+	0x4f, 0x0d, 0x36, 0xf2, 0xb0, 0x58, 0x71, 0x55, 0xe8, 0xf4, 0xaa, 0x5b, 0xe8, 0x85, 0x3a, 0xd9,
+	0x46, 0x3d, 0xcf, 0x39, 0xac, 0xc9, 0x84, 0xce, 0x33, 0xc9, 0xb7, 0xa6, 0xd4, 0x91, 0x32, 0x7a,
+	0xd8, 0x19, 0xb6, 0x9e, 0x52, 0xe1, 0xe1, 0x74, 0x2e, 0xc8, 0xb5, 0x82, 0xcb, 0x92, 0x5e, 0x70,
+	0x71, 0x1f, 0xc0, 0xa6, 0xb2, 0xb2, 0xd2, 0x2d, 0xa2, 0xa7, 0xa2, 0x3f, 0x90, 0xce, 0xe6, 0x0d,
+	0xf7, 0x63, 0xb8, 0xfe, 0x28, 0x48, 0xf9, 0xa5, 0x97, 0xa0, 0x81, 0xa4, 0x32, 0x13, 0x2c, 0x2b,
+	0xa3, 0xe2, 0xa5, 0xb3, 0x63, 0x9a, 0x29, 0x05, 0xb2, 0x0b, 0x4d, 0x9c, 0x3b, 0xe3, 0xc9, 0x72,
+	0x16, 0xba, 0x99, 0xd0, 0x3d, 0x84, 0x4d, 0x56, 0x06, 0x39, 0xa1, 0x19, 0xf3, 0x62, 0x58, 0x7a,
+	0x40, 0x54, 0x13, 0x55, 0x41, 0x0a, 0x83, 0x2a, 0xd5, 0x94, 0x51, 0x36, 0x17, 0xb8, 0x0f, 0x61,
+	0xe3, 0x24, 0x8d, 0xa6, 0x6f, 0x81, 0xe3, 0x88, 0x2e, 0x45, 0x5a, 0x98, 0x07, 0x23, 0x9a, 0x4e,
+	0x75, 0x18, 0x4c, 0xe0, 0xfe, 0xa9, 0x06, 0xbb, 0x2c, 0xf4, 0x1e, 0x5e, 0x60, 0xee, 0xdf, 0x1f,
+	0x8c, 0x02, 0x56, 0x15, 0xa9, 0x76, 0x13, 0xd2, 0x34, 0x4c, 0x67, 0xe2, 0x76, 0x6c, 0x78, 0xb2,
+	0x4d, 0xe7, 0x1a, 0x45, 0x93, 0x33, 0xde, 0xd9, 0x60, 0x9d, 0xb9, 0x80, 0xa5, 0xd5, 0x67, 0x93,
+	0x28, 0x0e, 0x7c, 0x5e, 0x8d, 0x69, 0xa2, 0x83, 0x5a, 0x9e, 0x26, 0xc3, 0x34, 0xf7, 0x96, 0x1d,
+	0xce, 0xdb, 0x5e, 0xd6, 0xbf, 0x06, 0x72, 0x88, 0xf7, 0xdb, 0x34, 0x65, 0x06, 0x17, 0xbd, 0xc7,
+	0x54, 0x7f, 0x34, 0x0a, 0x1c, 0xdd, 0xd2, 0x66, 0x28, 0x45, 0x8c, 0xb1, 0x31, 0x4c, 0xb8, 0xaa,
+	0x74, 0x89, 0x22, 0xa1, 0x50, 0x8f, 0x58, 0xad, 0xeb, 0x5d, 0x42, 0xd5, 0x66, 0xa8, 0x86, 0x7a,
+	0x94, 0x15, 0xe2, 0x24, 0xd4, 0x4c, 0xe2, 0xfe, 0x8a, 0xb2, 0x98, 0x56, 0x15, 0x31, 0x90, 0xbc,
+	0x0b, 0xa0, 0x47, 0xe2, 0xb8, 0x72, 0xfb, 0x0b, 0x1e, 0xb5, 0xcf, 0x60, 0x9d, 0x96, 0x2e, 0xdf,
+	0x11, 0x44, 0xcc, 0x54, 0xa4, 0xf5, 0xaa, 0x47, 0x7d, 0x98, 0xa0, 0x9a, 0x84, 0x97, 0x35, 0xdd,
+	0x5f, 0xc2, 0x0d, 0x91, 0x65, 0xca, 0xea, 0x59, 0x39, 0xca, 0x7d, 0x80, 0xbc, 0xc8, 0x26, 0xe8,
+	0xbe, 0xce, 0xb2, 0x8d, 0x7c, 0xb0, 0xa2, 0xe1, 0xfe, 0x02, 0xba, 0x45, 0xe3, 0x57, 0x94, 0xc6,
+	0xfe, 0xb3, 0x06, 0x77, 0xb4, 0x44, 0xe0, 0x32, 0x0b, 0xb8, 0xe4, 0x4b, 0x5e, 0xad, 0x3b, 0x34,
+	0xaa, 0xea, 0x0e, 0x79, 0x06, 0xd3, 0x2c, 0xcd, 0x60, 0x0a, 0x65, 0xc0, 0x08, 0xf6, 0x4a, 0x81,
+	0x57, 0x53, 0x8c, 0x0f, 0x53, 0x28, 0x26, 0x04, 0x3a, 0x7d, 0x1a, 0x66, 0xa6, 0xe3, 0x43, 0xf7,
+	0x04, 0x6f, 0x2f, 0x5e, 0x5e, 0x7d, 0x11, 0xcd, 0x39, 0xd6, 0xc8, 0x95, 0x31, 0xbe, 0xc3, 0xe9,
+	0x87, 0x36, 0xfe, 0x3c, 0xc8, 0x9a, 0x73, 0x66, 0x79, 0x0a, 0x37, 0x2d, 0xb3, 0x54, 0x2f, 0xe8,
+	0xa5, 0x92, 0xfa, 0xb2, 0x05, 0x09, 0x01, 0xcd, 0xf2, 0xc4, 0xdb, 0x48, 0x5c, 0xba, 0x95, 0x47,
+	0xa7, 0xbc, 0xec, 0xe8, 0x3e, 0x87, 0x1d, 0xd3, 0xd0, 0xa5, 0xaa, 0x14, 0x8d, 0x92, 0x44, 0xfa,
+	0x29, 0xec, 0xbe, 0x0a, 0xe2, 0xf0, 0xf4, 0x8d, 0x30, 0x87, 0x51, 0x33, 0x9a, 0x4d, 0x16, 0xbc,
+	0x42, 0x8f, 0xe1, 0x96, 0xdd, 0x58, 0x75, 0x40, 0x64, 0x63, 0x42, 0x35, 0x20, 0x66, 0x12, 0xf7,
+	0x71, 0xfe, 0x48, 0x16, 0x14, 0x5d, 0x78, 0xe7, 0x94, 0x77, 0x7c, 0x6e, 0xea, 0x92, 0xa5, 0xc9,
+	0x46, 0x45, 0xa9, 0xee, 0xc7, 0xd2, 0x23, 0x82, 0xff, 0x0b, 0x23, 0xf4, 0x94, 0x8c, 0x20, 0xb3,
+	0x74, 0xb9, 0x7b, 0xba, 0x51, 0x7a, 0x4f, 0x9f, 0xf3, 0x55, 0x5f, 0x3e, 0xeb, 0xac, 0x28, 0x79,
+	0x57, 0x9f, 0x97, 0x53, 0xb8, 0x69, 0x99, 0xa9, 0x14, 0xff, 0x77, 0x61, 0x6d, 0xa8, 0xaa, 0x8a,
+	0x00, 0xb6, 0xa9, 0xac, 0x42, 0xd8, 0xd0, 0xf5, 0x30, 0xcd, 0x70, 0xf2, 0x1a, 0x1d, 0x95, 0x85,
+	0x49, 0x1a, 0x0e, 0x17, 0x23, 0xec, 0x4b, 0xd8, 0xb5, 0xda, 0x2a, 0x45, 0xfd, 0x1e, 0xac, 0x05,
+	0xf4, 0x9e, 0xc9, 0x1c, 0x24, 0x2c, 0xea, 0x42, 0x7a, 0x0e, 0xd4, 0x0a, 0xf8, 0x25, 0x40, 0xce,
+	0xf9, 0x7a, 0x89, 0xd7, 0xda, 0xed, 0x12, 0x8b, 0x15, 0x0c, 0xe6, 0xdf, 0xef, 0x0a, 0x60, 0x4d,
+	0xf1, 0xc1, 0x3f, 0xb6, 0x61, 0x45, 0xf9, 0xff, 0x12, 0xf9, 0x00, 0x3a, 0xec, 0xdb, 0xc8, 0xcb,
+	0x04, 0x6f, 0x84, 0x0d, 0xea, 0x10, 0xf5, 0xd3, 0x8c, 0xb3, 0xa9, 0x48, 0xc4, 0xec, 0x0f, 0x00,
+	0xf2, 0x2f, 0x41, 0xe4, 0x3a, 0x55, 0x28, 0x7c, 0xac, 0x72, 0x76, 0x4c, 0xb1, 0x18, 0xfc, 0x08,
+	0xd6, 0xf5, 0x8f, 0x1b, 0xe4, 0x26, 0x23, 0x81, 0xed, 0x2b, 0x8a, 0xe3, 0xd8, 0xba, 0x84, 0xa1,
+	0x43, 0x58, 0x55, 0x37, 0x89, 0xdc, 0xa0, 0xba, 0x96, 0xaf, 0x1b, 0x4e, 0xb7, 0xd8, 0x21, 0x4c,
+	0x3c, 0x83, 0x0d, 0x33, 0x48, 0x90, 0xdd, 0x4c, 0xdb, 0x12, 0x85, 0x9c, 0x5b, 0xf6, 0xce, 0x7c,
+	0x69, 0xfa, 0x17, 0x06, 0xbe, 0x34, 0xeb, 0xa7, 0x0c, 0xbe, 0xb4, 0x92, 0x0f, 0x12, 0x68, 0x48,
+	0xff, 0x1e, 0xc0, 0x0d, 0x59, 0x3f, 0x3c, 0x70, 0x43, 0x25, 0x9f, 0x0f, 0x70, 0x8f, 0xd4, 0x2a,
+	0x3c, 0xdf, 0x23, 0xcb, 0x37, 0x02, 0xbe, 0x47, 0xd6, 0x82, 0x3d, 0x3a, 0x3b, 0x3f, 0x34, 0xdc,
+	0xd9, 0x85, 0x02, 0x3c, 0x77, 0xb6, 0xa5, 0x96, 0x8e, 0xf3, 0xab, 0x95, 0x64, 0x3e, 0xbf, 0xa5,
+	0xce, 0xcd, 0xe7, 0xb7, 0x16, 0x9d, 0xd1, 0x84, 0x5a, 0xfb, 0xe5, 0x26, 0x2c, 0xa5, 0x65, 0x6e,
+	0xc2, 0x5a, 0x26, 0xee, 0xc1, 0x9a, 0xf6, 0x64, 0x21, 0xca, 0x6a, 0xf5, 0xe2, 0xa3, 0x73, 0xd3,
+	0xd2, 0x93, 0x5b, 0xd1, 0x2a, 0x85, 0x44, 0x99, 0xd0, 0x66, 0xc5, 0x5e, 0x56, 0x44, 0x2b, 0x5a,
+	0x21, 0x95, 0x28, 0x2b, 0xb7, 0x59, 0xb1, 0x57, 0x5d, 0x4f, 0x30, 0xc9, 0x29, 0x94, 0xfc, 0xc8,
+	0x6d, 0x06, 0xbe, 0xac, 0xec, 0xe8, 0xdc, 0x29, 0xeb, 0x16, 0x46, 0x9f, 0xc0, 0x35, 0xe3, 0x42,
+	0x22, 0x8e, 0xca, 0x77, 0xfd, 0xbe, 0x73, 0x76, 0xad, 0x7d, 0xc2, 0xd6, 0x31, 0xff, 0x4c, 0xa3,
+	0xe3, 0x93, 0xa7, 0xc7, 0x0a, 0xef, 0x76, 0x49, 0x6f, 0xf1, 0xac, 0x66, 0x85, 0x39, 0xfd, 0xac,
+	0x1a, 0xb5, 0x3d, 0xfd, 0xac, 0x16, 0x6a, 0x79, 0x9a, 0x39, 0x5e, 0xfc, 0x32, 0xcd, 0x69, 0x55,
+	0x3a, 0xd3, 0x9c, 0x51, 0x75, 0x7b, 0x08, 0x9d, 0x47, 0x41, 0xca, 0x2b, 0x61, 0xa4, 0xab, 0xaa,
+	0xaa, 0x65, 0x34, 0xee, 0x52, 0x7b, 0xd9, 0xec, 0x87, 0xb0, 0xa2, 0x24, 0xc0, 0x84, 0x9d, 0xa8,
+	0x62, 0xce, 0xed, 0xdc, 0x28, 0xc8, 0xf3, 0xf1, 0x4a, 0x56, 0xca, 0xc7, 0x17, 0x13, 0x61, 0x3e,
+	0xde, 0x96, 0xbe, 0xde, 0x87, 0x8e, 0x4c, 0x16, 0xc9, 0x36, 0xd5, 0x32, 0x73, 0x53, 0xe7, 0xba,
+	0x21, 0x15, 0x23, 0x0f, 0x60, 0x59, 0xe4, 0x70, 0x84, 0x50, 0x0d, 0x3d, 0x5d, 0x74, 0xb6, 0x34,
+	0x59, 0x1e, 0xe1, 0xf4, 0x92, 0x14, 0x8f, 0x70, 0xd6, 0x6a, 0x17, 0x8f, 0x70, 0x25, 0x15, 0x2c,
+	0x0c, 0x4f, 0x79, 0x3d, 0x89, 0xe4, 0x08, 0xd5, 0xd2, 0x10, 0x0f, 0x4f, 0x96, 0xb2, 0x13, 0x5b,
+	0xb3, 0x28, 0x02, 0x65, 0x6b, 0xd6, 0xab, 0x4a, 0xd9, 0x9a, 0xcd, 0x4a, 0x11, 0x8e, 0x94, 0x51,
+	0x82, 0x8f, 0x34, 0xeb, 0x97, 0x7c, 0x64, 0xb1, 0xf6, 0xf7, 0x73, 0xd8, 0xb6, 0xd5, 0x68, 0xc8,
+	0x9e, 0x3c, 0x9d, 0xf6, 0x62, 0x92, 0x73, 0xb7, 0x5c, 0x21, 0xe7, 0xb4, 0x99, 0xb0, 0x72, 0x4e,
+	0x97, 0xe4, 0xc8, 0x9c, 0xd3, 0xa5, 0x39, 0xee, 0x20, 0x4b, 0xae, 0x0b, 0x99, 0x1e, 0x71, 0x0b,
+	0x61, 0xb2, 0x68, 0xfc, 0xeb, 0x95, 0x3a, 0x79, 0x9c, 0x28, 0xa4, 0x5d, 0x3c, 0x4e, 0x94, 0xe5,
+	0x7c, 0x3c, 0x4e, 0x94, 0xe7, 0x6a, 0xc8, 0x2c, 0x3d, 0x65, 0x22, 0xea, 0xa1, 0xd3, 0xf3, 0x31,
+	0xc7, 0xb1, 0x75, 0xe5, 0x8e, 0xb2, 0xa5, 0x37, 0xdc, 0x51, 0x15, 0x59, 0x14, 0x77, 0x54, 0x65,
+	0x66, 0xf4, 0x8a, 0xff, 0x0d, 0xc3, 0x78, 0x88, 0x92, 0x3b, 0xfa, 0x2d, 0x6a, 0x3e, 0x24, 0x9d,
+	0xbd, 0xd2, 0x7e, 0x61, 0xf7, 0x33, 0x9e, 0x77, 0x16, 0xde, 0x8d, 0xe4, 0xae, 0xf9, 0x04, 0x2a,
+	0xd8, 0xfe, 0x5a, 0x85, 0x06, 0xb7, 0x3e, 0x58, 0x62, 0x7f, 0x6d, 0xfb, 0xce, 0x7f, 0x03, 0x00,
+	0x00, 0xff, 0xff, 0x9d, 0x1e, 0xbb, 0x9a, 0xfe, 0x2e, 0x00, 0x00,
 }
