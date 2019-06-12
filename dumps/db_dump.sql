@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `taxi` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE IF NOT EXISTS `taxi` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `taxi`;
 -- MySQL dump 10.13  Distrib 5.7.26, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: taxi
 -- ------------------------------------------------------
--- Server version	5.7.26-0ubuntu0.18.04.1
+-- Server version	8.0.16
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,21 +24,23 @@ USE `taxi`;
 DROP TABLE IF EXISTS `cab`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cab` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `color_id` int(11) NOT NULL,
-  `license_plate` varchar(45) NOT NULL,
-  `car_model_id` int(11) NOT NULL,
-  `driver_id` int(11) NOT NULL,
-  `active` tinyint(1) DEFAULT '1',
-  PRIMARY KEY (`id`),
-  KEY `fk_auto_car_model1_idx` (`car_model_id`),
-  KEY `fk_cab_driver1_idx` (`driver_id`),
-  KEY `fk_cab_color1_idx` (`color_id`),
-  CONSTRAINT `fk_auto_car_model1` FOREIGN KEY (`car_model_id`) REFERENCES `car_model` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_cab_color1` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cab_driver1` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `cab`(
+                      `id` int(11) NOT NULL AUTO_INCREMENT,
+                      `color_id` int(11) NOT NULL,
+                      `license_plate` varchar(45) NOT NULL,
+                      `car_model_id` int(11) NOT NULL,
+                      `driver_id` int(11) NOT NULL,
+                      `active` tinyint(1) DEFAULT '1',
+                      PRIMARY KEY (`id`),
+                      KEY `fk_auto_car_model1_idx` (`car_model_id`),
+                      KEY `fk_cab_driver1_idx` (`driver_id`),
+                      KEY `fk_cab_color1_idx` (`color_id`),
+                      CONSTRAINT `fk_auto_car_model1` FOREIGN KEY (`car_model_id`) REFERENCES `car_model` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                      CONSTRAINT `fk_cab_color1` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`),
+                      CONSTRAINT `fk_cab_driver1` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58,29 +60,31 @@ DROP TABLE IF EXISTS `cab_ride`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cab_ride` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `shift_id` int(11) DEFAULT NULL,
-  `ride_start_time` timestamp NULL DEFAULT NULL,
-  `ride_end_time` timestamp NULL DEFAULT NULL,
-  `GPS_starting_point` text,
-  `entrance` int(11) DEFAULT NULL,
-  `GPS_destination` text,
-  `canceled` tinyint(1) DEFAULT '0',
-  `order_for_another` tinyint(1) DEFAULT '0',
-  `pending_order` tinyint(1) DEFAULT '0',
-  `payment_type_id` int(11) NOT NULL DEFAULT '1',
-  `price` int(11) DEFAULT '100',
-  `comment` text,
-  `feedback` text,
-  PRIMARY KEY (`id`),
-  KEY `fk_cab_ride_customer1_idx` (`customer_id`),
-  KEY `fk_cab_ride_payment_type1_idx` (`payment_type_id`),
-  KEY `fk_cab_ride_shift1_idx` (`shift_id`),
-  CONSTRAINT `fk_cab_ride_customer1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `fk_cab_ride_payment_type1` FOREIGN KEY (`payment_type_id`) REFERENCES `payment_type` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `fk_cab_ride_shift1` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                            `id`                 int(11) NOT NULL AUTO_INCREMENT,
+                            `customer_id`        int(11) NOT NULL,
+                            `shift_id`           int(11)          DEFAULT NULL,
+                            `ride_start_time`    timestamp NULL   DEFAULT NULL,
+                            `ride_end_time`      timestamp NULL   DEFAULT NULL,
+                            `GPS_starting_point` text,
+                            `entrance`           int(11)          DEFAULT '0',
+                            `GPS_destination`    text,
+                            `canceled`           tinyint(1)       DEFAULT '0',
+                            `order_for_another`  tinyint(1)       DEFAULT '0',
+                            `pending_order`      tinyint(1)       DEFAULT '0',
+                            `payment_type_id`    int(11) NOT NULL DEFAULT '1',
+                            `price`              int(11)          DEFAULT '100',
+                            `comment`            text,
+                            `feedback`           text,
+                            PRIMARY KEY (`id`),
+                            KEY `fk_cab_ride_customer1_idx` (`customer_id`),
+                            KEY `fk_cab_ride_payment_type1_idx` (`payment_type_id`),
+                            KEY `fk_cab_ride_shift1_idx` (`shift_id`),
+                            CONSTRAINT `fk_cab_ride_customer1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON UPDATE CASCADE,
+                            CONSTRAINT `fk_cab_ride_payment_type1` FOREIGN KEY (`payment_type_id`) REFERENCES `payment_type` (`id`) ON UPDATE CASCADE,
+                            CONSTRAINT `fk_cab_ride_shift1` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,21 +104,23 @@ DROP TABLE IF EXISTS `cab_ride_status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cab_ride_status` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cab_ride_id` int(11) NOT NULL,
-  `shift_id` int(11) DEFAULT NULL,
-  `status_time` int(11) DEFAULT '0',
-  `ride_status` int(11) DEFAULT '0',
-  `status_details` varchar(255) DEFAULT NULL,
-  `dispatcher_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cab_ride_status_cab_ride1_idx` (`cab_ride_id`),
-  KEY `fk_cab_ride_status_dispatcher1_idx` (`dispatcher_id`),
-  KEY `fk_cab_ride_status_shift1_idx` (`shift_id`),
-  CONSTRAINT `fk_cab_ride_status_cab_ride1` FOREIGN KEY (`cab_ride_id`) REFERENCES `cab_ride` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_cab_ride_status_dispatcher1` FOREIGN KEY (`dispatcher_id`) REFERENCES `dispatcher` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `fk_cab_ride_status_shift1` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                                   `id`             int(11) NOT NULL AUTO_INCREMENT,
+                                   `cab_ride_id`    int(11) NOT NULL,
+                                   `shift_id`       int(11) DEFAULT NULL,
+                                   `status_time`    int(11) DEFAULT '0',
+                                   `ride_status`    int(11) DEFAULT '0',
+                                   `status_details` text,
+                                   `dispatcher_id`  int(11) DEFAULT NULL,
+                                   PRIMARY KEY (`id`),
+                                   KEY `fk_cab_ride_status_cab_ride1_idx` (`cab_ride_id`),
+                                   KEY `fk_cab_ride_status_dispatcher1_idx` (`dispatcher_id`),
+                                   KEY `fk_cab_ride_status_shift1_idx` (`shift_id`),
+                                   CONSTRAINT `fk_cab_ride_status_cab_ride1` FOREIGN KEY (`cab_ride_id`) REFERENCES `cab_ride` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                   CONSTRAINT `fk_cab_ride_status_dispatcher1` FOREIGN KEY (`dispatcher_id`) REFERENCES `dispatcher` (`id`) ON UPDATE CASCADE,
+                                   CONSTRAINT `fk_cab_ride_status_shift1` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,11 +139,14 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `car_brand`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `car_brand` (
+CREATE TABLE `car_brand`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `brand_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8mb4;
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 144
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,14 +166,17 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `car_model`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `car_model` (
+CREATE TABLE `car_model`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_name` varchar(255) NOT NULL,
   `car_brand_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_car_model_car_brand_idx` (`car_brand_id`),
   CONSTRAINT `fk_car_model_car_brand` FOREIGN KEY (`car_brand_id`) REFERENCES `car_brand` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1740 DEFAULT CHARSET=utf8mb4;
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1740
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,11 +196,14 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `color`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `color` (
+CREATE TABLE `color`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4;
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 153
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,18 +223,20 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) NOT NULL,
-  `phone_number` varchar(20) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `authToken` varchar(255) DEFAULT NULL,
-  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `phone_number_UNIQUE` (`phone_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `customer`(
+                           `id`           int(11) NOT NULL AUTO_INCREMENT,
+                           `name`         varchar(128)   DEFAULT NULL,
+                           `phone_number` varchar(20) NOT NULL,
+                           `email`        varchar(255)   DEFAULT NULL,
+                           `password`     varchar(255) NOT NULL,
+                           `authToken`    varchar(255)   DEFAULT NULL,
+                           `create_time`  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                           `update_time`  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                           PRIMARY KEY (`id`),
+                           UNIQUE KEY `phone_number_UNIQUE` (`phone_number`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,18 +258,20 @@ DROP TABLE IF EXISTS `dispatcher`;
 CREATE TABLE `dispatcher` (
                               `id`           int(11)      NOT NULL AUTO_INCREMENT,
                               `first_name`   varchar(128) NOT NULL,
-                              `last_name`    varchar(128) NOT NULL,
+                              `lasr_name`    varchar(128) NOT NULL,
                               `patronymic`   varchar(128) NOT NULL,
                               `phone_number` varchar(20)  NOT NULL,
-                              `email`        varchar(255) DEFAULT NULL,
+                              `email`        varchar(255)      DEFAULT NULL,
                               `password`     varchar(255) NOT NULL,
-                              `authToken`    varchar(255) DEFAULT NULL,
+                              `authToken`    varchar(255)      DEFAULT NULL,
                               `create_time`  timestamp    NULL DEFAULT CURRENT_TIMESTAMP,
                               `update_time`  timestamp    NULL DEFAULT CURRENT_TIMESTAMP,
                               PRIMARY KEY (`id`),
                               UNIQUE KEY `phone_number_UNIQUE` (`phone_number`),
                               UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,7 +290,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `driver`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `driver` (
+CREATE TABLE `driver`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(128) NOT NULL,
   `surname` varchar(128) NOT NULL,
@@ -288,7 +307,9 @@ CREATE TABLE `driver` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `phone_number_UNIQUE` (`phone_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,21 +328,23 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `driver_documents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `driver_documents` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `driver_id` int(11) NOT NULL,
-  `passport_number` varchar(11) NOT NULL,
-  `passport_image` varchar(255) NOT NULL,
-  `driving_license_number` varchar(128) NOT NULL,
-  `expiry_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `driving_license_image` varchar(255) NOT NULL,
-  `sts_photo` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `passport_number_UNIQUE` (`passport_number`),
-  UNIQUE KEY `driving_license_number_UNIQUE` (`driving_license_number`),
-  KEY `fk_driver_documents_driver1_idx` (`driver_id`),
-  CONSTRAINT `fk_driver_documents_driver1` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `driver_documents`(
+                                   `id`                     int(11)      NOT NULL AUTO_INCREMENT,
+                                   `driver_id`              int(11)      NOT NULL,
+                                   `passport_number`        varchar(11)  NOT NULL,
+                                   `passport_image`         varchar(255) NOT NULL,
+                                   `driving_license_number` varchar(128) NOT NULL,
+                                   `expiry_date`            timestamp    NOT NULL,
+                                   `driving_license_image`  varchar(255) NOT NULL,
+                                   `sts_photo`              varchar(255) NOT NULL,
+                                   PRIMARY KEY (`id`),
+                                   UNIQUE KEY `passport_number_UNIQUE` (`passport_number`),
+                                   UNIQUE KEY `driving_license_number_UNIQUE` (`driving_license_number`),
+                                   KEY `fk_driver_documents_driver1_idx` (`driver_id`),
+                                   CONSTRAINT `fk_driver_documents_driver1` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,11 +363,14 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `payment_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `payment_type` (
+CREATE TABLE `payment_type`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_name` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 2
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,14 +391,16 @@ DROP TABLE IF EXISTS `shift`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shift` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `driver_id` int(11) NOT NULL,
-  `shift_start_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `shift_end_time` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_shift_driver1_idx` (`driver_id`),
-  CONSTRAINT `fk_shift_driver1` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                         `id` int(11) NOT NULL AUTO_INCREMENT,
+                         `driver_id` int(11) NOT NULL,
+                         `shift_start_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                         `shift_end_time` timestamp NULL DEFAULT NULL,
+                         PRIMARY KEY (`id`),
+                         KEY `fk_shift_driver1_idx` (`driver_id`),
+                         CONSTRAINT `fk_shift_driver1` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`id`) ON UPDATE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -397,7 +425,8 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ALLOW_INVALID_DATES,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`%` PROCEDURE `cabRideStatusCheck`(IN cab_ride_id int)
+CREATE
+    DEFINER = `anonlatte`@`%` PROCEDURE `cabRideStatusCheck`(IN cab_ride_id int)
 BEGIN
     DECLARE shift_id_check int DEFAULT NULL;
     set shift_id_check = (SELECT @shift_id_check:=shift_id FROM cab_ride WHERE cab_ride.id = cab_ride_id);
@@ -422,4 +451,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-02 15:37:32
+-- Dump completed on 2019-06-12 17:52:52
