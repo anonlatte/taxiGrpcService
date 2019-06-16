@@ -331,6 +331,15 @@ message CheckAvailableRidesResponse {
 }
 */
 
+message IsAccountActivatedRequest {
+    string api = 1;
+    string driverLogin = 2;
+}
+message IsAccountActivatedResponse {
+    string api = 1;
+    bool isActivated = 2;
+}
+
 
 message CreateCabRequest {
     string api = 1;
@@ -569,6 +578,8 @@ service taxiService {
     rpc GetColors (ReadAllColorsRequest) returns (ReadAllColorsResponse);
 
     //    rpc ChangeDriverStatus (ChangeStatusRequest) returns (ChangeStatusResponse);
+    rpc IsAccountActivated (IsAccountActivatedRequest) returns (IsAccountActivatedResponse);
+
     rpc AcceptOrder (AcceptOrderRequest) returns (AcceptOrderResponse);
     rpc CancelOrder (CancelOrderRequest) returns (CancelOrderResponse);
     rpc StartTrip (StartTripRequest) returns (StartTripResponse);

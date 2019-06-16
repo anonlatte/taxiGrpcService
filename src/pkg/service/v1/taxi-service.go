@@ -1308,6 +1308,48 @@ func (s *taxiServiceServer) CheckAvailableOrders(ctx context.Context, req *v1.Ch
 }
 
 // TODO: test order accepting
+func (s *taxiServiceServer) IsAccountActivated(ctx context.Context, req *v1.IsAccountActivatedRequest) (*v1.IsAccountActivatedResponse, error) {
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	rows, err := c.QueryContext(ctx, "SELECT activated FROM taxi.driver WHERE `phone_number`=?",
+		req.DriverLogin)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from Customer-> "+err.Error())
+	}
+	defer rows.Close()
+
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from Customer-> "+err.Error())
+		}
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("Driver with phone_number='%s' is not found",
+			req.DriverLogin))
+	}
+
+	// get user data
+	var isActivated bool
+	if err := rows.Scan(isActivated); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve field values from Driver row-> "+err.Error())
+	}
+	if rows.Next() {
+		return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple Driver rows with phone_number='%s'",
+			req.DriverLogin))
+	}
+
+	return &v1.IsAccountActivatedResponse{
+		Api:         apiVersion,
+		IsActivated: isActivated,
+	}, nil
+}
+
 func (s *taxiServiceServer) AcceptOrder(ctx context.Context, req *v1.AcceptOrderRequest) (*v1.AcceptOrderResponse, error) {
 
 	if err := s.checkAPI(req.Api); err != nil {

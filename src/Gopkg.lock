@@ -17,13 +17,13 @@
   branch = "master"
   name = "golang.org/x/net"
   packages = ["context","http/httpguts","http2","http2/hpack","idna","internal/timeseries","trace"]
-  revision = "f3200d17e092c607f615320ecaad13d87ad9a2b3"
+  revision = "d28f0bde5980168871434b95cfc858db9f2a7a99"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "4c4f7f33c9ed00de01c4c741d2177abfcfe19307"
+  revision = "b47fdc937951267e2d980171881317deea47f29b"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -34,24 +34,24 @@
 [[projects]]
   name = "google.golang.org/appengine"
   packages = ["cloudsql"]
-  revision = "4c25cacc810c02874000e4f7071286a8e96b2515"
-  version = "v1.6.0"
+  revision = "b2f4a3cf3c67576a2ee09e1fe62656a5086ce880"
+  version = "v1.6.1"
 
 [[projects]]
   branch = "master"
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
-  revision = "fb225487d10142b5bcc35abfc6cb9a0609614976"
+  revision = "a7e196e89fd3a3c4d103ca540bd5dac3a736e375"
 
 [[projects]]
   name = "google.golang.org/grpc"
   packages = [".","balancer","balancer/base","balancer/roundrobin","binarylog/grpc_binarylog_v1","codes","connectivity","credentials","credentials/internal","encoding","encoding/proto","grpclog","internal","internal/backoff","internal/balancerload","internal/binarylog","internal/channelz","internal/envconfig","internal/grpcrand","internal/grpcsync","internal/syscall","internal/transport","keepalive","metadata","naming","peer","resolver","resolver/dns","resolver/passthrough","stats","status","tap"]
-  revision = "869adfc8d5a43efc0d05780ad109106f457f51e4"
-  version = "v1.21.0"
+  revision = "501c41df7f472c740d0674ff27122f3f48c80ce7"
+  version = "v1.21.1"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "bef0fed8e5afd76f0622748d40f9f063ade7527a15d5f36e3c4ead896a230e09"
+  inputs-digest = "66bb0274b4174f8f8cdedea8831425667c5c778176e8b64beee716a9c78f31e9"
   solver-name = "gps-cdcl"
   solver-version = 1
