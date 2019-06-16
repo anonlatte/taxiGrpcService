@@ -258,7 +258,7 @@ DROP TABLE IF EXISTS `dispatcher`;
 CREATE TABLE `dispatcher` (
                               `id`           int(11)      NOT NULL AUTO_INCREMENT,
                               `first_name`   varchar(128) NOT NULL,
-                              `lasr_name`    varchar(128) NOT NULL,
+                              `last_name`    varchar(128) NOT NULL,
                               `patronymic`   varchar(128) NOT NULL,
                               `phone_number` varchar(20)  NOT NULL,
                               `email`        varchar(255)      DEFAULT NULL,
