@@ -426,7 +426,7 @@ UNLOCK TABLES;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ALLOW_INVALID_DATES,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE
-    DEFINER = `anonlatte`@`%` PROCEDURE `cabRideStatusCheck`(IN cab_ride_id int)
+    DEFINER = `root`@`%` PROCEDURE `cabRideStatusCheck`(IN cab_ride_id int)
 BEGIN
     DECLARE shift_id_check int DEFAULT NULL;
     set shift_id_check = (SELECT @shift_id_check:=shift_id FROM cab_ride WHERE cab_ride.id = cab_ride_id);
