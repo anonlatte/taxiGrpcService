@@ -1336,7 +1336,7 @@ func (s *taxiServiceServer) IsAccountActivated(ctx context.Context, req *v1.IsAc
 
 	// get user data
 	var isActivated bool
-	if err := rows.Scan(isActivated); err != nil {
+	if err := rows.Scan(&isActivated); err != nil {
 		return nil, status.Error(codes.Unknown, "failed to retrieve field values from Driver row-> "+err.Error())
 	}
 	if rows.Next() {
