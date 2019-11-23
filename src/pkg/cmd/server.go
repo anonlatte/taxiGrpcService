@@ -5,9 +5,8 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
-	"golang-service/src/pkg/protocol/grpc"
-	v1 "golang-service/src/pkg/service/v1"
-
+	"taxiGrpcService/src/pkg/protocol/grpc"
+	v1 "taxiGrpcService/src/pkg/service/v1"
 	// mysql driver
 	_ "github.com/go-sql-driver/mysql"
 )

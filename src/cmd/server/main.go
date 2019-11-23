@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"golang-service/src/pkg/cmd"
 	"os"
+	"taxiGrpcService/src/pkg/cmd"
 )
 
 func main() {

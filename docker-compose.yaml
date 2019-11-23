@@ -45,5 +45,6 @@ services:
     depends_on:
       - db
     volumes:
-      - ./src/cmd/server/documents:/go/src/golang-service/src/documents
-      - ./src/pkg:/go/src/golang-service/src/pkg
+      - ./src/cmd/:/go/src/taxiGrpcService/src/cmd
+      - ./src/pkg:/go/src/taxiGrpcServicesrc/pkg
+      - ./storage:/go/src/taxiGrpcService/storage

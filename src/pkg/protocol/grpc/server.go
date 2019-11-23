@@ -2,11 +2,11 @@ package grpc
 
 import (
 	"context"
-	v1 "golang-service/src/pkg/api/v1"
 	"log"
 	"net"
 	"os"
 	"os/signal"
+	v1 "taxiGrpcService/src/pkg/api/v1"
 
 	"google.golang.org/grpc"
 )

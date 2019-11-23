@@ -8,7 +8,6 @@ import (
 	"github.com/go-sql-driver/mysql"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
-	v1 "golang-service/src/pkg/api/v1"
 	_ "golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -16,6 +15,7 @@ import (
 	"math/rand"
 	"os"
 	"strconv"
+	v1 "taxiGrpcService/src/pkg/api/v1"
 	"time"
 )
 
@@ -155,7 +155,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v1.LoginRequest)
 			return &v1.LoginResponse{
 				Api:       apiVersion,
 				AuthToken: authToken,
-				UserId:    int32(td.Id),
+				UserId:    td.Id,
 			}, nil
 		} else {
 			return nil, status.Error(codes.PermissionDenied, fmt.Sprintf("Wrong password!"))
@@ -197,7 +197,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v1.LoginRequest)
 			return &v1.LoginResponse{
 				Api:       apiVersion,
 				AuthToken: authToken,
-				UserId:    int32(td.Id),
+				UserId:    td.Id,
 			}, nil
 		} else {
 			return nil, status.Error(codes.PermissionDenied, fmt.Sprintf("Wrong password!"))
@@ -239,7 +239,7 @@ func (s *taxiServiceServer) LoginUser(ctx context.Context, req *v1.LoginRequest)
 			return &v1.LoginResponse{
 				Api:       apiVersion,
 				AuthToken: authToken,
-				UserId:    int32(td.Id),
+				UserId:    td.Id,
 			}, nil
 		} else {
 			return nil, status.Error(codes.PermissionDenied, fmt.Sprintf("Wrong password!"))

@@ -1,0 +1,6 @@
+api
+database/*
+scripts
+.gitignore*
+storage
+third_party

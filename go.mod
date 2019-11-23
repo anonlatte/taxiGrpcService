@@ -1,4 +1,4 @@
-module golang-service
+module taxiGrpcService
 
 require (
 	github.com/go-sql-driver/mysql v1.4.0
@@ -11,3 +11,5 @@ require (
 	google.golang.org/genproto v0.0.0-20180831171423-11092d34479b // indirect
 	google.golang.org/grpc v1.14.0
 )
+
+go 1.13
