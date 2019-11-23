@@ -20,15 +20,18 @@ MySQL was chosen as a database due to its comfortable data presentation.
 - Docker
 - Docker-Compose
 
-### Service installing
-
-1. Clone [service's repository](https://github.com/anonlatte/taxiGrpcService) and check the settings.
+### Quick start
 
 You can use the [prepared image](https://hub.docker.com/r/anonlatte/taxi-grpc-service) and run it by this command.
 ```
 docker run -p 48690:48690 --entrypoint "/go/bin/taxiGrpcService" anonlatte/taxi-grpc-service -grpc-port=48690 -db-host=mysql:3306 -db-user=root -db-password=root -db-schema=taxi
 ```
 __Use your own credentials, ports and database name__
+
+### Service installing
+
+1. Clone [service's repository](https://github.com/anonlatte/taxiGrpcService) and check the settings.
+
 #### Basic service's settings
 
 ##### Dockerfile environment settings
