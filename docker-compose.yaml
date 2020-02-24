@@ -1,17 +1,6 @@
 version: '3.1'
 services:
 
-  pureftpd:
-    image: vimagick/pure-ftpd
-    container_name: pure-ftpd
-    ports:
-      - "2121:21"
-    volumes:
-      - ./src/cmd/server/documents:/home/ftpuser
-      - ./ftp:/etc/pure-ftpd
-    privileged: true
-    restart: always
-
   db:
     image: mysql
     container_name: mysql
@@ -23,6 +12,7 @@ services:
       MYSQL_USER: ${DB_USER}
     volumes:
       - ${DB_PATH_HOST}:/var/lib/mysql
+      - ${DB_RESTORE_TARGET}:/docker-entrypoint-initdb.d/db_dump.sql
     ports:
       - "26482:3306"
 
@@ -36,7 +26,7 @@ services:
       - db
 
   microservice:
-    build: ./src
+    image: anonlatte/taxi-grpc-service:latest
     container_name: taxi_service
     restart: always
     ports:
@@ -45,6 +35,4 @@ services:
     depends_on:
       - db
     volumes:
-      - ./src/cmd/:/go/src/taxiGrpcService/src/cmd
-      - ./src/pkg:/go/src/taxiGrpcServicesrc/pkg
       - ./storage:/go/src/taxiGrpcService/storage
